@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import App from './App';
 
 jest.mock('react-redux');
-// jest.mock('react-p5-wrapper');
+jest.mock('react-p5-wrapper');
 
 describe('App', () => {
   beforeEach(() => {
@@ -24,8 +24,6 @@ describe('App', () => {
   });
 
   it('renders', () => {
-    // render(<App />);
-
-    // Todo
+    render(<App />);
   });
 });
