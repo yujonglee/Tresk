@@ -54,7 +54,7 @@ describe('TaskTitleContainer', () => {
     });
   });
 
-  it('updates current task id on click event', () => {
+  it('updates selected task id to current task id on click event', () => {
     const { getByRole } = render(<TaskTitleContainer id={currentTaskId} />);
 
     fireEvent.click(getByRole('button', { name: 'task1' }));
