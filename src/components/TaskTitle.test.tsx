@@ -5,7 +5,7 @@
 import { render, RenderResult } from '@testing-library/react';
 import given from 'given2';
 
-import { highlight, original } from '../fixture/color';
+import { highlight, original } from '../color';
 import TaskTitle from './TaskTitle';
 
 describe('TaskTitle', () => {

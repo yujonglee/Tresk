@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { original, highlight } from '../fixture/color';
+import { original, highlight } from '../color';
 
 type ButtonProps = {
   isSelected: boolean
