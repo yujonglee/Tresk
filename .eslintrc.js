@@ -8,26 +8,27 @@ module.exports = {
     'plugin:testing-library/react',
     'plugin:jest-dom/recommended',
     'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'airbnb-typescript',
+    'airbnb',
+  ],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 12,
+    sourceType: 'module',
+  },
+  plugins: [
+    'react',
   ],
   globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+    actor: 'readonly',
+    Feature: 'readonly',
+    Scenario: 'readonly',
     context: 'readonly',
     given: 'readonly',
   },
-  parser: '@typescript-eslint/parser',
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'], 
-      parserOptions: {
-        project: ['./tsconfig.json'],
-      },
-    }
-  ],
-  plugins: [
-    'react',
-    '@typescript-eslint',
-  ],
   rules: {
     indent: ['error', 2],
     'no-trailing-spaces': 'error',
@@ -55,19 +56,5 @@ module.exports = {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'testing-library/prefer-screen-queries': 'off',
-    'react/jsx-boolean-value': 'off',
-
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
-      },
-    ],
-
-    "react/require-default-props": "off"
   },
 };

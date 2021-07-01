@@ -2,7 +2,7 @@
   "name": "tresk",
   "version": "1.0.0",
   "description": "recursive todo app",
-  "main": "index.tsx",
+  "main": "index.jsx",
   "scripts": {
     "start": "webpack serve",
     "test:unit": "jest",
@@ -10,7 +10,7 @@
     "codeceptjs": "codeceptjs run --steps",
     "test:e2e": "npm run codeceptjs",
     "test": "npm run coverage && start-server-and-test start http://localhost:8080 test:e2e",
-    "lint": "eslint --ext ts,tsx ."
+    "lint": "eslint --ext js,jsx ."
   },
   "keywords": [],
   "author": "",
@@ -22,15 +22,11 @@
     "@codeceptjs/configure": "^0.6.2",
     "@codeceptjs/examples": "^1.2.1",
     "@codeceptjs/ui": "^0.4.6",
-    "@types/p5": "^1.3.0",
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
-    "@typescript-eslint/parser": "^4.27.0",
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
     "codeceptjs": "^3.0.7",
     "eslint": "^7.29.0",
     "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jest-dom": "^3.9.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
@@ -48,7 +44,6 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "@babel/preset-typescript": "^7.14.5",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",

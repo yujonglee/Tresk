@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable react/no-this-in-sfc */
 import P5Wrapper from 'react-p5-wrapper';
 
 export default function TreeCanvas() {
@@ -88,8 +90,20 @@ export default function TreeCanvas() {
         const rr = _rotRange * rotDecay;
 
         if (this.level < levelMax) {
-          this.n1 = new Node(this.len * lengthDecay, this.size * sizeDecay, rr, this.level + 1, this.colorRangeModifier - 30);
-          this.n2 = new Node(this.len * lengthDecay, this.size * sizeDecay, rr, this.level + 1, this.colorRangeModifier + 30);
+          this.n1 = new Node(
+            this.len * lengthDecay,
+            this.size * sizeDecay,
+            rr,
+            this.level + 1,
+            this.colorRangeModifier - 30,
+          );
+          this.n2 = new Node(
+            this.len * lengthDecay,
+            this.size * sizeDecay,
+            rr,
+            this.level + 1,
+            this.colorRangeModifier + 30,
+          );
         }
       }
 
