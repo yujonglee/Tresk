@@ -31,20 +31,20 @@ const TreeContainer = styled.div({
   gridRowEnd: 3,
 });
 
-export default function App(): JSX.Element {
-  return (
-    <>
-      <GridWrapper>
-        <TasksContainer>
-          <Header />
-          <InputContainer />
-          <RestoreTask />
-          <Task id={0} />
-        </TasksContainer>
-        <TreeContainer>
-          <TreeCanvas />
-        </TreeContainer>
-      </GridWrapper>
-    </>
-  );
-}
+const App = (): JSX.Element => (
+  <>
+    <GridWrapper>
+      <TasksContainer>
+        <Header />
+        <InputContainer />
+        <RestoreTask />
+        <Task id={0} />
+      </TasksContainer>
+      <TreeContainer>
+        <TreeCanvas />
+      </TreeContainer>
+    </GridWrapper>
+  </>
+);
+
+export default App;
