@@ -2,22 +2,24 @@
  * @jest-environment jsdom
  */
 
-import { render, RenderResult } from '@testing-library/react';
+import { fireEvent, render, RenderResult } from '@testing-library/react';
 import given from 'given2';
 
 import { highlight, original } from '../color';
 import TaskTitle from './TaskTitle';
 
 describe('TaskTitle', () => {
+  const title = 'taskTitle';
+
   const handleClick = jest.fn();
 
-  const renderTaskTitle = (): RenderResult => render(
+  const renderTaskTitle = (): RenderResult => render((
     <TaskTitle
-      title="taskTitle"
+      title={title}
       isSelected={given.isSelected}
       handleClick={handleClick}
-    />,
-  );
+    />
+  ));
 
   beforeEach(() => {
     handleClick.mockClear();
@@ -26,7 +28,15 @@ describe('TaskTitle', () => {
   it('renders button with title', () => {
     const { getByRole } = renderTaskTitle();
 
-    expect(getByRole('button', { name: 'taskTitle' })).toBeInTheDocument();
+    expect(getByRole('button', { name: title })).toBeInTheDocument();
+  });
+
+  it('renders button listening click event', () => {
+    const { getByRole } = renderTaskTitle();
+
+    fireEvent.click(getByRole('button', { name: title }));
+
+    expect(handleClick).toBeCalled();
   });
 
   context('when task is selected', () => {
@@ -35,7 +45,7 @@ describe('TaskTitle', () => {
     it('renders button with highlight color', () => {
       const { getByRole } = renderTaskTitle();
 
-      expect(getByRole('button', { name: 'taskTitle' })).toHaveStyle({
+      expect(getByRole('button', { name: title })).toHaveStyle({
         color: highlight,
       });
     });
