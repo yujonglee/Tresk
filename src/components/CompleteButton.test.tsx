@@ -22,16 +22,14 @@ describe('CompleteButton', () => {
     ))
   );
 
-  it('renders button with test id', () => {
+  it('renders "완료" button with test id', () => {
     const { getByTestId } = renderCompleteButton();
 
-    expect(getByTestId('button-1')).toBeInTheDocument();
-  });
+    const completeButton = getByTestId('button-1');
 
-  it('renders "완료" button', () => {
-    const { getByRole } = renderCompleteButton();
+    expect(completeButton).toBeInTheDocument();
 
-    expect(getByRole('button', { name: '완료' })).toBeInTheDocument();
+    expect(completeButton).toHaveTextContent('완료');
   });
 
   it('listens to click event', () => {
