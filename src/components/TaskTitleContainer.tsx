@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../redux_module/hook';
-import { updateCurrentTaskId } from '../redux_module/todoSlice';
+import { updateselectedTaskId } from '../redux_module/todoSlice';
 import TaskTitle from './TaskTitle';
 
 type TaskTitleContainerProps = {
@@ -10,11 +10,11 @@ const TaskTitleContainer = ({ id }: TaskTitleContainerProps): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const { title } = useAppSelector((state) => state.todo.tasks[id]);
-  const currentTaskId = useAppSelector((state) => state.todo.currentTaskId);
+  const selectedTaskId = useAppSelector((state) => state.todo.selectedTaskId);
 
-  const isSelected = (currentTaskId === id);
+  const isSelected = (selectedTaskId === id);
 
-  const handleClickTitle = () => dispatch(updateCurrentTaskId(id));
+  const handleClickTitle = () => dispatch(updateselectedTaskId(id));
 
   return (
     <TaskTitle

@@ -16,7 +16,7 @@ const keysAsNumberFrom = (
 
 const initialState: TodoState = {
   recentDeleted: [],
-  currentTaskId: 0,
+  selectedTaskId: 0,
   nextTaskId: 1,
   tasks: {
     0: { title: 'root', subTasks: [], isOpen: true },
@@ -37,17 +37,17 @@ const { actions, reducer } = createSlice({
 
       const newTask: Task = { title: newTaskTitle, subTasks: [], isOpen: true };
 
-      const { currentTaskId, nextTaskId } = state;
+      const { selectedTaskId, nextTaskId } = state;
 
       state.tasks[nextTaskId] = newTask;
 
-      state.tasks[currentTaskId].subTasks.push(nextTaskId);
+      state.tasks[selectedTaskId].subTasks.push(nextTaskId);
 
       state.nextTaskId = nextTaskId + 1;
     },
 
     deleteTask: (state, action: PayloadAction<number>) => {
-      state.currentTaskId = 0;
+      state.selectedTaskId = 0;
 
       const { payload: targetId } = action;
 
@@ -88,8 +88,8 @@ const { actions, reducer } = createSlice({
       state.tasks[parentId].subTasks.push(selfId);
     },
 
-    updateCurrentTaskId: (state, action: PayloadAction<number>) => {
-      state.currentTaskId = action.payload;
+    updateselectedTaskId: (state, action: PayloadAction<number>) => {
+      state.selectedTaskId = action.payload;
     },
 
     toggleOpen: (state, action: PayloadAction<number>) => {
@@ -105,7 +105,7 @@ export const {
   addTask,
   deleteTask,
   restoreTask,
-  updateCurrentTaskId,
+  updateselectedTaskId,
   toggleOpen,
 } = actions;
 

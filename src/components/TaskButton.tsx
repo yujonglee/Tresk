@@ -10,8 +10,10 @@ type TaskButtonProps = {
   handleClickComplete: MouseEventHandler<HTMLButtonElement>
   handleClickDetail: MouseEventHandler<HTMLButtonElement>
 };
+
 const TaskButton = ({
-  id, isSubTasksEmpty, isSubTasksOpen, handleClickComplete, handleClickDetail,
+  id, isSubTasksEmpty, isSubTasksOpen,
+  handleClickComplete, handleClickDetail,
 }: TaskButtonProps): JSX.Element => (
   (isSubTasksEmpty)
     ? (

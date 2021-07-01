@@ -4,7 +4,7 @@ import reducer,
   deleteTask,
   restoreTask,
   toggleOpen,
-  updateCurrentTaskId,
+  updateselectedTaskId,
 } from './todoSlice';
 
 import { RestoreData } from './types';
@@ -15,7 +15,7 @@ describe('todoSlice reducer', () => {
       it('adds new task to todoList and updates nextTaskId', () => {
         const oldState = {
           recentDeleted: [],
-          currentTaskId: 1,
+          selectedTaskId: 1,
           nextTaskId: 2,
           tasks: {
             0: { title: 'root', subTasks: [1], isOpen: true },
@@ -24,7 +24,7 @@ describe('todoSlice reducer', () => {
         };
         const newState = {
           recentDeleted: [],
-          currentTaskId: 1,
+          selectedTaskId: 1,
           nextTaskId: 3,
           tasks: {
             0: { title: 'root', subTasks: [1], isOpen: true },
@@ -44,7 +44,7 @@ describe('todoSlice reducer', () => {
       it('does nothing', () => {
         const oldState = {
           recentDeleted: [],
-          currentTaskId: 1,
+          selectedTaskId: 1,
           nextTaskId: 2,
           tasks: {
             0: { title: 'root', subTasks: [1], isOpen: true },
@@ -61,7 +61,7 @@ describe('todoSlice reducer', () => {
   });
 
   describe('deleteTask', () => {
-    it('deletes task, resets currentTaskId, and sets restore data', () => {
+    it('deletes task, resets selectedTaskId, and sets restore data', () => {
       const restoreData1: RestoreData = {
         task: { title: '첫번째 할일', subTasks: [], isOpen: true },
         selfId: 1,
@@ -76,7 +76,7 @@ describe('todoSlice reducer', () => {
 
       const oldState = {
         recentDeleted: [restoreData1],
-        currentTaskId: 2,
+        selectedTaskId: 2,
         nextTaskId: 2,
         tasks: {
           0: { title: 'root', subTasks: [2], isOpen: true },
@@ -85,7 +85,7 @@ describe('todoSlice reducer', () => {
       };
       const newState = {
         recentDeleted: [restoreData1, restoreData2],
-        currentTaskId: 0,
+        selectedTaskId: 0,
         nextTaskId: 2,
         tasks: { 0: { title: 'root', subTasks: [], isOpen: true } },
       };
@@ -108,7 +108,7 @@ describe('todoSlice reducer', () => {
 
         const oldState = {
           recentDeleted: [restoreData1],
-          currentTaskId: 0,
+          selectedTaskId: 0,
           nextTaskId: 2,
           tasks: {
             0: { title: 'root', subTasks: [2], isOpen: true },
@@ -118,7 +118,7 @@ describe('todoSlice reducer', () => {
 
         const newState = {
           recentDeleted: [],
-          currentTaskId: 0,
+          selectedTaskId: 0,
           nextTaskId: 2,
           tasks: {
             0: { title: 'root', subTasks: [2, 1], isOpen: true },
@@ -137,7 +137,7 @@ describe('todoSlice reducer', () => {
         it('does nothing', () => {
           const oldState = {
             recentDeleted: [],
-            currentTaskId: 0,
+            selectedTaskId: 0,
             nextTaskId: 2,
             tasks: {
               0: { title: 'root', subTasks: [1], isOpen: true },
@@ -152,11 +152,11 @@ describe('todoSlice reducer', () => {
       });
     });
 
-    describe('updateCurrentTaskId', () => {
+    describe('updateselectedTaskId', () => {
       it('updates current task id', () => {
         const oldState = {
           recentDeleted: [],
-          currentTaskId: 0,
+          selectedTaskId: 0,
           nextTaskId: 2,
           tasks: {
             0: { title: 'root', subTasks: [1], isOpen: true },
@@ -165,7 +165,7 @@ describe('todoSlice reducer', () => {
         };
         const newState = {
           recentDeleted: [],
-          currentTaskId: 1,
+          selectedTaskId: 1,
           nextTaskId: 2,
           tasks: {
             0: { title: 'root', subTasks: [1], isOpen: true },
@@ -175,7 +175,7 @@ describe('todoSlice reducer', () => {
 
         expect(reducer(
           oldState,
-          updateCurrentTaskId(1),
+          updateselectedTaskId(1),
         )).toEqual(newState);
       });
     });
@@ -184,7 +184,7 @@ describe('todoSlice reducer', () => {
       it('toggles isOpen with taskId', () => {
         const oldState = {
           recentDeleted: [],
-          currentTaskId: 0,
+          selectedTaskId: 0,
           nextTaskId: 2,
           tasks: {
             0: { title: 'root', subTasks: [1], isOpen: true },
@@ -194,7 +194,7 @@ describe('todoSlice reducer', () => {
 
         const newState = {
           recentDeleted: [],
-          currentTaskId: 0,
+          selectedTaskId: 0,
           nextTaskId: 2,
           tasks: {
             0: { title: 'root', subTasks: [1], isOpen: true },

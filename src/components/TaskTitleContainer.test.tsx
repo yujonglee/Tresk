@@ -4,11 +4,15 @@
 
 import { fireEvent, render } from '@testing-library/react';
 import { useDispatch, useSelector } from 'react-redux';
+import given from 'given2';
 
-import { updateCurrentTaskId } from '../redux_module/todoSlice';
+import { highlight, original } from '../color';
+import { updateselectedTaskId } from '../redux_module/todoSlice';
 import TaskTitleContainer from './TaskTitleContainer';
 
 describe('TaskTitleContainer', () => {
+  const currentTaskId = 1;
+
   const dispatch = jest.fn();
 
   beforeEach(() => {
@@ -17,19 +21,44 @@ describe('TaskTitleContainer', () => {
 
     (useSelector as jest.Mock).mockImplementation((selector) => selector({
       todo: {
-        currentTaskId: 1,
+        selectedTaskId: given.selectedTaskId,
         tasks: {
+          0: { title: 'root', subTasks: [1], isOpen: true },
           1: { title: 'task1', subTasks: [], isOpen: true },
         },
       },
     }));
   });
 
-  it('renders button listening click event', () => {
-    const { getByRole } = render(<TaskTitleContainer id={1} />);
+  context('when currentTaskId == selectedTaskId', () => {
+    given('selectedTaskId', () => 1);
+
+    it('renders button with highlight color', () => {
+      const { getByRole } = render(<TaskTitleContainer id={currentTaskId} />);
+
+      expect(getByRole('button', { name: 'task1' })).toHaveStyle({
+        color: highlight,
+      });
+    });
+  });
+
+  context('when currentTaskId != selectedTaskId', () => {
+    given('selectedTaskId', () => 0);
+
+    it('renders button with original color', () => {
+      const { getByRole } = render(<TaskTitleContainer id={currentTaskId} />);
+
+      expect(getByRole('button', { name: 'task1' })).toHaveStyle({
+        color: original,
+      });
+    });
+  });
+
+  it('updates current task id on click event', () => {
+    const { getByRole } = render(<TaskTitleContainer id={currentTaskId} />);
 
     fireEvent.click(getByRole('button', { name: 'task1' }));
 
-    expect(dispatch).toBeCalledWith(updateCurrentTaskId(1));
+    expect(dispatch).toBeCalledWith(updateselectedTaskId(currentTaskId));
   });
 });

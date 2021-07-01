@@ -14,7 +14,7 @@ describe('App', () => {
   beforeEach(() => {
     (useSelector as jest.Mock).mockImplementation((selector) => selector({
       todo: {
-        currentTaskId: 0,
+        selectedTaskId: 0,
         tasks: {
           0: { title: 'root', subTasks: [1] },
           1: { title: 'task1', subTasks: [] },

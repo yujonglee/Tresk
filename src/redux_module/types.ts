@@ -16,7 +16,7 @@ export type RestoreData = {
 
 export type TodoState = {
   recentDeleted: RestoreData[]
-  currentTaskId: number
+  selectedTaskId: number
   nextTaskId: number
   tasks: Tasks
 };
