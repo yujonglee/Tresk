@@ -16,10 +16,10 @@ describe('RestoreTask', () => {
     (useDispatch as jest.Mock).mockReturnValue(dispatch);
   });
 
-  it('', () => {
+  it('renders "복구" button listening click event', () => {
     const { getByRole } = render(<RestoreTaskButton />);
 
-    fireEvent.click(getByRole('button'));
+    fireEvent.click(getByRole('button', { name: '복구' }));
 
     expect(dispatch).toBeCalledWith(restoreTask());
   });
