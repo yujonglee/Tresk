@@ -19,8 +19,11 @@ describe('TaskButtonContainer', () => {
     (useSelector as jest.Mock).mockImplementation((selector) => selector({
       todo: {
         tasks: {
-          1: { title: 'task1', subTasks: given.subTasks, isOpen: given.isOpen },
-          2: { title: 'task1', subTasks: [], isOpen: true },
+          1: {
+            title: 'task1',
+            subTasks: given.subTasks,
+            isOpen: given.isOpen,
+          },
         },
       },
     }));
@@ -30,10 +33,13 @@ describe('TaskButtonContainer', () => {
     given('subTasks', () => []);
 
     it('deletes task on click event', () => {
-      const { getByRole } = render(<TaskButtonContainer id={1} />);
+      const taskId = 1;
+
+      const { getByRole } = render(<TaskButtonContainer id={taskId} />);
 
       fireEvent.click(getByRole('button', { name: '완료' }));
-      expect(dispatch).toBeCalledWith(deleteTask(1));
+
+      expect(dispatch).toBeCalledWith(deleteTask(taskId));
     });
   });
 
@@ -43,22 +49,26 @@ describe('TaskButtonContainer', () => {
     context('when subTasks is opened', () => {
       given('isOpen', () => true);
 
-      it('deletes task on click event', () => {
-        const { getByRole } = render(<TaskButtonContainer id={1} />);
+      it('folds subTasks on click event', () => {
+        const taskId = 1;
+
+        const { getByRole } = render(<TaskButtonContainer id={taskId} />);
 
         fireEvent.click(getByRole('button', { name: '접기' }));
-        expect(dispatch).toBeCalledWith(toggleOpen(1));
+        expect(dispatch).toBeCalledWith(toggleOpen(taskId));
       });
     });
 
     context('when subTasks is closed', () => {
       given('isOpen', () => false);
 
-      it('deletes task on click event', () => {
-        const { getByRole } = render(<TaskButtonContainer id={1} />);
+      it('unfolds subTasks on click event', () => {
+        const taskId = 1;
+
+        const { getByRole } = render(<TaskButtonContainer id={taskId} />);
 
         fireEvent.click(getByRole('button', { name: '펼치기' }));
-        expect(dispatch).toBeCalledWith(toggleOpen(1));
+        expect(dispatch).toBeCalledWith(toggleOpen(taskId));
       });
     });
   });
