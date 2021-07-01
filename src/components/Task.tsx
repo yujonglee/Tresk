@@ -7,10 +7,18 @@ type TaskProps = {
   id: number
 };
 
-const Task = ({ id }: TaskProps): JSX.Element => (
-  <>
-    <MainTask id={id} />
-    <SubTasksContainer id={id} />
-  </>
-);
+const Task = ({ id }: TaskProps): JSX.Element => {
+  const isRootTask = (id === 0);
+
+  return (
+    <>
+      {isRootTask
+        ? null
+        : <MainTask id={id} />}
+
+      <SubTasksContainer id={id} />
+    </>
+  );
+};
+
 export default Task;
