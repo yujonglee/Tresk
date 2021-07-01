@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fireEvent, render, RenderResult } from '@testing-library/react';
 import given from 'given2';
 
-import { updateselectedTaskId } from '../redux_module/todoSlice';
+import { updateSelectedTaskId } from '../redux_module/todoSlice';
 import Task from './Task';
 
 describe('Task', () => {
@@ -41,7 +41,7 @@ describe('Task', () => {
         const { getByText } = renderTask(1);
         fireEvent.click(getByText('task1'));
 
-        expect(dispatch).toBeCalledWith(updateselectedTaskId(1));
+        expect(dispatch).toBeCalledWith(updateSelectedTaskId(1));
       });
     });
   });

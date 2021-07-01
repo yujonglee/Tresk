@@ -4,7 +4,7 @@ import reducer,
   deleteTask,
   restoreTask,
   toggleOpen,
-  updateselectedTaskId,
+  updateSelectedTaskId,
 } from './todoSlice';
 
 import { RestoreData } from './types';
@@ -152,7 +152,7 @@ describe('todoSlice reducer', () => {
       });
     });
 
-    describe('updateselectedTaskId', () => {
+    describe('updateSelectedTaskId', () => {
       it('updates current task id', () => {
         const oldState = {
           recentDeleted: [],
@@ -175,7 +175,7 @@ describe('todoSlice reducer', () => {
 
         expect(reducer(
           oldState,
-          updateselectedTaskId(1),
+          updateSelectedTaskId(1),
         )).toEqual(newState);
       });
     });

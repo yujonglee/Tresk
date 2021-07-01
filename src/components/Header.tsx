@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../redux_module/hook';
 
-import { updateselectedTaskId } from '../redux_module/todoSlice';
+import { updateSelectedTaskId } from '../redux_module/todoSlice';
 import TitleButton from '../styled/TitleButton';
 
 type HeaderProps = {
@@ -10,7 +10,7 @@ type HeaderProps = {
 const Header = ({ initialTaskId }: HeaderProps): JSX.Element => {
   const dispatch = useAppDispatch();
 
-  const handleClick = () => dispatch(updateselectedTaskId(0));
+  const handleClick = () => dispatch(updateSelectedTaskId(0));
 
   const selectedTaskId = (initialTaskId === undefined)
     ? useAppSelector((state) => state.todo.selectedTaskId)

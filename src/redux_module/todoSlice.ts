@@ -88,7 +88,7 @@ const { actions, reducer } = createSlice({
       state.tasks[parentId].subTasks.push(selfId);
     },
 
-    updateselectedTaskId: (state, action: PayloadAction<number>) => {
+    updateSelectedTaskId: (state, action: PayloadAction<number>) => {
       state.selectedTaskId = action.payload;
     },
 
@@ -105,7 +105,7 @@ export const {
   addTask,
   deleteTask,
   restoreTask,
-  updateselectedTaskId,
+  updateSelectedTaskId,
   toggleOpen,
 } = actions;
 
