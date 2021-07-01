@@ -14,7 +14,6 @@ describe('TaskButton', () => {
   const renderTaskButton = (): RenderResult => (
     render((
       <TaskButton
-        id={1}
         isSubTasksEmpty={given.isSubTasksEmpty}
         isSubTasksOpen={given.isSubTasksOpen}
         handleClickComplete={handleClickComplete}

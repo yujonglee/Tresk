@@ -18,7 +18,6 @@ const TaskButtonContainer = ({ id }: TaskButtonContainerProps): JSX.Element => {
 
   return (
     <TaskButton
-      id={id}
       isSubTasksEmpty={isSubTasksEmpty}
       isSubTasksOpen={isOpen}
       handleClickComplete={handleClickComplete}

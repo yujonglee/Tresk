@@ -4,7 +4,6 @@ import CompleteButton from './CompleteButton';
 import SubTasksToggle from './SubTasksToggle';
 
 type TaskButtonProps = {
-  id: number
   isSubTasksEmpty: boolean
   isSubTasksOpen: boolean
   handleClickComplete: MouseEventHandler<HTMLButtonElement>
@@ -12,19 +11,17 @@ type TaskButtonProps = {
 };
 
 const TaskButton = ({
-  id, isSubTasksEmpty, isSubTasksOpen,
+  isSubTasksEmpty, isSubTasksOpen,
   handleClickComplete, handleClickDetail,
 }: TaskButtonProps): JSX.Element => (
   (isSubTasksEmpty)
     ? (
       <CompleteButton
-        id={id}
         handleClick={handleClickComplete}
       />
     )
     : (
       <SubTasksToggle
-        taskId={id}
         isOpen={isSubTasksOpen}
         handleClick={handleClickDetail}
       />
