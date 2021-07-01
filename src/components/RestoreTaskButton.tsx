@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { restoreTask } from '../redux_module/todoSlice';
 import ActionButton from '../styled/ActionButton';
 
-const RestoreTask = (): JSX.Element => {
+const RestoreTaskButton = (): JSX.Element => {
   const dispatch = useDispatch();
   const handleClick = () => dispatch(restoreTask());
 
@@ -17,4 +17,4 @@ const RestoreTask = (): JSX.Element => {
   );
 };
 
-export default RestoreTask;
+export default RestoreTaskButton;

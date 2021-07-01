@@ -7,7 +7,7 @@ import TreeCanvas from './canvas/TreeCanvas';
 import TitleFieldContainer from './components/TitleFieldContainer';
 import Task from './components/Task';
 import Header from './components/Header';
-import RestoreTask from './components/RestoreTask';
+import RestoreTaskButton from './components/RestoreTaskButton';
 
 const GridWrapper = styled.div({
   display: 'grid',
@@ -37,7 +37,7 @@ const App = (): JSX.Element => (
       <TasksContainer>
         <Header />
         <TitleFieldContainer />
-        <RestoreTask />
+        <RestoreTaskButton />
         <Task id={0} />
       </TasksContainer>
       <TreeContainer>
