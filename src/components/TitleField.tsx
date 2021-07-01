@@ -2,7 +2,7 @@ import { ChangeEventHandler, MouseEventHandler } from 'react';
 
 import ActionButton from '../styled/ActionButton';
 
-type InputProps = {
+type TitleFieldProps = {
   value: string
   fieldName: string
   buttonName: string
@@ -10,9 +10,9 @@ type InputProps = {
   handleClick: MouseEventHandler<HTMLButtonElement>
 };
 
-const Input = ({
+const TitleField = ({
   value, fieldName, buttonName, handleChange, handleClick,
-}: InputProps): JSX.Element => (
+}: TitleFieldProps): JSX.Element => (
   <>
     <label htmlFor="input-task">
       {fieldName}
@@ -34,4 +34,4 @@ const Input = ({
   </>
 );
 
-export default Input;
+export default TitleField;

@@ -4,12 +4,12 @@
 
 import { render } from '@testing-library/react';
 
-import Input from './Input';
+import TitleField from './TitleField';
 
 describe('Input', () => {
   it('renders input control', () => {
     const { getByRole } = render((
-      <Input
+      <TitleField
         value=""
         fieldName="할 일"
         buttonName="추가"
@@ -23,7 +23,7 @@ describe('Input', () => {
 
   it('renders button', () => {
     const { getByRole } = render((
-      <Input
+      <TitleField
         value=""
         fieldName="할 일"
         buttonName="추가"

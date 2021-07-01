@@ -2,13 +2,13 @@ import { ChangeEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { addTask } from '../redux_module/todoSlice';
-import Input from './Input';
+import TitleField from './TitleField';
 
-type InputContainerProps = {
+type TitleFieldContainerProps = {
   initialTitle?: string
 };
 
-const InputContainer = ({ initialTitle }: InputContainerProps): JSX.Element => {
+const TitleFieldContainer = ({ initialTitle }: TitleFieldContainerProps): JSX.Element => {
   const dispatch = useDispatch();
 
   const [taskTitle, setTaskTitle] = useState(initialTitle || '');
@@ -20,7 +20,7 @@ const InputContainer = ({ initialTitle }: InputContainerProps): JSX.Element => {
   };
 
   return (
-    <Input
+    <TitleField
       value={taskTitle}
       fieldName="할 일"
       buttonName="추가"
@@ -30,4 +30,4 @@ const InputContainer = ({ initialTitle }: InputContainerProps): JSX.Element => {
   );
 };
 
-export default InputContainer;
+export default TitleFieldContainer;
