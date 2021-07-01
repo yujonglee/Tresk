@@ -6,7 +6,7 @@ import TreeCanvas from './canvas/TreeCanvas';
 
 import InputContainer from './components/InputContainer';
 import Task from './components/Task';
-import Header from './Header';
+import Header from './components/Header';
 import RestoreTask from './components/RestoreTask';
 
 const GridWrapper = styled.div({

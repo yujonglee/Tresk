@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from './redux_module/hook';
+import { useAppDispatch, useAppSelector } from '../redux_module/hook';
 
-import { updateCurrentTaskId } from './redux_module/todoSlice';
-import TitleButton from './styled/TitleButton';
+import { updateCurrentTaskId } from '../redux_module/todoSlice';
+import TitleButton from '../styled/TitleButton';
 
 type HeaderProps = {
   initialTaskId?: number
