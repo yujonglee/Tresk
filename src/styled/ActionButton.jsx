@@ -1,12 +1,7 @@
 import styled from '@emotion/styled';
 
-const ActionButton = styled.button({
-  border: 0,
-  textDecoration: 'none',
-  backgroundColor: 'beige',
-  '&:hover': {
-    fontWeight: 'bold',
-  },
-});
+import { actionButton } from './styles';
+
+const ActionButton = styled.button(actionButton);
 
 export default ActionButton;
