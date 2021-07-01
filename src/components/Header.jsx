@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import { updateSelectedTaskId } from '../redux_module/todoSlice';
 
-import styles from '../styled/styles';
+import { titleButtonStyle } from '../styled/styles';
 import { original, highlight } from '../color';
 
 const TitleButton = styled.button(({ isSelected }) => ({
-  ...styles.titleButton,
+  ...titleButtonStyle,
   fontSize: '3em',
   color: (isSelected) ? highlight : original,
 }));

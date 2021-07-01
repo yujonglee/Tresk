@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { original, highlight } from '../color';
 
-import styles from '../styled/styles';
+import { titleButtonStyle } from '../styled/styles';
 
 const TitleButton = styled.button(({ isSelected }) => ({
-  ...styles.titleButton,
+  ...titleButtonStyle,
   fontSize: '1.5em',
   color: (isSelected) ? highlight : original,
 }));

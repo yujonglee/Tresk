@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
-import { actionButton } from './styles';
+import { actionButtonStyle } from './styles';
 
-const ActionButton = styled.button(actionButton);
+const ActionButton = styled.button(actionButtonStyle);
 
 export default ActionButton;

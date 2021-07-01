@@ -1,4 +1,4 @@
-export const button = {
+export const buttonStyle = {
   border: 0,
   textDecoration: 'none',
   '&:hover': {
@@ -6,18 +6,14 @@ export const button = {
   },
 };
 
-export const actionButton = {
-  ...button,
+export const actionButtonStyle = {
+  ...buttonStyle,
   backgroundColor: 'beige',
 };
 
-export const titleButton = {
-  ...button,
+export const titleButtonStyle = {
+  ...buttonStyle,
   background: 'transparent',
   marginBottom: 8,
 
 };
-
-const styles = { button, actionButton, titleButton };
-
-export default styles;
