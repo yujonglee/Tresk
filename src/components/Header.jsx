@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateSelectedTaskId } from '../redux_module/todoSlice';
 import TitleButton from '../styled/TitleButton';
 
-const Header = ({ initialTaskId }) => {
+export default function Header({ initialTaskId }) {
   const dispatch = useDispatch();
 
   const handleClick = () => dispatch(updateSelectedTaskId(0));
@@ -25,6 +25,4 @@ const Header = ({ initialTaskId }) => {
       </TitleButton>
     </header>
   );
-};
-
-export default Header;
+}

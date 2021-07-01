@@ -2,7 +2,7 @@
 
 import Task from './Task';
 
-const SubTasks = ({ isOpen, subTasks }) => {
+export default function SubTasks({ isOpen, subTasks }) {
   if (!isOpen) {
     return <></>;
   }
@@ -16,6 +16,4 @@ const SubTasks = ({ isOpen, subTasks }) => {
       ))}
     </ul>
   );
-};
-
-export default SubTasks;
+}

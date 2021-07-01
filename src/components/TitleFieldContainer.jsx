@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { addTask } from '../redux_module/todoSlice';
 import TitleField from './TitleField';
 
-const TitleFieldContainer = ({ initialTitle }) => {
+export default function TitleFieldContainer({ initialTitle }) {
   const dispatch = useDispatch();
 
   const [taskTitle, setTaskTitle] = useState(initialTitle || '');
@@ -24,6 +24,4 @@ const TitleFieldContainer = ({ initialTitle }) => {
       handleChange={handleChange}
     />
   );
-};
-
-export default TitleFieldContainer;
+}

@@ -3,7 +3,7 @@
 import MainTask from './MainTask';
 import SubTasksContainer from './SubTasksContainer';
 
-const Task = ({ id }) => {
+export default function Task({ id }) {
   const isRootTask = (id === 0);
 
   return (
@@ -15,6 +15,4 @@ const Task = ({ id }) => {
       <SubTasksContainer id={id} />
     </>
   );
-};
-
-export default Task;
+}

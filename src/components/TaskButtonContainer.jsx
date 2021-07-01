@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteTask, toggleOpen } from '../redux_module/todoSlice';
 import TaskButton from './TaskButton';
 
-const TaskButtonContainer = ({ id }) => {
+export default function TaskButtonContainer({ id }) {
   const dispatch = useDispatch();
 
   const { subTasks, isOpen } = useSelector((state) => state.todo.tasks[id]);
@@ -21,6 +21,4 @@ const TaskButtonContainer = ({ id }) => {
       handleClickDetail={handleClickDetail}
     />
   );
-};
-
-export default TaskButtonContainer;
+}

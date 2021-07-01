@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateSelectedTaskId } from '../redux_module/todoSlice';
 import TaskTitle from './TaskTitle';
 
-const TaskTitleContainer = ({ id }) => {
+export default function TaskTitleContainer({ id }) {
   const dispatch = useDispatch();
 
   const { title } = useSelector((state) => state.todo.tasks[id]);
@@ -20,6 +20,4 @@ const TaskTitleContainer = ({ id }) => {
       handleClick={handleClickTitle}
     />
   );
-};
-
-export default TaskTitleContainer;
+}
