@@ -2,33 +2,46 @@
  * @jest-environment jsdom
  */
 
-import { render } from '@testing-library/react';
+import { fireEvent, render, RenderResult } from '@testing-library/react';
 import given from 'given2';
 
 import TaskButton from './TaskButton';
 
-function renderTaskButton() {
-  return (
+describe('TaskButton', () => {
+  const handleClickComplete = jest.fn();
+  const handleClickDetail = jest.fn();
+
+  const renderTaskButton = (): RenderResult => (
     render((
       <TaskButton
         id={1}
         isSubTasksEmpty={given.isSubTasksEmpty}
         isSubTasksOpen={given.isSubTasksOpen}
-        handleClickDetail={jest.fn()}
-        handleClickComplete={jest.fn()}
+        handleClickComplete={handleClickComplete}
+        handleClickDetail={handleClickDetail}
       />
     ))
   );
-}
 
-describe('TaskButton', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   context('when subTasks is empty', () => {
     given('isSubTasksEmpty', () => true);
 
-    it('renders complete button', () => {
+    it('renders "완료" button', () => {
       const { getByRole } = renderTaskButton();
 
       expect(getByRole('button', { name: '완료' })).toBeInTheDocument();
+    });
+
+    it('listens to click event', () => {
+      const { getByRole } = renderTaskButton();
+
+      fireEvent.click(getByRole('button', { name: '완료' }));
+
+      expect(handleClickComplete).toBeCalled();
     });
   });
 
@@ -43,6 +56,14 @@ describe('TaskButton', () => {
 
         expect(getByRole('button', { name: '접기' })).toBeInTheDocument();
       });
+
+      it('listens to click event', () => {
+        const { getByRole } = renderTaskButton();
+
+        fireEvent.click(getByRole('button', { name: '접기' }));
+
+        expect(handleClickDetail).toBeCalled();
+      });
     });
 
     context('when subTasks is closed', () => {
@@ -52,6 +73,14 @@ describe('TaskButton', () => {
         const { getByRole } = renderTaskButton();
 
         expect(getByRole('button', { name: '펼치기' })).toBeInTheDocument();
+      });
+
+      it('listens to click event', () => {
+        const { getByRole } = renderTaskButton();
+
+        fireEvent.click(getByRole('button', { name: '펼치기' }));
+
+        expect(handleClickDetail).toBeCalled();
       });
     });
   });
