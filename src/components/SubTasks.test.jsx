@@ -13,7 +13,7 @@ describe('SubTasks', () => {
     render((
       <SubTasks
         isOpen={given.isOpen}
-        subTasks={[2, 3]}
+        subTasks={[2, 3, 1]}
       />
     ))
   );
@@ -22,7 +22,7 @@ describe('SubTasks', () => {
     useSelector.mockImplementation((selector) => selector({
       todo: {
         tasks: {
-          1: { title: 'task1', subTasks: [2, 3], isOpen: true },
+          1: { title: 'task1', subTasks: [], isOpen: true },
           2: { title: 'task2', subTasks: [], isOpen: true },
           3: { title: 'task3', subTasks: [], isOpen: true },
         },
@@ -33,11 +33,14 @@ describe('SubTasks', () => {
   context('when subTasks are opened', () => {
     given('isOpen', () => true);
 
-    it('renders tasks', () => {
-      const { getByText } = renderSubTasks();
+    it('renders tasks in order', () => {
+      const { getAllByRole } = renderSubTasks();
 
-      expect(getByText('task2')).toBeInTheDocument();
-      expect(getByText('task3')).toBeInTheDocument();
+      const tasks = getAllByRole('listitem');
+
+      [0, 1, 2].forEach((index) => {
+        expect(tasks[index]).toHaveTextContent(`task${index + 1}`);
+      });
     });
   });
 
