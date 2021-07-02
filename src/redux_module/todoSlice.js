@@ -71,17 +71,19 @@ const { actions, reducer } = createSlice({
       });
     },
 
-    restoreTask: (state) => {
-      const restoreData = state.recentDeleted.pop();
+    restoreTask: (state, action) => {
+      const { recentDeleted } = state;
+      const { payload: targetId } = action;
 
-      if (!restoreData) {
-        return;
-      }
+      const isDataToRestore = R.propEq('selfId', targetId);
+
+      const restoreData = R.find(isDataToRestore, recentDeleted);
 
       const { task, selfId, parentId } = restoreData;
 
       state.tasks[selfId] = task;
       state.tasks[parentId].subTasks.push(selfId);
+      state.recentDeleted = R.reject(isDataToRestore, recentDeleted);
     },
 
     updateSelectedTaskId: (state, action) => {

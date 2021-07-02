@@ -96,58 +96,44 @@ describe('todoSlice reducer', () => {
   });
 
   describe('restoreTask', () => {
-    context('when recentDeleted is not empty', () => {
-      it('retores recent deleted task', () => {
-        const restoreData1 = {
-          task: { title: '첫번째 할일', subTasks: [], isOpen: true },
-          selfId: 1,
-          parentId: 0,
-        };
+    it('retores deleted task with id', () => {
+      const restoreData1 = {
+        task: { title: '첫번째 할일', subTasks: [], isOpen: true },
+        selfId: 1,
+        parentId: 0,
+      };
 
-        const oldState = {
-          recentDeleted: [restoreData1],
-          selectedTaskId: 0,
-          nextTaskId: 2,
-          tasks: {
-            0: { title: 'root', subTasks: [2], isOpen: true },
-            2: { title: '두번째 할일', subTasks: [], isOpen: true },
-          },
-        };
+      const restoreData2 = {
+        task: { title: '두번째 할일', subTasks: [], isOpen: true },
+        selfId: 2,
+        parentId: 0,
+      };
 
-        const newState = {
-          recentDeleted: [],
-          selectedTaskId: 0,
-          nextTaskId: 2,
-          tasks: {
-            0: { title: 'root', subTasks: [2, 1], isOpen: true },
-            1: { title: '첫번째 할일', subTasks: [], isOpen: true },
-            2: { title: '두번째 할일', subTasks: [], isOpen: true },
-          },
-        };
+      const oldState = {
+        recentDeleted: [restoreData1, restoreData2],
+        selectedTaskId: 0,
+        nextTaskId: 4,
+        tasks: {
+          0: { title: 'root', subTasks: [3], isOpen: true },
+          3: { title: '세번째 할일', subTasks: [], isOpen: true },
+        },
+      };
 
-        expect(reducer(
-          oldState,
-          restoreTask(),
-        )).toEqual(newState);
-      });
+      const newState = {
+        recentDeleted: [restoreData2],
+        selectedTaskId: 0,
+        nextTaskId: 4,
+        tasks: {
+          0: { title: 'root', subTasks: [3, 1], isOpen: true },
+          1: { title: '첫번째 할일', subTasks: [], isOpen: true },
+          3: { title: '세번째 할일', subTasks: [], isOpen: true },
+        },
+      };
 
-      context('when recentDeleted is empty', () => {
-        it('does nothing', () => {
-          const oldState = {
-            recentDeleted: [],
-            selectedTaskId: 0,
-            nextTaskId: 2,
-            tasks: {
-              0: { title: 'root', subTasks: [1], isOpen: true },
-              1: { title: '첫번째 할일', subTasks: [], isOpen: true },
-            },
-          };
-          expect(reducer(
-            oldState,
-            restoreTask(),
-          )).toEqual(oldState);
-        });
-      });
+      expect(reducer(
+        oldState,
+        restoreTask(1),
+      )).toEqual(newState);
     });
 
     describe('updateSelectedTaskId', () => {
