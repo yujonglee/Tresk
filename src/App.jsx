@@ -7,11 +7,11 @@ import TreeCanvas from './canvas/TreeCanvas';
 import TitleFieldContainer from './components/TitleFieldContainer';
 import Task from './components/Task';
 import Header from './components/Header';
-import RestoreTaskButton from './components/RestoreTaskButton';
+import LogBook from './components/LogBook';
 
 const GridWrapper = styled.div({
   display: 'grid',
-  gridTemplateColumns: '1fr 2fr',
+  gridTemplateColumns: '1fr 1fr 2fr',
   gridTemplateRows: '100px 1fr',
   width: '80%',
   margin: '0 auto',
@@ -24,9 +24,16 @@ const TasksContainer = styled.div({
   gridRowEnd: 3,
 });
 
-const TreeContainer = styled.div({
+const LogBookContainer = styled.div({
   gridColumnStart: 2,
   gridColumnEnd: 3,
+  gridRowStart: 2,
+  gridRowEnd: 3,
+});
+
+const TreeContainer = styled.div({
+  gridColumnStart: 3,
+  gridColumnEnd: 4,
   gridRowStart: 2,
   gridRowEnd: 3,
 });
@@ -38,9 +45,11 @@ export default function App() {
         <TasksContainer>
           <Header />
           <TitleFieldContainer />
-          <RestoreTaskButton />
           <Task id={0} />
         </TasksContainer>
+        <LogBookContainer>
+          <LogBook />
+        </LogBookContainer>
         <TreeContainer>
           <TreeCanvas />
         </TreeContainer>
