@@ -17,10 +17,12 @@ describe('RestoreTask', () => {
   });
 
   it('renders "복구" button listening click event', () => {
-    const { getByRole } = render(<RestoreTaskButton />);
+    const id = 1;
+
+    const { getByRole } = render(<RestoreTaskButton id={id} />);
 
     fireEvent.click(getByRole('button', { name: '복구' }));
 
-    expect(dispatch).toBeCalledWith(restoreTask());
+    expect(dispatch).toBeCalledWith(restoreTask(id));
   });
 });
