@@ -12,39 +12,48 @@ import LogBook from './components/LogBook';
 const GridWrapper = styled.div({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr 2fr',
-  gridTemplateRows: '100px 1fr',
+  gridTemplateRows: '100px 1fr 5fr',
   width: '80%',
   margin: '0 auto',
 });
 
-const TasksContainer = styled.div({
+const FieldContainer = styled.div({
   gridColumnStart: 1,
   gridColumnEnd: 2,
   gridRowStart: 2,
   gridRowEnd: 3,
 });
 
+const TasksContainer = styled.div({
+  gridColumnStart: 1,
+  gridColumnEnd: 2,
+  gridRowStart: 3,
+  gridRowEnd: 4,
+});
+
 const LogBookContainer = styled.div({
   gridColumnStart: 2,
   gridColumnEnd: 3,
-  gridRowStart: 2,
-  gridRowEnd: 3,
+  gridRowStart: 3,
+  gridRowEnd: 4,
 });
 
 const TreeContainer = styled.div({
   gridColumnStart: 3,
   gridColumnEnd: 4,
-  gridRowStart: 2,
-  gridRowEnd: 3,
+  gridRowStart: 3,
+  gridRowEnd: 4,
 });
 
 export default function App() {
   return (
     <>
       <GridWrapper>
-        <TasksContainer>
+        <FieldContainer>
           <Header />
           <TitleFieldContainer />
+        </FieldContainer>
+        <TasksContainer>
           <Task id={0} />
         </TasksContainer>
         <LogBookContainer>
