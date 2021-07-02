@@ -1,3 +1,3 @@
-const P5Wrapper = (sketch) => <></>
+const P5Wrapper = (sketch) => <></>;
 
 export default P5Wrapper;
