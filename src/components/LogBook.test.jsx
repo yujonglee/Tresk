@@ -8,16 +8,18 @@ import { useSelector } from 'react-redux';
 import LogBook from './LogBook';
 
 describe('LogBook', () => {
+  const recentDeleted = [
+    {
+      task: { title: 'task1', subTasks: [], isOpen: true },
+      selfId: 1,
+      parentId: 0,
+    },
+  ];
+
   beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
       todo: {
-        recentDeleted: [
-          {
-            task: { title: 'task1', subTasks: [], isOpen: true },
-            selfId: 1,
-            parentId: 0,
-          },
-        ],
+        recentDeleted,
       },
     }));
   });
@@ -29,8 +31,8 @@ describe('LogBook', () => {
   });
 
   it('renders "복구" button', () => {
-    const { getByRole } = render(<LogBook />);
+    const { getAllByRole } = render(<LogBook />);
 
-    expect(getByRole('button', { name: '복구' })).toBeInTheDocument();
+    expect(getAllByRole('button', { name: '복구' })).toHaveLength(recentDeleted.length);
   });
 });
