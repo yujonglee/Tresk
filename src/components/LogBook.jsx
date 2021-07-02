@@ -1,5 +1,6 @@
-import styled from '@emotion/styled';
 import { useSelector } from 'react-redux';
+import styled from '@emotion/styled';
+
 import { original } from '../color';
 import RestoreTaskButton from './RestoreTaskButton';
 
