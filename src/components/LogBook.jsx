@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 
 import { original } from '../color';
 import RestoreTaskButton from './RestoreTaskButton';
+import depthCalcutaor from '../depthCalculator';
 
 const DeletedItem = styled.li({
   fontSize: '1.5em',
@@ -13,14 +13,16 @@ const DeletedItem = styled.li({
   },
 });
 
-export default function LogBook() {
-  const deletedTasks = useSelector((state) => state.todo.recentDeleted);
+export default function LogBook({ deletedTasks }) {
+  const depthInfo = depthCalcutaor(deletedTasks);
 
   return (
     <ul>
       {deletedTasks.map(({ task, selfId }) => (
         <div key={selfId}>
           <DeletedItem>
+            {'#'.repeat(depthInfo[selfId])}
+            {' '}
             {task.title}
             <RestoreTaskButton id={selfId} />
           </DeletedItem>

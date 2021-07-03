@@ -7,9 +7,9 @@ import TreeCanvas from './canvas/TreeCanvas';
 import TitleFieldContainer from './components/TitleFieldContainer';
 import Task from './components/Task';
 import Header from './components/Header';
-import LogBook from './components/LogBook';
+import LogBookContainer from './components/LogBookContainer';
 
-const GridWrapper = styled.div({
+const Grid = styled.div({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr 2fr',
   gridTemplateRows: '100px 1fr 5fr',
@@ -17,28 +17,28 @@ const GridWrapper = styled.div({
   margin: '0 auto',
 });
 
-const FieldContainer = styled.div({
+const FieldWapper = styled.div({
   gridColumnStart: 1,
   gridColumnEnd: 2,
   gridRowStart: 2,
   gridRowEnd: 3,
 });
 
-const TasksContainer = styled.div({
+const TasksWapper = styled.div({
   gridColumnStart: 1,
   gridColumnEnd: 2,
   gridRowStart: 3,
   gridRowEnd: 4,
 });
 
-const LogBookContainer = styled.div({
+const LogBookWapper = styled.div({
   gridColumnStart: 2,
   gridColumnEnd: 3,
   gridRowStart: 3,
   gridRowEnd: 4,
 });
 
-const TreeContainer = styled.div({
+const TreeWapper = styled.div({
   gridColumnStart: 3,
   gridColumnEnd: 4,
   gridRowStart: 3,
@@ -48,21 +48,21 @@ const TreeContainer = styled.div({
 export default function App() {
   return (
     <>
-      <GridWrapper>
-        <FieldContainer>
+      <Grid>
+        <FieldWapper>
           <Header />
           <TitleFieldContainer />
-        </FieldContainer>
-        <TasksContainer>
+        </FieldWapper>
+        <TasksWapper>
           <Task id={0} />
-        </TasksContainer>
-        <LogBookContainer>
-          <LogBook />
-        </LogBookContainer>
-        <TreeContainer>
+        </TasksWapper>
+        <LogBookWapper>
+          <LogBookContainer />
+        </LogBookWapper>
+        <TreeWapper>
           <TreeCanvas />
-        </TreeContainer>
-      </GridWrapper>
+        </TreeWapper>
+      </Grid>
     </>
   );
 }
