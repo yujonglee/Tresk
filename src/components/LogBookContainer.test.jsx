@@ -39,12 +39,6 @@ describe('LogBookContainer', () => {
     render(<LogBookContainer initialOpen={given.initialOpen} />)
   );
 
-  it('renders "로그" button', () => {
-    const { getByRole } = renderLogBookContainer();
-
-    expect(getByRole('button', { name: '로그' })).toBeInTheDocument();
-  });
-
   context('when LogBook is closed', () => {
     given('initialOpen', () => false);
 
@@ -56,6 +50,12 @@ describe('LogBookContainer', () => {
       expect(container).not.toHaveTextContent('## task3');
 
       expect(queryByRole('button', { name: '복구' })).not.toBeInTheDocument();
+    });
+
+    it('renders "로그 열기" button', () => {
+      const { getByRole } = renderLogBookContainer();
+
+      expect(getByRole('button', { name: '로그 열기' })).toBeInTheDocument();
     });
   });
 
@@ -74,6 +74,12 @@ describe('LogBookContainer', () => {
       const { getAllByRole } = renderLogBookContainer();
 
       expect(getAllByRole('button', { name: '복구' })).toHaveLength(recentDeleted.length);
+    });
+
+    it('renders "로그 닫기" button', () => {
+      const { getByRole } = renderLogBookContainer();
+
+      expect(getByRole('button', { name: '로그 닫기' })).toBeInTheDocument();
     });
   });
 });

@@ -8,13 +8,15 @@ export default function LogBookContainer({ initialOpen }) {
   const recentDeleted = useSelector((state) => state.todo.recentDeleted);
 
   const [isOpen, setIsOpen] = useState(initialOpen);
+  const buttonName = (isOpen) ? '로그 닫기' : '로그 열기';
+
   return (
     <>
       <ActionButton
         type="button"
         onClick={() => setIsOpen(!isOpen)}
       >
-        로그
+        {buttonName}
       </ActionButton>
       {(isOpen)
         ? <LogBook deletedTasks={recentDeleted} />
