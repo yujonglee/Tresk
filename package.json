@@ -5,6 +5,7 @@
   "main": "index.jsx",
   "scripts": {
     "start": "webpack serve",
+    "build": "webpack",
     "test:unit": "jest",
     "coverage": "npm run test:unit -- --coverage",
     "codeceptjs": "codeceptjs run --steps",
@@ -34,6 +35,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^4.6.0",
     "given2": "^2.1.7",
+    "html-webpack-plugin": "^4.5.2",
     "jest-plugin-context": "^2.9.0",
     "playwright": "^1.12.2",
     "puppeteer": "^9.1.1",
