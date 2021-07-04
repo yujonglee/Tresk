@@ -28,6 +28,7 @@ export default function TreeCanvas() {
 
   let mouseWind = 0;
   let mouseWindV = 0;
+  // eslint-disable-next-line no-unused-vars
   let bgColor;
 
   let bloomWidthRatio = 0.6;
@@ -210,6 +211,7 @@ export default function TreeCanvas() {
 
     const randomize = () => {
       randomizeBackground();
+      // eslint-disable-next-line no-use-before-define
       randomizeColor();
 
       rotRange = p5.random(20, 60);

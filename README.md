@@ -28,6 +28,12 @@ npm run test::unit
 npm run coverage
 ```
 
+## Build
+
+```
+npm run build
+```
+
 ## Tree Implementation
 
 original code(drawing tree) was written by [godofsuncats](https://openprocessing.org/sketch/1210577).
