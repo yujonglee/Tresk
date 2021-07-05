@@ -34,10 +34,4 @@ describe('LogBook', () => {
     expect(container).toHaveTextContent('# task2');
     expect(container).toHaveTextContent('## task3');
   });
-
-  it('renders "복구" button', () => {
-    const { getAllByRole } = renderLogBook();
-
-    expect(getAllByRole('button', { name: '복구' })).toHaveLength(recentDeleted.length);
-  });
 });

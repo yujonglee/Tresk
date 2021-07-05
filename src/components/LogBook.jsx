@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
 import { original } from '../color';
-import RestoreTaskButton from './RestoreTaskButton';
 import depthCalcutaor from '../depthCalculator';
 
 const DeletedItem = styled.li({
@@ -24,7 +23,6 @@ export default function LogBook({ deletedTasks }) {
             {'#'.repeat(depthInfo[selfId])}
             {' '}
             {task.title}
-            <RestoreTaskButton id={selfId} />
           </DeletedItem>
         </div>
       ))}
