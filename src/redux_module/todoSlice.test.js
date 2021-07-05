@@ -3,8 +3,10 @@ import reducer,
   addTask,
   deleteTask,
   restoreTask,
-  toggleOpen,
+  toggleSubTasksOpen,
   updateSelectedTaskId,
+  resetRecentDeleted,
+  toggleLogBookOpen,
 } from './todoSlice';
 
 describe('todoSlice reducer', () => {
@@ -95,6 +97,27 @@ describe('todoSlice reducer', () => {
     });
   });
 
+  describe('resetRecentDeleted', () => {
+    const restoreData = {
+      task: { title: '첫번째 할일', subTasks: [], isOpen: true },
+      selfId: 1,
+      parentId: 0,
+    };
+
+    const oldState = {
+      recentDeleted: [restoreData],
+    };
+
+    const newState = {
+      recentDeleted: [],
+    };
+
+    expect(reducer(
+      oldState,
+      resetRecentDeleted(),
+    )).toEqual(newState);
+  });
+
   describe('restoreTask', () => {
     context("when there aren't any deleted task", () => {
       it('does nothing', () => {
@@ -108,7 +131,10 @@ describe('todoSlice reducer', () => {
           },
         };
 
-        expect(oldState).toEqual(oldState);
+        expect(reducer(
+          oldState,
+          restoreTask(),
+        )).toEqual(oldState);
       });
     });
 
@@ -182,7 +208,7 @@ describe('todoSlice reducer', () => {
       });
     });
 
-    describe('toggleOpen', () => {
+    describe('toggleSubTasksOpen', () => {
       it('toggles isOpen with taskId', () => {
         const oldState = {
           recentDeleted: [],
@@ -205,7 +231,23 @@ describe('todoSlice reducer', () => {
         };
         expect(reducer(
           oldState,
-          toggleOpen(1),
+          toggleSubTasksOpen(1),
+        )).toEqual(newState);
+      });
+    });
+
+    describe('toggleLogBookOpen', () => {
+      it('toggles isLogBookOpen', () => {
+        const oldState = {
+          isLogBookOpen: false,
+        };
+
+        const newState = {
+          isLogBookOpen: true,
+        };
+        expect(reducer(
+          oldState,
+          toggleLogBookOpen(),
         )).toEqual(newState);
       });
     });

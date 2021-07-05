@@ -11,6 +11,7 @@ const keysAsNumberFrom = (obj) => R.map(
 );
 
 const initialState = {
+  isLogBookOpen: false,
   recentDeleted: [],
   selectedTaskId: 0,
   nextTaskId: 1,
@@ -88,13 +89,22 @@ const { actions, reducer } = createSlice({
       state.selectedTaskId = action.payload;
     },
 
-    toggleOpen: (state, action) => {
+    toggleSubTasksOpen: (state, action) => {
       const { payload: id } = action;
       const { isOpen } = state.tasks[id];
 
       state.tasks[id].isOpen = !isOpen;
     },
+
+    toggleLogBookOpen: (state) => {
+      state.isLogBookOpen = !state.isLogBookOpen;
+    },
+
+    resetRecentDeleted: (state) => {
+      state.recentDeleted = [];
+    },
   },
+
 });
 
 export const {
@@ -102,7 +112,9 @@ export const {
   deleteTask,
   restoreTask,
   updateSelectedTaskId,
-  toggleOpen,
+  toggleSubTasksOpen,
+  resetRecentDeleted,
+  toggleLogBookOpen,
 } = actions;
 
 export default reducer;

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { deleteTask, toggleOpen } from '../redux_module/todoSlice';
+import { deleteTask, toggleSubTasksOpen } from '../redux_module/todoSlice';
 import TaskButton from './TaskButton';
 
 export default function TaskButtonContainer({ id }) {
@@ -11,7 +11,7 @@ export default function TaskButtonContainer({ id }) {
   const isSubTasksEmpty = (subTasks.length === 0);
 
   const handleClickComplete = () => dispatch(deleteTask(id));
-  const handleClickDetail = () => dispatch(toggleOpen(id));
+  const handleClickDetail = () => dispatch(toggleSubTasksOpen(id));
 
   return (
     <TaskButton
