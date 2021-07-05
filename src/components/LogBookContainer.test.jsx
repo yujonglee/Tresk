@@ -30,7 +30,7 @@ describe('LogBookContainer', () => {
   beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
       todo: {
-        recentDeleted,
+        recentDeleted: given.recentDeleted,
       },
     }));
   });
@@ -39,47 +39,61 @@ describe('LogBookContainer', () => {
     render(<LogBookContainer initialOpen={given.initialOpen} />)
   );
 
-  context('when LogBook is closed', () => {
-    given('initialOpen', () => false);
+  context("when there aren't any deleted tasks", () => {
+    given('recentDeleted', () => []);
 
-    it('renders nothing', () => {
-      const { container, queryByRole } = renderLogBookContainer();
-
-      expect(container).not.toHaveTextContent('# task1');
-      expect(container).not.toHaveTextContent('# task2');
-      expect(container).not.toHaveTextContent('## task3');
-
-      expect(queryByRole('button', { name: '복구' })).not.toBeInTheDocument();
-    });
-
-    it('renders "로그 열기" button', () => {
+    it('renders "로그 없음" button', () => {
       const { getByRole } = renderLogBookContainer();
 
-      expect(getByRole('button', { name: '로그 열기' })).toBeInTheDocument();
+      expect(getByRole('button', { name: '로그 없음' })).toBeInTheDocument();
     });
   });
 
-  context('when LogBook is opened', () => {
-    given('initialOpen', () => true);
+  context('when there are deleted tasks', () => {
+    given('recentDeleted', () => recentDeleted);
 
-    it('renders deleted tasks', () => {
-      const { container } = renderLogBookContainer();
+    context('when LogBook is closed', () => {
+      given('initialOpen', () => false);
 
-      expect(container).toHaveTextContent('# task1');
-      expect(container).toHaveTextContent('# task2');
-      expect(container).toHaveTextContent('## task3');
+      it('renders nothing', () => {
+        const { container, queryByRole } = renderLogBookContainer();
+
+        expect(container).not.toHaveTextContent('# task1');
+        expect(container).not.toHaveTextContent('# task2');
+        expect(container).not.toHaveTextContent('## task3');
+
+        expect(queryByRole('button', { name: '복구' })).not.toBeInTheDocument();
+      });
+
+      it('renders "로그 열기" button', () => {
+        const { getByRole } = renderLogBookContainer();
+
+        expect(getByRole('button', { name: '로그 열기' })).toBeInTheDocument();
+      });
     });
 
-    it('renders "복구" button', () => {
-      const { getAllByRole } = renderLogBookContainer();
+    context('when LogBook is opened', () => {
+      given('initialOpen', () => true);
 
-      expect(getAllByRole('button', { name: '복구' })).toHaveLength(recentDeleted.length);
-    });
+      it('renders deleted tasks', () => {
+        const { container } = renderLogBookContainer();
 
-    it('renders "로그 닫기" button', () => {
-      const { getByRole } = renderLogBookContainer();
+        expect(container).toHaveTextContent('# task1');
+        expect(container).toHaveTextContent('# task2');
+        expect(container).toHaveTextContent('## task3');
+      });
 
-      expect(getByRole('button', { name: '로그 닫기' })).toBeInTheDocument();
+      it('renders "복구" button', () => {
+        const { getAllByRole } = renderLogBookContainer();
+
+        expect(getAllByRole('button', { name: '복구' })).toHaveLength(recentDeleted.length);
+      });
+
+      it('renders "로그 닫기" button', () => {
+        const { getByRole } = renderLogBookContainer();
+
+        expect(getByRole('button', { name: '로그 닫기' })).toBeInTheDocument();
+      });
     });
   });
 });

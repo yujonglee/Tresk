@@ -10,7 +10,7 @@ Tree, Task, it's Tresk.
 npm run start
 ```
 
-## Unit Test Coverage & E2E Test
+## Full Test
 
 ```
 npm run test
@@ -22,10 +22,10 @@ npm run test
 npm run test::unit
 ```
 
-### Unit Test with coverage
+### E2E Test
 
 ```
-npm run coverage
+npm run codeceptjs
 ```
 
 ## Build
