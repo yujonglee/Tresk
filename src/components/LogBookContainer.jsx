@@ -1,17 +1,20 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { toggleLogBookOpen } from '../redux_module/todoSlice';
 import ActionButton from '../styled/ActionButton';
-
 import LogBook from './LogBook';
+import ResetLogButton from './ResetLogButton';
 
-export default function LogBookContainer({ initialOpen }) {
+export default function LogBookContainer() {
+  const dispatch = useDispatch();
+
   const recentDeleted = useSelector((state) => state.todo.recentDeleted);
 
   const isEmpty = (recentDeleted.length === 0);
 
-  const [isOpen, setIsOpen] = useState(initialOpen);
+  const isOpen = useSelector((state) => state.todo.isLogBookOpen);
 
-  const handleClick = () => setIsOpen(!isOpen);
+  const handleClick = () => dispatch(toggleLogBookOpen());
 
   const buttonName = (() => {
     if (isEmpty) {
@@ -29,6 +32,7 @@ export default function LogBookContainer({ initialOpen }) {
       >
         {buttonName}
       </ActionButton>
+      <ResetLogButton />
       {(isOpen)
         ? <LogBook deletedTasks={recentDeleted} />
         : null}

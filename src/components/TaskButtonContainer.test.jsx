@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import given from 'given2';
 
 import TaskButtonContainer from './TaskButtonContainer';
-import { deleteTask, toggleOpen } from '../redux_module/todoSlice';
+import { deleteTask, toggleSubTasksOpen } from '../redux_module/todoSlice';
 
 describe('TaskButtonContainer', () => {
   const dispatch = jest.fn();
@@ -55,7 +55,7 @@ describe('TaskButtonContainer', () => {
         const { getByRole } = render(<TaskButtonContainer id={taskId} />);
 
         fireEvent.click(getByRole('button', { name: '접기' }));
-        expect(dispatch).toBeCalledWith(toggleOpen(taskId));
+        expect(dispatch).toBeCalledWith(toggleSubTasksOpen(taskId));
       });
     });
 
@@ -68,7 +68,7 @@ describe('TaskButtonContainer', () => {
         const { getByRole } = render(<TaskButtonContainer id={taskId} />);
 
         fireEvent.click(getByRole('button', { name: '펼치기' }));
-        expect(dispatch).toBeCalledWith(toggleOpen(taskId));
+        expect(dispatch).toBeCalledWith(toggleSubTasksOpen(taskId));
       });
     });
   });
