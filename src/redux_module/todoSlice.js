@@ -72,6 +72,10 @@ const { actions, reducer } = createSlice({
     },
 
     restoreTask: (state) => {
+      if (state.recentDeleted.length === 0) {
+        return;
+      }
+
       const restoreData = state.recentDeleted.pop();
 
       const { task, selfId, parentId } = restoreData;
