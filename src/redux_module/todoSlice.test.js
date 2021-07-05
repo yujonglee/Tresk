@@ -120,19 +120,19 @@ describe('todoSlice reducer', () => {
       };
 
       const newState = {
-        recentDeleted: [restoreData2],
+        recentDeleted: [restoreData1],
         selectedTaskId: 0,
         nextTaskId: 4,
         tasks: {
-          0: { title: 'root', subTasks: [3, 1], isOpen: true },
-          1: { title: '첫번째 할일', subTasks: [], isOpen: true },
+          0: { title: 'root', subTasks: [3, 2], isOpen: true },
+          2: { title: '두번째 할일', subTasks: [], isOpen: true },
           3: { title: '세번째 할일', subTasks: [], isOpen: true },
         },
       };
 
       expect(reducer(
         oldState,
-        restoreTask(1),
+        restoreTask(),
       )).toEqual(newState);
     });
 
