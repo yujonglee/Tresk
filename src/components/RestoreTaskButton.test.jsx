@@ -16,13 +16,11 @@ describe('RestoreTask', () => {
     useDispatch.mockReturnValue(dispatch);
   });
 
-  it('renders "복구" button listening click event', () => {
-    const id = 1;
+  it('renders "되돌리기" button listening click event', () => {
+    const { getByRole } = render(<RestoreTaskButton />);
 
-    const { getByRole } = render(<RestoreTaskButton id={id} />);
+    fireEvent.click(getByRole('button', { name: '되돌리기' }));
 
-    fireEvent.click(getByRole('button', { name: '복구' }));
-
-    expect(dispatch).toBeCalledWith(restoreTask(id));
+    expect(dispatch).toBeCalledWith(restoreTask());
   });
 });
