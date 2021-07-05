@@ -83,12 +83,6 @@ describe('LogBookContainer', () => {
         expect(container).toHaveTextContent('## task3');
       });
 
-      it('renders "복구" button', () => {
-        const { getAllByRole } = renderLogBookContainer();
-
-        expect(getAllByRole('button', { name: '복구' })).toHaveLength(recentDeleted.length);
-      });
-
       it('renders "로그 닫기" button', () => {
         const { getByRole } = renderLogBookContainer();
 

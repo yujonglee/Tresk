@@ -8,6 +8,7 @@ import TitleFieldContainer from './components/TitleFieldContainer';
 import Task from './components/Task';
 import Header from './components/Header';
 import LogBookContainer from './components/LogBookContainer';
+import RestoreTaskButton from './components/RestoreTaskButton';
 
 const Grid = styled.div({
   display: 'grid',
@@ -52,6 +53,7 @@ export default function App() {
         <FieldWapper>
           <Header />
           <TitleFieldContainer />
+          <RestoreTaskButton />
         </FieldWapper>
         <TasksWapper>
           <Task id={0} />
