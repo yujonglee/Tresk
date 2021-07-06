@@ -1,16 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@material-ui/core';
 
-import styled from '@emotion/styled';
 import { updateSelectedTaskId } from '../redux_module/todoSlice';
-
-import { titleButtonStyle } from '../styled/styles';
-import { original, highlight } from '../color';
-
-const TitleButton = styled.button(({ isSelected }) => ({
-  ...titleButtonStyle,
-  fontSize: '3em',
-  color: (isSelected) ? highlight : original,
-}));
 
 export default function Header({ initialTaskId }) {
   const dispatch = useDispatch();
@@ -25,12 +16,12 @@ export default function Header({ initialTaskId }) {
 
   return (
     <header>
-      <TitleButton
-        isSelected={isSelected}
+      <Button
+        color={isSelected ? 'primary' : 'secondary'}
         onClick={handleClick}
       >
         Tresk
-      </TitleButton>
+      </Button>
     </header>
   );
 }

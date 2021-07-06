@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 
-import { original } from '../color';
+import palette from '../color';
 import depthCalcutaor from '../depthCalculator';
 
 const DeletedItem = styled.li({
   fontSize: '1.5em',
   textDecoration: 'line-through',
-  color: original,
+  color: palette.secondary.main,
   '&:hover': {
     fontWeight: 'bold',
   },

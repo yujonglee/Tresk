@@ -3,8 +3,8 @@
  */
 
 import { fireEvent, render } from '@testing-library/react';
-import given from 'given2';
 import { useDispatch, useSelector } from 'react-redux';
+import given from 'given2';
 
 import { toggleLogBookOpen } from '../redux_module/todoSlice';
 import LogBookContainer from './LogBookContainer';
@@ -43,9 +43,9 @@ describe('LogBookContainer', () => {
   });
 
   it('renders "초기화" button', () => {
-    const { getByRole } = render(<LogBookContainer />);
+    const { getByLabelText } = render(<LogBookContainer />);
 
-    expect(getByRole('button', { name: '초기화' })).toBeInTheDocument();
+    expect(getByLabelText('resetLog')).toBeInTheDocument();
   });
 
   context("when there aren't any deleted tasks", () => {
@@ -54,7 +54,7 @@ describe('LogBookContainer', () => {
     it('renders "로그 없음" button', () => {
       const { getByRole } = render(<LogBookContainer />);
 
-      expect(getByRole('button', { name: '로그 없음' })).toBeInTheDocument();
+      expect(getByRole('button', { name: 'emptyLog' })).toBeInTheDocument();
     });
   });
 
@@ -77,7 +77,7 @@ describe('LogBookContainer', () => {
       it('renders "로그 열기" button listening click event', () => {
         const { getByRole } = render(<LogBookContainer />);
 
-        fireEvent.click(getByRole('button', { name: '로그 열기' }));
+        fireEvent.click(getByRole('button', { name: 'openLog' }));
 
         expect(dispatch).toBeCalledWith(toggleLogBookOpen());
       });
@@ -97,7 +97,7 @@ describe('LogBookContainer', () => {
       it('renders "로그 닫기" button', () => {
         const { getByRole } = render(<LogBookContainer />);
 
-        fireEvent.click(getByRole('button', { name: '로그 닫기' }));
+        fireEvent.click(getByRole('button', { name: 'closeLog' }));
 
         expect(dispatch).toBeCalledWith(toggleLogBookOpen());
       });
