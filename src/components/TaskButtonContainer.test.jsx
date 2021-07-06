@@ -37,7 +37,7 @@ describe('TaskButtonContainer', () => {
 
       const { getByRole } = render(<TaskButtonContainer id={taskId} />);
 
-      fireEvent.click(getByRole('button', { name: '완료' }));
+      fireEvent.click(getByRole('button', { name: 'complete' }));
 
       expect(dispatch).toBeCalledWith(deleteTask(taskId));
     });
@@ -54,7 +54,7 @@ describe('TaskButtonContainer', () => {
 
         const { getByRole } = render(<TaskButtonContainer id={taskId} />);
 
-        fireEvent.click(getByRole('button', { name: '접기' }));
+        fireEvent.click(getByRole('button', { name: 'fold' }));
         expect(dispatch).toBeCalledWith(toggleSubTasksOpen(taskId));
       });
     });
@@ -67,7 +67,7 @@ describe('TaskButtonContainer', () => {
 
         const { getByRole } = render(<TaskButtonContainer id={taskId} />);
 
-        fireEvent.click(getByRole('button', { name: '펼치기' }));
+        fireEvent.click(getByRole('button', { name: 'unfold' }));
         expect(dispatch).toBeCalledWith(toggleSubTasksOpen(taskId));
       });
     });

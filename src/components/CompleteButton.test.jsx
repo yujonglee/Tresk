@@ -21,18 +21,10 @@ describe('CompleteButton', () => {
     ))
   );
 
-  it('renders "완료" button', () => {
+  it('renders button listening click event', () => {
     const { getByRole } = renderCompleteButton();
 
-    const completeButton = getByRole('button', { name: '완료' });
-
-    expect(completeButton).toBeInTheDocument();
-  });
-
-  it('listens to click event', () => {
-    const { getByRole } = renderCompleteButton();
-
-    fireEvent.click(getByRole('button', { name: '완료' }));
+    fireEvent.click(getByRole('button', { name: /complete/i }));
 
     expect(handleClick).toBeCalled();
   });

@@ -1,12 +1,20 @@
-import ActionButton from '../styled/ActionButton';
+import { IconButton } from '@material-ui/core';
+import { UnfoldLessRounded, UnfoldMoreRounded } from '@material-ui/icons';
 
 export default function SubTasksToggle({ isOpen, handleClick }) {
+  const lable = (isOpen) ? 'fold' : 'unfold';
+
   return (
-    <ActionButton
-      type="button"
-      onClick={handleClick}
-    >
-      {(isOpen) ? '접기' : '펼치기'}
-    </ActionButton>
+    <>
+      <IconButton
+        type="button"
+        aria-label={lable}
+        onClick={handleClick}
+      >
+        {(isOpen)
+          ? <UnfoldLessRounded />
+          : <UnfoldMoreRounded />}
+      </IconButton>
+    </>
   );
 }

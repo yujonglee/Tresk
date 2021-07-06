@@ -1,12 +1,16 @@
-import ActionButton from '../styled/ActionButton';
+import { IconButton } from '@material-ui/core';
+import { CheckBoxOutlineBlankRounded } from '@material-ui/icons';
 
 export default function CompleteButton({ handleClick }) {
   return (
-    <ActionButton
-      type="button"
-      onClick={handleClick}
-    >
-      완료
-    </ActionButton>
+    <>
+      <IconButton
+        type="button"
+        aria-label="complete"
+        onClick={handleClick}
+      >
+        <CheckBoxOutlineBlankRounded />
+      </IconButton>
+    </>
   );
 }

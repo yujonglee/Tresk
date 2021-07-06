@@ -29,13 +29,13 @@ describe('SubTasksToggle', () => {
     it('renders "접기" button', () => {
       const { getByRole } = renderSubTasksToggle();
 
-      expect(getByRole('button', { name: '접기' })).toBeInTheDocument();
+      expect(getByRole('button', { name: 'fold' })).toBeInTheDocument();
     });
 
     it('listens to click event', () => {
       const { getByRole } = renderSubTasksToggle();
 
-      fireEvent.click(getByRole('button', { name: '접기' }));
+      fireEvent.click(getByRole('button', { name: 'fold' }));
       expect(handleClick).toBeCalled();
     });
   });
@@ -46,13 +46,13 @@ describe('SubTasksToggle', () => {
     it('renders "펼치기" button', () => {
       const { getByRole } = renderSubTasksToggle();
 
-      expect(getByRole('button', { name: '펼치기' })).toBeInTheDocument();
+      expect(getByRole('button', { name: 'unfold' })).toBeInTheDocument();
     });
 
     it('listens to click event', () => {
       const { getByRole } = renderSubTasksToggle();
 
-      fireEvent.click(getByRole('button', { name: '펼치기' }));
+      fireEvent.click(getByRole('button', { name: 'unfold' }));
       expect(handleClick).toBeCalled();
     });
   });
