@@ -19,7 +19,6 @@ describe('Input', () => {
       <TitleField
         value=""
         fieldName="할 일"
-        buttonName="추가"
         handleChange={handleChange}
         handleClick={handleClick}
       />
@@ -29,12 +28,12 @@ describe('Input', () => {
   it('renders input control', () => {
     const { getByRole } = renderTitleField();
 
-    expect(getByRole('textbox', { name: '할 일' })).toBeInTheDocument();
+    expect(getByRole('textbox', { lable: '할 일' })).toBeInTheDocument();
   });
 
   it('renders button', () => {
     const { getByRole } = renderTitleField();
 
-    expect(getByRole('button', { name: '추가' })).toBeInTheDocument();
+    expect(getByRole('button', { name: 'add' })).toBeInTheDocument();
   });
 });

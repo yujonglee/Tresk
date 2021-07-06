@@ -19,7 +19,7 @@ describe('Input', () => {
   it('adds tasks with button', () => {
     const { getByRole } = render(<TitleFieldContainer initialTitle="task1" />);
 
-    fireEvent.click(getByRole('button', { name: '추가' }));
+    fireEvent.click(getByRole('button', { name: 'add' }));
 
     expect(dispatch).toBeCalledWith(
       addTask('task1'),
