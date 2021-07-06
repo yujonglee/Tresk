@@ -1,28 +1,38 @@
-import ActionButton from '../styled/ActionButton';
+import { IconButton, TextField } from '@material-ui/core';
+import { AddRounded } from '@material-ui/icons';
 
 export default function TitleField({
-  value, fieldName, buttonName,
+  value, fieldName,
   handleChange, handleClick,
 }) {
   return (
     <>
-      <label htmlFor="input-task">
+      <label
+        htmlFor="input-task"
+        style={{ display: 'none' }}
+      >
         {fieldName}
       </label>
-      <input
+      <TextField
         type="text"
         id="input-task"
         placeholder={fieldName}
         value={value}
         onChange={handleChange}
+        fullWidth
+        margin="normal"
       />
 
-      <ActionButton
+      <IconButton
         type="button"
+        variant="contained"
+        color="default"
+        size="small"
+        aria-label="add"
         onClick={handleClick}
       >
-        {buttonName}
-      </ActionButton>
+        <AddRounded />
+      </IconButton>
     </>
   );
 }

@@ -19,7 +19,6 @@ export default function TitleFieldContainer({ initialTitle }) {
     <TitleField
       value={taskTitle}
       fieldName="할 일"
-      buttonName="추가"
       handleClick={handleClick}
       handleChange={handleChange}
     />
