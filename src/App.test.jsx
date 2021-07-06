@@ -4,6 +4,7 @@
 
 import { render } from '@testing-library/react';
 import { useSelector } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 
 import App from './App';
 
@@ -24,6 +25,10 @@ describe('App', () => {
   });
 
   it('renders', () => {
-    render(<App />);
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+    );
   });
 });

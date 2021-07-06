@@ -1,20 +1,13 @@
-import TreeCanvas from './canvas/TreeCanvas';
+import { Route, Switch } from 'react-router-dom';
 
-import TitleFieldContainer from './components/TitleFieldContainer';
-import Task from './components/Task';
-import Header from './components/Header';
-import LogBookContainer from './components/LogBookContainer';
-import RestoreTaskButton from './components/RestoreTaskButton';
+import Intro from './Page/Intro';
+import Main from './Page/Main';
 
 export default function App() {
   return (
-    <>
-      <Header />
-      <TitleFieldContainer />
-      <RestoreTaskButton />
-      <Task id={0} />
-      <LogBookContainer />
-      <TreeCanvas />
-    </>
+    <Switch>
+      <Route exact path="/" component={Intro} />
+      <Route path="/app" component={Main} />
+    </Switch>
   );
 }
