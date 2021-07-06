@@ -39,7 +39,7 @@ export default function LogBookContainer() {
         {...disabled}
         type="button"
         variant="contained"
-        color="primary"
+        color="secondary"
         size="small"
         aria-label={lable}
         onClick={handleClick}
