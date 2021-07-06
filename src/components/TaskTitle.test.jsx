@@ -5,7 +5,6 @@
 import { fireEvent, render } from '@testing-library/react';
 import given from 'given2';
 
-import { highlight, original } from '../color';
 import TaskTitle from './TaskTitle';
 
 describe('TaskTitle', () => {
@@ -37,29 +36,5 @@ describe('TaskTitle', () => {
     fireEvent.click(getByRole('button', { name: title }));
 
     expect(handleClick).toBeCalled();
-  });
-
-  context('when task is selected', () => {
-    given('isSelected', () => true);
-
-    it('renders button with highlight color', () => {
-      const { getByRole } = renderTaskTitle();
-
-      expect(getByRole('button', { name: title })).toHaveStyle({
-        color: highlight,
-      });
-    });
-  });
-
-  context('when task is not selected', () => {
-    given('isSelected', () => false);
-
-    it('renders button with original color', () => {
-      const { getByRole } = renderTaskTitle();
-
-      expect(getByRole('button', { name: 'taskTitle' })).toHaveStyle({
-        color: original,
-      });
-    });
   });
 });
