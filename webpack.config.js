@@ -18,6 +18,9 @@ module.exports = {
       template: 'template.html',
     }),
   ],
+  devServer: {
+    historyApiFallback: true,
+  },
   resolve: {
     extensions: ['.js', '.jsx'],
   },
