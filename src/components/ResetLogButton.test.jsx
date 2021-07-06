@@ -17,15 +17,15 @@ describe('ResetLogButton', () => {
   });
 
   it('renders "초기화" button', () => {
-    const { getByRole } = render(<ResetLogButton />);
+    const { getByLabelText } = render(<ResetLogButton />);
 
-    expect(getByRole('button', { name: '초기화' })).toBeInTheDocument();
+    expect(getByLabelText('resetLog')).toBeInTheDocument();
   });
 
   it('listens to click event', () => {
     const { getByRole } = render(<ResetLogButton />);
 
-    fireEvent.click(getByRole('button', { name: '초기화' }));
+    fireEvent.click(getByRole('button', { name: 'resetLog' }));
 
     expect(dispatch).toBeCalledWith(resetRecentDeleted());
   });
