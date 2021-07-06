@@ -2,20 +2,15 @@ import CompleteButton from './CompleteButton';
 import SubTasksToggle from './SubTasksToggle';
 
 export default function TaskButton({
-  isSubTasksEmpty, isSubTasksOpen,
-  handleClickComplete, handleClickDetail,
+  id, isSubTasksEmpty, isSubTasksOpen,
 }) {
   return (
     (isSubTasksEmpty)
-      ? (
-        <CompleteButton
-          handleClick={handleClickComplete}
-        />
-      )
+      ? <CompleteButton id={id} />
       : (
         <SubTasksToggle
+          id={id}
           isOpen={isSubTasksOpen}
-          handleClick={handleClickDetail}
         />
       )
   );

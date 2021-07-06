@@ -1,8 +1,17 @@
 import { IconButton } from '@material-ui/core';
 import { UnfoldLessRounded, UnfoldMoreRounded } from '@material-ui/icons';
+import { useDispatch } from 'react-redux';
+import { toggleSubTasksOpen } from '../redux_module/todoSlice';
 
-export default function SubTasksToggle({ isOpen, handleClick }) {
+export default function SubTasksToggle({ id, isOpen }) {
+  const dispatch = useDispatch();
+
+  const handleClick = () => dispatch(toggleSubTasksOpen(id));
+
   const lable = (isOpen) ? 'fold' : 'unfold';
+  const icon = (isOpen)
+    ? <UnfoldLessRounded />
+    : <UnfoldMoreRounded />;
 
   return (
     <>
@@ -11,9 +20,7 @@ export default function SubTasksToggle({ isOpen, handleClick }) {
         aria-label={lable}
         onClick={handleClick}
       >
-        {(isOpen)
-          ? <UnfoldLessRounded />
-          : <UnfoldMoreRounded />}
+        {icon}
       </IconButton>
     </>
   );
