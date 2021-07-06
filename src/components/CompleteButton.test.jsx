@@ -3,29 +3,26 @@
  */
 
 import { render, fireEvent } from '@testing-library/react';
+import { useDispatch } from 'react-redux';
 
+import { deleteTask } from '../redux_module/todoSlice';
 import CompleteButton from './CompleteButton';
 
 describe('CompleteButton', () => {
-  const handleClick = jest.fn();
+  const id = 0;
+
+  const dispatch = jest.fn();
 
   beforeEach(() => {
-    handleClick.mockClear();
+    useDispatch.mockReturnValue(dispatch);
+    dispatch.mockClear();
   });
 
-  const renderCompleteButton = () => (
-    render((
-      <CompleteButton
-        handleClick={handleClick}
-      />
-    ))
-  );
+  it('renders "완료" button listening click event', () => {
+    const { getByRole } = render(<CompleteButton id={id} />);
 
-  it('renders button listening click event', () => {
-    const { getByRole } = renderCompleteButton();
+    fireEvent.click(getByRole('button', { name: 'complete' }));
 
-    fireEvent.click(getByRole('button', { name: /complete/i }));
-
-    expect(handleClick).toBeCalled();
+    expect(dispatch).toBeCalledWith(deleteTask(id));
   });
 });

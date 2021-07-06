@@ -4,23 +4,28 @@
 
 import { render, fireEvent } from '@testing-library/react';
 import given from 'given2';
+import { useDispatch } from 'react-redux';
+import { toggleSubTasksOpen } from '../redux_module/todoSlice';
 
 import SubTasksToggle from './SubTasksToggle';
 
 describe('SubTasksToggle', () => {
-  const handleClick = jest.fn();
+  const id = 0;
+
+  const dispatch = jest.fn();
 
   const renderSubTasksToggle = () => (
     render((
       <SubTasksToggle
+        id={id}
         isOpen={given.isOpen}
-        handleClick={handleClick}
       />
     ))
   );
 
   beforeEach(() => {
-    handleClick.mockClear();
+    useDispatch.mockReturnValue(dispatch);
+    dispatch.mockClear();
   });
 
   context('when subTasks is opened', () => {
@@ -36,7 +41,7 @@ describe('SubTasksToggle', () => {
       const { getByRole } = renderSubTasksToggle();
 
       fireEvent.click(getByRole('button', { name: 'fold' }));
-      expect(handleClick).toBeCalled();
+      expect(dispatch).toBeCalledWith(toggleSubTasksOpen(id));
     });
   });
 
@@ -53,7 +58,7 @@ describe('SubTasksToggle', () => {
       const { getByRole } = renderSubTasksToggle();
 
       fireEvent.click(getByRole('button', { name: 'unfold' }));
-      expect(handleClick).toBeCalled();
+      expect(dispatch).toBeCalledWith(toggleSubTasksOpen(id));
     });
   });
 });
