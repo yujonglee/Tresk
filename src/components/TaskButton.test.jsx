@@ -32,13 +32,13 @@ describe('TaskButton', () => {
     it('renders "완료" button', () => {
       const { getByRole } = renderTaskButton();
 
-      expect(getByRole('button', { name: '완료' })).toBeInTheDocument();
+      expect(getByRole('button', { name: 'complete' })).toBeInTheDocument();
     });
 
     it('listens to click event', () => {
       const { getByRole } = renderTaskButton();
 
-      fireEvent.click(getByRole('button', { name: '완료' }));
+      fireEvent.click(getByRole('button', { name: 'complete' }));
 
       expect(handleClickComplete).toBeCalled();
     });
@@ -53,13 +53,13 @@ describe('TaskButton', () => {
       it('renders 접기 button', () => {
         const { getByRole } = renderTaskButton();
 
-        expect(getByRole('button', { name: '접기' })).toBeInTheDocument();
+        expect(getByRole('button', { name: 'fold' })).toBeInTheDocument();
       });
 
       it('listens to click event', () => {
         const { getByRole } = renderTaskButton();
 
-        fireEvent.click(getByRole('button', { name: '접기' }));
+        fireEvent.click(getByRole('button', { name: 'fold' }));
 
         expect(handleClickDetail).toBeCalled();
       });
@@ -71,13 +71,13 @@ describe('TaskButton', () => {
       it('renders 접기 button', () => {
         const { getByRole } = renderTaskButton();
 
-        expect(getByRole('button', { name: '펼치기' })).toBeInTheDocument();
+        expect(getByRole('button', { name: 'unfold' })).toBeInTheDocument();
       });
 
       it('listens to click event', () => {
         const { getByRole } = renderTaskButton();
 
-        fireEvent.click(getByRole('button', { name: '펼치기' }));
+        fireEvent.click(getByRole('button', { name: 'unfold' }));
 
         expect(handleClickDetail).toBeCalled();
       });
