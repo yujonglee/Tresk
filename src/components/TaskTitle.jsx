@@ -1,22 +1,13 @@
-import styled from '@emotion/styled';
-import { original, highlight } from '../color';
-
-import { titleButtonStyle } from '../styled/styles';
-
-const TitleButton = styled.button(({ isSelected }) => ({
-  ...titleButtonStyle,
-  fontSize: '1.5em',
-  color: (isSelected) ? highlight : original,
-}));
+import { Button } from '@material-ui/core';
 
 export default function TaskTitle({ title, isSelected, handleClick }) {
   return (
-    <TitleButton
+    <Button
       type="button"
-      isSelected={isSelected}
+      color={isSelected ? 'primary' : 'secondary'}
       onClick={handleClick}
     >
       {title}
-    </TitleButton>
+    </Button>
   );
 }

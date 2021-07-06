@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { useDispatch, useSelector } from 'react-redux';
+import { IconButton } from '@material-ui/core';
+import { BookRounded } from '@material-ui/icons';
 
 import { toggleLogBookOpen } from '../redux_module/todoSlice';
-import ActionButton from '../styled/ActionButton';
+
 import LogBook from './LogBook';
 import ResetLogButton from './ResetLogButton';
 
@@ -16,22 +19,33 @@ export default function LogBookContainer() {
 
   const handleClick = () => dispatch(toggleLogBookOpen());
 
-  const buttonName = (() => {
+  const { disabled, lable } = (() => {
     if (isEmpty) {
-      return '로그 없음';
+      return {
+        disabled: { disabled: true },
+        lable: 'emptyLog',
+      };
     }
 
-    return (isOpen) ? '로그 닫기' : '로그 열기';
+    return {
+      disabled: {},
+      lable: (isOpen) ? 'closeLog' : 'openLog',
+    };
   })();
 
   return (
     <>
-      <ActionButton
+      <IconButton
+        {...disabled}
         type="button"
+        variant="contained"
+        color="primary"
+        size="small"
+        aria-label={lable}
         onClick={handleClick}
       >
-        {buttonName}
-      </ActionButton>
+        <BookRounded />
+      </IconButton>
       <ResetLogButton />
       {(isOpen)
         ? <LogBook deletedTasks={recentDeleted} />
