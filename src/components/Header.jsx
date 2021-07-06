@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 
 import { updateSelectedTaskId } from '../redux_module/todoSlice';
 
@@ -20,7 +20,9 @@ export default function Header({ initialTaskId }) {
         color={isSelected ? 'primary' : 'secondary'}
         onClick={handleClick}
       >
-        Tresk
+        <Typography variant="h2">
+          Tresk
+        </Typography>
       </Button>
     </header>
   );

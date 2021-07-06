@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
 export default function TaskTitle({ title, isSelected, handleClick }) {
   return (
@@ -7,7 +7,9 @@ export default function TaskTitle({ title, isSelected, handleClick }) {
       color={isSelected ? 'primary' : 'secondary'}
       onClick={handleClick}
     >
-      {title}
+      <Typography variant="h6">
+        {title}
+      </Typography>
     </Button>
   );
 }

@@ -1,16 +1,6 @@
-import styled from '@emotion/styled';
+import { Typography } from '@material-ui/core';
 
-import palette from '../color';
 import depthCalcutaor from '../depthCalculator';
-
-const DeletedItem = styled.li({
-  fontSize: '1.5em',
-  textDecoration: 'line-through',
-  color: palette.secondary.main,
-  '&:hover': {
-    fontWeight: 'bold',
-  },
-});
 
 export default function LogBook({ deletedTasks }) {
   const depthInfo = depthCalcutaor(deletedTasks);
@@ -18,13 +8,17 @@ export default function LogBook({ deletedTasks }) {
   return (
     <ul>
       {deletedTasks.map(({ task, selfId }) => (
-        <div key={selfId}>
-          <DeletedItem>
+        <li key={selfId}>
+          <Typography
+            color="secondary"
+            variant="h6"
+          >
             {'#'.repeat(depthInfo[selfId])}
             {' '}
             {task.title}
-          </DeletedItem>
-        </div>
+          </Typography>
+
+        </li>
       ))}
     </ul>
   );
