@@ -19,7 +19,7 @@ describe('RestoreTask', () => {
   it('renders "되돌리기" button listening click event', () => {
     const { getByRole } = render(<RestoreTaskButton />);
 
-    fireEvent.click(getByRole('button', { name: '되돌리기' }));
+    fireEvent.click(getByRole('button', { name: 'restore' }));
 
     expect(dispatch).toBeCalledWith(restoreTask());
   });
