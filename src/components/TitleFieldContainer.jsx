@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addTask } from '../redux_module/todoSlice';
+import { addTask, toggleLogBookOpen } from '../redux_module/todoSlice';
 import TitleField from './TitleField';
 
 export default function TitleFieldContainer({ initialTitle }) {
@@ -9,6 +9,7 @@ export default function TitleFieldContainer({ initialTitle }) {
 
   const [taskTitle, setTaskTitle] = useState(initialTitle || '');
 
+  const handleFocus = () => dispatch(toggleLogBookOpen(false));
   const handleChange = (e) => setTaskTitle(e.target.value);
   const handleClick = () => {
     dispatch(addTask(taskTitle));
@@ -19,6 +20,7 @@ export default function TitleFieldContainer({ initialTitle }) {
     <TitleField
       value={taskTitle}
       fieldName="할 일"
+      handleFocus={handleFocus}
       handleClick={handleClick}
       handleChange={handleChange}
     />
