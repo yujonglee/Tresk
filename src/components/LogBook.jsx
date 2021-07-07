@@ -17,7 +17,6 @@ export default function LogBook({ deletedTasks }) {
             {' '}
             {task.title}
           </Typography>
-
         </li>
       ))}
     </ul>

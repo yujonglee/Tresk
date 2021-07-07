@@ -2,11 +2,12 @@
  * @jest-environment jsdom
  */
 
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import TitleField from './TitleField';
 
 describe('Input', () => {
+  const handleFocus = jest.fn();
   const handleChange = jest.fn();
   const handleClick = jest.fn();
 
@@ -19,21 +20,32 @@ describe('Input', () => {
       <TitleField
         value=""
         fieldName="할 일"
+        handleFocus={handleFocus}
         handleChange={handleChange}
         handleClick={handleClick}
       />
     ))
   );
 
-  it('renders input control', () => {
+  it('renders input control listening change and focus event', () => {
     const { getByRole } = renderTitleField();
 
-    expect(getByRole('textbox', { lable: '할 일' })).toBeInTheDocument();
+    const inputControl = getByRole('textbox', { lable: '할 일' });
+
+    inputControl.focus();
+
+    expect(handleFocus).toBeCalled();
+
+    fireEvent.change(inputControl, { target: { value: '123' } });
+
+    expect(handleChange).toBeCalled();
   });
 
-  it('renders button', () => {
+  it('renders "추가" button listening click event', () => {
     const { getByRole } = renderTitleField();
 
-    expect(getByRole('button', { name: 'add' })).toBeInTheDocument();
+    fireEvent.click(getByRole('button', { name: 'add' }));
+
+    expect(handleClick).toBeCalled();
   });
 });
