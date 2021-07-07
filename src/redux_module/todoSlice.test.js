@@ -237,18 +237,48 @@ describe('todoSlice reducer', () => {
     });
 
     describe('toggleLogBookOpen', () => {
-      it('toggles isLogBookOpen', () => {
-        const oldState = {
-          isLogBookOpen: false,
-        };
+      context('when 0 argument is given', () => {
+        it('toggles isLogBookOpen', () => {
+          const oldState = {
+            isLogBookOpen: false,
+          };
 
-        const newState = {
-          isLogBookOpen: true,
-        };
-        expect(reducer(
-          oldState,
-          toggleLogBookOpen(),
-        )).toEqual(newState);
+          const newState = {
+            isLogBookOpen: true,
+          };
+          expect(reducer(
+            oldState,
+            toggleLogBookOpen(),
+          )).toEqual(newState);
+        });
+      });
+
+      context('when 1 argument is given', () => {
+        it('sets isLogBookOpen', () => {
+          const oldState1 = {
+            isLogBookOpen: true,
+          };
+
+          const newState1 = {
+            isLogBookOpen: true,
+          };
+          expect(reducer(
+            oldState1,
+            toggleLogBookOpen(true),
+          )).toEqual(newState1);
+
+          const oldState2 = {
+            isLogBookOpen: false,
+          };
+
+          const newState2 = {
+            isLogBookOpen: false,
+          };
+          expect(reducer(
+            oldState2,
+            toggleLogBookOpen(false),
+          )).toEqual(newState2);
+        });
       });
     });
   });
