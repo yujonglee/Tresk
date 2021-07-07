@@ -3,8 +3,8 @@ import { Grid, Container } from '@material-ui/core';
 import Header from '../components/Header';
 import TitleFieldContainer from '../components/TitleFieldContainer';
 import RestoreTaskButton from '../components/RestoreTaskButton';
-import Task from '../components/Task';
-import LogBookContainer from '../components/LogBookContainer';
+import LogBookControlContainer from '../components/LogBookControlContainer';
+import Content from '../components/Content';
 
 export default function Main() {
   return (
@@ -22,12 +22,10 @@ export default function Main() {
         <Grid item lg={12} md={12} sm={12} xs={12}>
           <TitleFieldContainer />
           <RestoreTaskButton />
+          <LogBookControlContainer />
         </Grid>
-        <Grid item lg={8} md={8} sm={8} xs={8}>
-          <Task id={0} />
-        </Grid>
-        <Grid item lg={4} md={4} sm={4} xs={4}>
-          <LogBookContainer />
+        <Grid item lg={12} md={12} sm={12} xs={12}>
+          <Content />
         </Grid>
       </Grid>
     </Container>
