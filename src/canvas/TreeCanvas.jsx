@@ -200,12 +200,13 @@ export default function TreeCanvas() {
     }
 
     const randomizeBackground = () => {
-      bgColor = p5.color(p5.random(255), p5.random(0, 100), 255);
+      // bgColor = p5.color(p5.random(255), p5.random(0, 100), 255);
+      bgColor = p5.color(0, 0, 98);
     };
 
     const reset = () => {
-      // p5.background(bgColor);
-      p5.background(255);
+      p5.background(bgColor);
+      // p5.background(255);
       node = new Node(startLength, startSize, rotRange, 0, 0);
     };
 
@@ -259,7 +260,7 @@ export default function TreeCanvas() {
     // }
 
     p5.setup = () => {
-      p5.createCanvas(940, 540, p5.P2D);
+      p5.createCanvas(640, 600, p5.P2D);
       p5.colorMode(p5.HSB);
 
       p5.ellipseMode(p5.CENTER);
@@ -286,8 +287,8 @@ export default function TreeCanvas() {
       mouseWind += mouseWindV;
 
       if (clearsBackground) {
-        // p5.background(bgColor);
-        p5.background(255);
+        p5.background(bgColor);
+        // p5.background(255);
       }
       p5.translate(p5.width / 2, p5.height);
       node.draw();
