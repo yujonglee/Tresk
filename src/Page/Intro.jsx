@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import FadeIn from 'react-fade-in';
 import { Grid, Typography, Button } from '@material-ui/core';
+import FadeIn from 'react-fade-in';
 
 import TreeCanvas from '../canvas/TreeCanvas';
+import IntroIcons from '../components/IntroIcons';
 
 export default function Intro() {
   return (
-
     <Grid
       container
       direction="row"
@@ -14,7 +14,6 @@ export default function Intro() {
       alignItems="center"
     >
       <FadeIn delay={1000}>
-
         <Grid item lg={12} md={12} sm={12} xs={12}>
           <TreeCanvas />
         </Grid>
@@ -27,10 +26,11 @@ export default function Intro() {
               Tresk
             </Typography>
           </Button>
+          <IntroIcons />
         </Grid>
         <Grid item lg={12} md={12} sm={12} xs={12}>
           <Typography
-            variant="body1"
+            variant="h5"
             align="center"
           >
             Infinite Depth Todo app, Inspired By Self-Similarity
