@@ -96,8 +96,12 @@ const { actions, reducer } = createSlice({
       state.tasks[id].isOpen = !isOpen;
     },
 
-    toggleLogBookOpen: (state) => {
-      state.isLogBookOpen = !state.isLogBookOpen;
+    toggleLogBookOpen: (state, action) => {
+      const { payload: want } = action;
+
+      state.isLogBookOpen = (want === undefined)
+        ? !state.isLogBookOpen
+        : want;
     },
 
     resetRecentDeleted: (state) => {
