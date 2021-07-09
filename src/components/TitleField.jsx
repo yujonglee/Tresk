@@ -3,7 +3,7 @@ import { AddRounded } from '@material-ui/icons';
 
 export default function TitleField({
   value, fieldName,
-  handleFocus, handleChange, handleClick,
+  handleFocus, handleChange, handleClick, handleKeyDown,
 }) {
   return (
     <>
@@ -19,6 +19,7 @@ export default function TitleField({
         placeholder={fieldName}
         value={value}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         onFocus={handleFocus}
         fullWidth
         margin="normal"

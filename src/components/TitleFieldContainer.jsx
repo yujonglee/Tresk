@@ -11,6 +11,12 @@ export default function TitleFieldContainer({ initialTitle }) {
 
   const handleFocus = () => dispatch(toggleLogBookOpen(false));
   const handleChange = (e) => setTaskTitle(e.target.value);
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      dispatch(addTask(taskTitle));
+      setTaskTitle('');
+    }
+  };
   const handleClick = () => {
     dispatch(addTask(taskTitle));
     setTaskTitle('');
@@ -23,6 +29,7 @@ export default function TitleFieldContainer({ initialTitle }) {
       handleFocus={handleFocus}
       handleClick={handleClick}
       handleChange={handleChange}
+      handleKeyDown={handleKeyDown}
     />
   );
 }
