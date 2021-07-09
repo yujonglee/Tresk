@@ -10,6 +10,7 @@ describe('Input', () => {
   const handleFocus = jest.fn();
   const handleChange = jest.fn();
   const handleClick = jest.fn();
+  const handleKeyDown = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -23,11 +24,12 @@ describe('Input', () => {
         handleFocus={handleFocus}
         handleChange={handleChange}
         handleClick={handleClick}
+        handleKeyDown={handleKeyDown}
       />
     ))
   );
 
-  it('renders input control listening change and focus event', () => {
+  it('renders input control listening focus, type, and keyPress  event', () => {
     const { getByRole } = renderTitleField();
 
     const inputControl = getByRole('textbox', { lable: '할 일' });
@@ -39,6 +41,10 @@ describe('Input', () => {
     fireEvent.change(inputControl, { target: { value: '123' } });
 
     expect(handleChange).toBeCalled();
+
+    fireEvent.keyDown(inputControl, { key: 'Enter', code: 'Enter' });
+
+    expect(handleKeyDown).toBeCalled();
   });
 
   it('renders "추가" button listening click event', () => {

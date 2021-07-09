@@ -16,7 +16,7 @@ describe('Input', () => {
     useDispatch.mockReturnValue(dispatch);
   });
 
-  it('adds tasks with button', () => {
+  it('adds task with button', () => {
     const { getByRole } = render(<TitleFieldContainer initialTitle="task1" />);
 
     fireEvent.click(getByRole('button', { name: 'add' }));
@@ -24,6 +24,34 @@ describe('Input', () => {
     expect(dispatch).toBeCalledWith(
       addTask('task1'),
     );
+  });
+
+  context('when Enter key is pressed', () => {
+    it('adds task', () => {
+      const { getByRole } = render(<TitleFieldContainer initialTitle="task1" />);
+
+      fireEvent.keyDown(
+        getByRole('textbox', { lable: '할 일' }),
+        { key: 'Enter', code: 'Enter' },
+      );
+
+      expect(dispatch).toBeCalledWith(
+        addTask('task1'),
+      );
+    });
+  });
+
+  context('when key other than Enter is pressed', () => {
+    it('does noting', () => {
+      const { getByRole } = render(<TitleFieldContainer initialTitle="task1" />);
+
+      fireEvent.keyDown(
+        getByRole('textbox', { lable: '할 일' }),
+        { key: 'd', code: 'KeyD' },
+      );
+
+      expect(dispatch).not.toBeCalled();
+    });
   });
 
   it('closes logBook and open todo list on focus', () => {
