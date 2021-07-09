@@ -17,14 +17,14 @@ export default function LogBookControl({ isEmpty, isOpen }) {
 
   useEffect(() => {
     if (isEmpty) {
-      setLable('emptyLog');
+      setLable('isEmpty');
       return;
     }
 
     setLable(
       (isOpen)
-        ? 'closeLog'
-        : 'openLog',
+        ? 'logBookCloser'
+        : 'logBookOpener',
     );
   }, [isEmpty, isOpen]);
 
