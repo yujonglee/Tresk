@@ -13,7 +13,7 @@ describe('SubTasks', () => {
     render((
       <SubTasks
         isOpen={given.isOpen}
-        subTasks={[2, 3, 1]}
+        subTasks={[3, 2, 1]}
       />
     ))
   );
@@ -33,14 +33,14 @@ describe('SubTasks', () => {
   context('when subTasks are opened', () => {
     given('isOpen', () => true);
 
-    it('renders tasks in order', () => {
+    it('renders task in order', () => {
       const { getAllByRole } = renderSubTasks();
 
       const tasks = getAllByRole('listitem');
 
-      [0, 1, 2].forEach((index) => {
-        expect(tasks[index]).toHaveTextContent(`task${index + 1}`);
-      });
+      expect(tasks[0]).toHaveTextContent('task3');
+      expect(tasks[1]).toHaveTextContent('task2');
+      expect(tasks[2]).toHaveTextContent('task1');
     });
   });
 
