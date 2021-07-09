@@ -40,7 +40,7 @@ describe('LogBookControl', () => {
     given('isEmpty', () => false);
 
     context('when LogBook is closed', () => {
-      given('isEmpty', () => false);
+      given('isOpen', () => false);
 
       it('renders "로그 열기" button listening click event', () => {
         const { getByRole } = renderLogBookControl();

@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { IconButton } from '@material-ui/core';
 import { BookRounded } from '@material-ui/icons';
@@ -12,29 +13,30 @@ export default function LogBookControl({ isEmpty, isOpen }) {
 
   const handleClick = () => dispatch(toggleLogBookOpen());
 
-  const { disabled, lable } = (() => {
+  const [lable, setLable] = useState('');
+
+  useEffect(() => {
     if (isEmpty) {
-      return {
-        disabled: { disabled: true },
-        lable: 'emptyLog',
-      };
+      setLable('emptyLog');
+      return;
     }
 
-    return {
-      disabled: {},
-      lable: (isOpen) ? 'closeLog' : 'openLog',
-    };
-  })();
+    setLable(
+      (isOpen)
+        ? 'closeLog'
+        : 'openLog',
+    );
+  }, [isEmpty, isOpen]);
 
   return (
     <>
       <IconButton
-        {...disabled}
         type="button"
-        variant="contained"
-        color="secondary"
-        size="small"
         aria-label={lable}
+        disabled={isEmpty}
+        color="secondary"
+        variant="contained"
+        size="small"
         onClick={handleClick}
       >
         <BookRounded />
