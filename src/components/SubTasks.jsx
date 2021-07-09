@@ -9,7 +9,7 @@ export default function SubTasks({ isOpen, subTasks }) {
 
   return (
     <ul>
-      {[...subTasks].sort().map((taskId) => (
+      {subTasks.map((taskId) => (
         <li key={taskId}>
           <Task id={taskId} />
         </li>

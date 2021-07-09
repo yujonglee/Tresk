@@ -38,7 +38,7 @@ const { actions, reducer } = createSlice({
 
       state.tasks[nextTaskId] = newTask;
 
-      state.tasks[selectedTaskId].subTasks.push(nextTaskId);
+      state.tasks[selectedTaskId].subTasks.unshift(nextTaskId);
 
       state.nextTaskId = nextTaskId + 1;
     },
@@ -80,9 +80,10 @@ const { actions, reducer } = createSlice({
       const restoreData = state.recentDeleted.pop();
 
       const { task, selfId, parentId } = restoreData;
+      const { subTasks } = state.tasks[parentId];
 
       state.tasks[selfId] = task;
-      state.tasks[parentId].subTasks.push(selfId);
+      state.tasks[parentId].subTasks = [...subTasks, selfId].sort().reverse();
     },
 
     updateSelectedTaskId: (state, action) => {

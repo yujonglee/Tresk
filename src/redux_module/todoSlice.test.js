@@ -15,7 +15,7 @@ describe('todoSlice reducer', () => {
       it('adds new task to todoList and updates nextTaskId', () => {
         const oldState = {
           recentDeleted: [],
-          selectedTaskId: 1,
+          selectedTaskId: 0,
           nextTaskId: 2,
           tasks: {
             0: { title: 'root', subTasks: [1], isOpen: true },
@@ -24,11 +24,11 @@ describe('todoSlice reducer', () => {
         };
         const newState = {
           recentDeleted: [],
-          selectedTaskId: 1,
+          selectedTaskId: 0,
           nextTaskId: 3,
           tasks: {
-            0: { title: 'root', subTasks: [1], isOpen: true },
-            1: { title: 'task1', subTasks: [2], isOpen: true },
+            0: { title: 'root', subTasks: [2, 1], isOpen: true },
+            1: { title: 'task1', subTasks: [], isOpen: true },
             2: { title: 'task2', subTasks: [], isOpen: true },
           },
         };
@@ -146,19 +146,19 @@ describe('todoSlice reducer', () => {
           parentId: 0,
         };
 
-        const restoreData2 = {
-          task: { title: '두번째 할일', subTasks: [], isOpen: true },
-          selfId: 2,
+        const restoreData3 = {
+          task: { title: '세번째 할일', subTasks: [], isOpen: true },
+          selfId: 3,
           parentId: 0,
         };
 
         const oldState = {
-          recentDeleted: [restoreData1, restoreData2],
+          recentDeleted: [restoreData1, restoreData3],
           selectedTaskId: 0,
           nextTaskId: 4,
           tasks: {
-            0: { title: 'root', subTasks: [3], isOpen: true },
-            3: { title: '세번째 할일', subTasks: [], isOpen: true },
+            0: { title: 'root', subTasks: [2], isOpen: true },
+            2: { title: '두번째 할일', subTasks: [], isOpen: true },
           },
         };
 
