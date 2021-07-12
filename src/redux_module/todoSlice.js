@@ -1,14 +1,12 @@
 /* eslint-disable no-param-reassign */
 
-import * as R from 'ramda';
 import { createSlice } from '@reduxjs/toolkit';
 
-const stringToDecimal = (target) => parseInt(target, 10);
-
-const keysAsNumberFrom = (obj) => R.map(
-  stringToDecimal,
-  Object.keys(obj),
-);
+import {
+  addRestoreData,
+  removeTaskIdFromParentSubTasks,
+  removeTaskFromTasks,
+} from './helper';
 
 const initialState = {
   isLogBookOpen: false,
@@ -44,32 +42,15 @@ const { actions, reducer } = createSlice({
     },
 
     deleteTask: (state, action) => {
-      state.selectedTaskId = 0;
-
       const { payload: targetId } = action;
 
-      const deletedTask = state.tasks[targetId];
+      state.selectedTaskId = 0;
 
-      state.tasks = R.omit([String(targetId)], state.tasks);
+      addRestoreData(state, targetId);
 
-      const taskIds = keysAsNumberFrom(state.tasks);
+      removeTaskFromTasks(state, targetId);
 
-      taskIds.forEach((id) => {
-        const { subTasks } = state.tasks[id];
-
-        if (subTasks.includes(targetId)) {
-          const targetRemovedSubTasks = R.reject(R.equals(targetId), subTasks);
-          state.tasks[id].subTasks = targetRemovedSubTasks;
-
-          const restoreData = {
-            task: deletedTask,
-            selfId: targetId,
-            parentId: id,
-          };
-
-          state.recentDeleted.push(restoreData);
-        }
-      });
+      removeTaskIdFromParentSubTasks(state, targetId);
     },
 
     restoreTask: (state) => {
