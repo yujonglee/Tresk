@@ -11,7 +11,7 @@ describe('LogBookControlContainer', () => {
   beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
       todo: {
-        recentDeleted: [],
+        completedTasks: [],
         isLogBookOpen: true,
       },
     }));

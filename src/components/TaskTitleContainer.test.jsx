@@ -21,7 +21,7 @@ describe('TaskTitleContainer', () => {
     useSelector.mockImplementation((selector) => selector({
       todo: {
         selectedTaskId: given.selectedTaskId,
-        tasks: {
+        remainingTasks: {
           0: { title: 'root', subTasks: [1], isOpen: true },
           1: { title: 'task1', subTasks: [], isOpen: true },
         },

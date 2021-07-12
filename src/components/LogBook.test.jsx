@@ -7,7 +7,7 @@ import { render } from '@testing-library/react';
 import LogBook from './LogBook';
 
 describe('LogBook', () => {
-  const recentDeleted = [
+  const completedTasks = [
     {
       task: { title: 'task3', subTasks: [], isOpen: true },
       selfId: 3,
@@ -25,7 +25,7 @@ describe('LogBook', () => {
     },
   ];
 
-  const renderLogBook = () => render(<LogBook deletedTasks={recentDeleted} />);
+  const renderLogBook = () => render(<LogBook deletedTasks={completedTasks} />);
 
   it('renders deleted tasks', () => {
     const { container } = renderLogBook();

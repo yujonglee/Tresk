@@ -13,14 +13,14 @@ describe('Content', () => {
     useSelector.mockImplementation((selector) => selector({
       todo: {
         isLogBookOpen: given.isLogBookOpen,
-        recentDeleted: [
+        completedTasks: [
           {
             task: { title: 'task1', subTasks: [], isOpen: true },
             selfId: 1,
             parentId: 0,
           },
         ],
-        tasks: {
+        remainingTasks: {
           0: { title: 'root', subTasks: [2], isOpen: true },
           2: { title: 'task2', subTasks: [], isOpen: true },
         },

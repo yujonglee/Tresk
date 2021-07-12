@@ -9,11 +9,11 @@ export function removeTaskIdFromParentSubTasks(state, targetId) {
       const parentId = parseInt(key, 10);
 
       const targetRemovedSubTasks = R.reject(R.equals(targetId), subTasks);
-      state.tasks[parentId].subTasks = targetRemovedSubTasks;
+      state.remainingTasks[parentId].subTasks = targetRemovedSubTasks;
     }
   };
 
-  R.forEachObjIndexed(subTasksCompactor, state.tasks);
+  R.forEachObjIndexed(subTasksCompactor, state.remainingTasks);
 }
 
 export function addRestoreData(state, targetId) {
@@ -24,20 +24,20 @@ export function addRestoreData(state, targetId) {
       const parentId = parseInt(key, 10);
 
       const restoreData = {
-        task: state.tasks[targetId],
+        task: state.remainingTasks[targetId],
         selfId: targetId,
         parentId,
       };
 
-      state.recentDeleted.push(restoreData);
+      state.completedTasks.push(restoreData);
     }
   };
 
-  R.forEachObjIndexed(restoreDataCollector, state.tasks);
+  R.forEachObjIndexed(restoreDataCollector, state.remainingTasks);
 }
 
 export function removeTaskFromTasks(state, ...targetIds) {
   const targets = R.map(R.toString, targetIds);
 
-  state.tasks = R.omit(targets, state.tasks);
+  state.remainingTasks = R.omit(targets, state.remainingTasks);
 }

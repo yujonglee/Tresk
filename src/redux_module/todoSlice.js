@@ -10,10 +10,10 @@ import {
 
 const initialState = {
   isLogBookOpen: false,
-  recentDeleted: [],
+  completedTasks: [],
   selectedTaskId: 0,
   nextTaskId: 1,
-  tasks: {
+  remainingTasks: {
     0: { title: 'root', subTasks: [], isOpen: true },
   },
 };
@@ -35,11 +35,11 @@ const { actions, reducer } = createSlice({
 
       state.nextTaskId = nextTaskId + 1;
 
-      state.tasks[selectedTaskId].subTasks.unshift(nextTaskId);
+      state.remainingTasks[selectedTaskId].subTasks.unshift(nextTaskId);
 
       const newTask = { title: newTaskTitle, subTasks: [], isOpen: true };
 
-      state.tasks[nextTaskId] = newTask;
+      state.remainingTasks[nextTaskId] = newTask;
     },
 
     deleteTask: (state, action) => {
@@ -55,21 +55,21 @@ const { actions, reducer } = createSlice({
     },
 
     restoreTask: (state) => {
-      if (state.recentDeleted.length === 0) {
+      if (state.completedTasks.length === 0) {
         return;
       }
 
-      if (state.recentDeleted.length === 1) {
+      if (state.completedTasks.length === 1) {
         state.isLogBookOpen = false;
       }
 
-      const restoreData = state.recentDeleted.pop();
+      const restoreData = state.completedTasks.pop();
 
       const { task, selfId, parentId } = restoreData;
-      const { subTasks } = state.tasks[parentId];
+      const { subTasks } = state.remainingTasks[parentId];
 
-      state.tasks[selfId] = task;
-      state.tasks[parentId].subTasks = [...subTasks, selfId].sort().reverse();
+      state.remainingTasks[selfId] = task;
+      state.remainingTasks[parentId].subTasks = [...subTasks, selfId].sort().reverse();
     },
 
     updateSelectedTaskId: (state, action) => {
@@ -80,9 +80,9 @@ const { actions, reducer } = createSlice({
 
     toggleSubTasksOpen: (state, action) => {
       const { payload: id } = action;
-      const { isOpen } = state.tasks[id];
+      const { isOpen } = state.remainingTasks[id];
 
-      state.tasks[id].isOpen = !isOpen;
+      state.remainingTasks[id].isOpen = !isOpen;
     },
 
     toggleLogBookOpen: (state, action) => {
@@ -93,8 +93,8 @@ const { actions, reducer } = createSlice({
         : want;
     },
 
-    resetRecentDeleted: (state) => {
-      state.recentDeleted = [];
+    emptyCompletedTasks: (state) => {
+      state.completedTasks = [];
     },
   },
 
@@ -106,7 +106,7 @@ export const {
   restoreTask,
   updateSelectedTaskId,
   toggleSubTasksOpen,
-  resetRecentDeleted,
+  emptyCompletedTasks,
   toggleLogBookOpen,
 } = actions;
 
