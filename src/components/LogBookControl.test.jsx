@@ -29,10 +29,10 @@ describe('LogBookControl', () => {
   context('when logBook is empty', () => {
     given('isEmpty', () => true);
 
-    it('renders "로그 없음" button', () => {
+    it('renders disabled button', () => {
       const { getByRole } = renderLogBookControl();
 
-      expect(getByRole('button', { name: 'isEmpty' })).toBeInTheDocument();
+      expect(getByRole('button', { name: 'isEmpty' })).toBeDisabled();
     });
   });
 
@@ -42,7 +42,7 @@ describe('LogBookControl', () => {
     context('when LogBook is closed', () => {
       given('isOpen', () => false);
 
-      it('renders "로그 열기" button listening click event', () => {
+      it('renders button listening click event', () => {
         const { getByRole } = renderLogBookControl();
 
         fireEvent.click(getByRole('button', { name: 'logBookOpener' }));
