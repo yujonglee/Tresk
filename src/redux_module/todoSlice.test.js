@@ -124,6 +124,7 @@ describe('todoSlice reducer', () => {
         const oldState = {
           recentDeleted: [],
           selectedTaskId: 0,
+          isLogBookOpen: true,
           nextTaskId: 4,
           tasks: {
             0: { title: 'root', subTasks: [3], isOpen: true },
@@ -138,7 +139,45 @@ describe('todoSlice reducer', () => {
       });
     });
 
-    context('when there are deleted tasks', () => {
+    context('when there are only one deleted task', () => {
+      it('retores deleted task with id and closes logBook', () => {
+        const restoreData1 = {
+          task: { title: '첫번째 할일', subTasks: [], isOpen: true },
+          selfId: 1,
+          parentId: 0,
+        };
+
+        const oldState = {
+          recentDeleted: [restoreData1],
+          isLogBookOpen: true,
+          selectedTaskId: 0,
+          nextTaskId: 3,
+          tasks: {
+            0: { title: 'root', subTasks: [2], isOpen: true },
+            2: { title: '두번째 할일', subTasks: [], isOpen: true },
+          },
+        };
+
+        const newState = {
+          recentDeleted: [],
+          isLogBookOpen: false,
+          selectedTaskId: 0,
+          nextTaskId: 3,
+          tasks: {
+            0: { title: 'root', subTasks: [2, 1], isOpen: true },
+            1: { title: '첫번째 할일', subTasks: [], isOpen: true },
+            2: { title: '두번째 할일', subTasks: [], isOpen: true },
+          },
+        };
+
+        expect(reducer(
+          oldState,
+          restoreTask(),
+        )).toEqual(newState);
+      });
+    });
+
+    context('when there are more than one deleted task', () => {
       it('retores deleted task with id', () => {
         const restoreData1 = {
           task: { title: '첫번째 할일', subTasks: [], isOpen: true },
@@ -154,6 +193,7 @@ describe('todoSlice reducer', () => {
 
         const oldState = {
           recentDeleted: [restoreData1, restoreData3],
+          isLogBookOpen: true,
           selectedTaskId: 0,
           nextTaskId: 4,
           tasks: {
@@ -164,6 +204,7 @@ describe('todoSlice reducer', () => {
 
         const newState = {
           recentDeleted: [restoreData1],
+          isLogBookOpen: true,
           selectedTaskId: 0,
           nextTaskId: 4,
           tasks: {

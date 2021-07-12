@@ -77,6 +77,10 @@ const { actions, reducer } = createSlice({
         return;
       }
 
+      if (state.recentDeleted.length === 1) {
+        state.isLogBookOpen = false;
+      }
+
       const restoreData = state.recentDeleted.pop();
 
       const { task, selfId, parentId } = restoreData;
