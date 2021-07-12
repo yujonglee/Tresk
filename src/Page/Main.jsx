@@ -26,7 +26,7 @@ export default function Main() {
         <Grid
           container
           direction="row"
-          justify="center"
+          justifyContent="center"
           alignItems="flex-start"
           spaceing={6}
         >

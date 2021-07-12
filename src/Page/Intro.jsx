@@ -10,7 +10,7 @@ export default function Intro() {
     <Grid
       container
       direction="row"
-      justify="center"
+      justifyContent="center"
       alignItems="center"
     >
       <FadeIn delay={1000}>
