@@ -24,21 +24,22 @@ const { actions, reducer } = createSlice({
 
   reducers: {
     addTask: (state, action) => {
+      const { selectedTaskId, nextTaskId } = state;
       const { payload: newTaskTitle } = action;
 
-      if (newTaskTitle === '') {
+      const nothingIsTyped = newTaskTitle === '';
+
+      if (nothingIsTyped) {
         return;
       }
 
-      const newTask = { title: newTaskTitle, subTasks: [], isOpen: true };
-
-      const { selectedTaskId, nextTaskId } = state;
-
-      state.tasks[nextTaskId] = newTask;
+      state.nextTaskId = nextTaskId + 1;
 
       state.tasks[selectedTaskId].subTasks.unshift(nextTaskId);
 
-      state.nextTaskId = nextTaskId + 1;
+      const newTask = { title: newTaskTitle, subTasks: [], isOpen: true };
+
+      state.tasks[nextTaskId] = newTask;
     },
 
     deleteTask: (state, action) => {
@@ -72,7 +73,9 @@ const { actions, reducer } = createSlice({
     },
 
     updateSelectedTaskId: (state, action) => {
-      state.selectedTaskId = action.payload;
+      const { payload: id } = action;
+
+      state.selectedTaskId = id;
     },
 
     toggleSubTasksOpen: (state, action) => {
