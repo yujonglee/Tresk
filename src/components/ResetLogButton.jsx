@@ -2,12 +2,12 @@ import { useDispatch } from 'react-redux';
 import { IconButton } from '@material-ui/core';
 
 import { RotateLeftRounded } from '@material-ui/icons';
-import { resetRecentDeleted } from '../redux_module/todoSlice';
+import { emptyCompletedTasks } from '../redux_module/todoSlice';
 
 export default function ResetLogButton() {
   const dispatch = useDispatch();
 
-  const handleClick = () => dispatch(resetRecentDeleted());
+  const handleClick = () => dispatch(emptyCompletedTasks());
 
   return (
     <IconButton

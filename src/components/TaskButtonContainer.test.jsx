@@ -18,7 +18,7 @@ describe('TaskButtonContainer', () => {
 
     useSelector.mockImplementation((selector) => selector({
       todo: {
-        tasks: {
+        remainingTasks: {
           1: {
             title: 'task1',
             subTasks: given.subTasks,

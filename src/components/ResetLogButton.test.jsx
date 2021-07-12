@@ -4,7 +4,7 @@
 
 import { fireEvent, render } from '@testing-library/react';
 import { useDispatch } from 'react-redux';
-import { resetRecentDeleted } from '../redux_module/todoSlice';
+import { emptyCompletedTasks } from '../redux_module/todoSlice';
 
 import ResetLogButton from './ResetLogButton';
 
@@ -27,6 +27,6 @@ describe('ResetLogButton', () => {
 
     fireEvent.click(getByRole('button', { name: 'resetLog' }));
 
-    expect(dispatch).toBeCalledWith(resetRecentDeleted());
+    expect(dispatch).toBeCalledWith(emptyCompletedTasks());
   });
 });

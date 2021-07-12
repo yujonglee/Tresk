@@ -11,7 +11,7 @@ import LogBookContainer from './LogBookContainer';
 describe('LogBookContainer', () => {
   const dispatch = jest.fn();
 
-  const recentDeleted = [
+  const completedTasks = [
     {
       task: { title: 'task1', subTasks: [], isOpen: true },
       selfId: 1,
@@ -26,7 +26,7 @@ describe('LogBookContainer', () => {
     useSelector.mockImplementation((selector) => selector({
       todo: {
         isLogBookOpen: given.isLogBookOpen,
-        recentDeleted,
+        completedTasks,
       },
     }));
   });

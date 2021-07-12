@@ -5,9 +5,9 @@ import LogBookControl from './LogBookControl';
 export default function LogBookControlContainer() {
   const isOpen = useSelector((state) => state.todo.isLogBookOpen);
 
-  const recentDeleted = useSelector((state) => state.todo.recentDeleted);
+  const completedTasks = useSelector((state) => state.todo.completedTasks);
 
-  const isEmpty = (recentDeleted.length === 0);
+  const isEmpty = (completedTasks.length === 0);
 
   return (
     <LogBookControl

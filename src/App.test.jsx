@@ -14,7 +14,7 @@ describe('App', () => {
   beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
       todo: {
-        recentDeleted: [],
+        completedTasks: [],
         selectedTaskId: 0,
         tasks: {
           0: { title: 'root', subTasks: [1] },

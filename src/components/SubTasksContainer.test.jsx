@@ -12,7 +12,7 @@ describe('SubTasksContainer', () => {
   beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
       todo: {
-        tasks: {
+        remainingTasks: {
           1: { title: 'task1', subTasks: [3, 2], isOpen: given.isOpen },
           2: { title: 'task2', subTasks: [], isOpen: true },
           3: { title: 'task3', subTasks: [], isOpen: true },

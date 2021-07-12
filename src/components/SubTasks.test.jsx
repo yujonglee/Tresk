@@ -21,7 +21,7 @@ describe('SubTasks', () => {
   beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
       todo: {
-        tasks: {
+        remainingTasks: {
           1: { title: 'task1', subTasks: [], isOpen: true },
           2: { title: 'task2', subTasks: [], isOpen: true },
           3: { title: 'task3', subTasks: [], isOpen: true },

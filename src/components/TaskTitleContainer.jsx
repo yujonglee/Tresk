@@ -6,7 +6,7 @@ import TaskTitle from './TaskTitle';
 export default function TaskTitleContainer({ id }) {
   const dispatch = useDispatch();
 
-  const { title } = useSelector((state) => state.todo.tasks[id]);
+  const { title } = useSelector((state) => state.todo.remainingTasks[id]);
   const selectedTaskId = useSelector((state) => state.todo.selectedTaskId);
 
   const isSelected = (selectedTaskId === id);
