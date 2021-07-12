@@ -5,7 +5,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   addRestoreData,
   removeTaskIdFromParentSubTasks,
-  removeTaskFromTasks,
+  removeTaskFromRemaingTasks,
 } from './helper';
 
 const initialState = {
@@ -49,7 +49,7 @@ const { actions, reducer } = createSlice({
 
       addRestoreData(state, targetId);
 
-      removeTaskFromTasks(state, targetId);
+      removeTaskFromRemaingTasks(state, targetId);
 
       removeTaskIdFromParentSubTasks(state, targetId);
     },
