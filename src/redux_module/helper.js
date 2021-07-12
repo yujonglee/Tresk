@@ -36,8 +36,9 @@ export function addRestoreData(state, targetId) {
   R.forEachObjIndexed(restoreDataCollector, state.remainingTasks);
 }
 
-export function removeTaskFromTasks(state, ...targetIds) {
-  const targets = R.map(R.toString, targetIds);
-
-  state.remainingTasks = R.omit(targets, state.remainingTasks);
+export function removeTaskFromRemaingTasks(state, targetId) {
+  state.remainingTasks = R.omit(
+    R.toString(targetId),
+    state.remainingTasks,
+  );
 }
