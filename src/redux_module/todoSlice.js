@@ -2,10 +2,11 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  isEmpty, findIndex, equals, head, last, find, includes, prop, __, keys, pipe,
+  isEmpty, findIndex, equals, head, last, find, keys,
 } from 'ramda';
 
 import {
+  includesTarget,
   addRestoreData,
   removeTaskIdFromParentSubTasks,
   removeTaskFromRemaingTasks,
@@ -77,19 +78,14 @@ const { actions, reducer } = createSlice({
     },
 
     updateSelectedTaskId: (state, action) => {
+      const { remainingTasks } = state;
       const { payload: target } = action;
 
-      const getSubTasksWithId = pipe(
-        prop(__, state.remainingTasks),
-        prop('subTasks'),
+      const parentId = find(
+        includesTarget(remainingTasks, target),
+        keys(remainingTasks),
       );
 
-      const subTasksHasTarget = pipe(
-        getSubTasksWithId,
-        includes(target),
-      );
-
-      const parentId = find(subTasksHasTarget, keys(state.remainingTasks));
       state.parentId = parseInt(parentId, 10);
 
       state.selectedTaskId = target;
@@ -105,9 +101,7 @@ const { actions, reducer } = createSlice({
     toggleLogBookOpen: (state, action) => {
       const { payload: want } = action;
 
-      state.isLogBookOpen = (want === undefined)
-        ? !state.isLogBookOpen
-        : want;
+      state.isLogBookOpen = want ?? !state.isLogBookOpen;
     },
 
     emptyCompletedTasks: (state) => {
