@@ -7,7 +7,7 @@ import TitleField from './TitleField';
 export default function TitleFieldContainer({ initialTitle }) {
   const dispatch = useDispatch();
 
-  const [taskTitle, setTaskTitle] = useState(initialTitle || '');
+  const [taskTitle, setTaskTitle] = useState(initialTitle ?? '');
 
   const handleFocus = () => dispatch(toggleLogBookOpen(false));
   const handleChange = (e) => setTaskTitle(e.target.value);
