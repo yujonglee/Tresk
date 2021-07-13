@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import { createSlice } from '@reduxjs/toolkit';
+import { isEmpty } from 'ramda';
 
 import {
   addRestoreData,
@@ -27,9 +28,9 @@ const { actions, reducer } = createSlice({
       const { selectedTaskId, nextTaskId } = state;
       const { payload: newTaskTitle } = action;
 
-      const nothingIsTyped = newTaskTitle === '';
+      const typed = (newTaskTitle !== '');
 
-      if (nothingIsTyped) {
+      if (!typed) {
         return;
       }
 
@@ -55,15 +56,15 @@ const { actions, reducer } = createSlice({
     },
 
     restoreTask: (state) => {
-      if (state.completedTasks.length === 0) {
+      if (isEmpty(state.completedTasks)) {
         return;
       }
 
-      if (state.completedTasks.length === 1) {
+      const restoreData = state.completedTasks.pop();
+
+      if (isEmpty(state.completedTasks)) {
         state.isLogBookOpen = false;
       }
-
-      const restoreData = state.completedTasks.pop();
 
       const { task, selfId, parentId } = restoreData;
       const { subTasks } = state.remainingTasks[parentId];
