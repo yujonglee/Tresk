@@ -4,7 +4,7 @@ export default function depthCalcutaor(deletedTasks) {
 
     return {
       ...acc,
-      [selfId]: acc[parentId] + 1 || 1,
+      [selfId]: acc[parentId] + 1 ?? 1,
     };
   }, {});
 }
