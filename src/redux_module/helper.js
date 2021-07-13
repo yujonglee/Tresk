@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
-import * as R from 'ramda';
 import {
-  pipe, prop, includes, __,
+  pipe, prop, includes, __, find, keys, omit, toString, reject, equals,
 } from 'ramda';
 
 export const getSubTasksById = (array) => pipe(
@@ -14,44 +13,43 @@ export const includesTarget = (array, target) => pipe(
   includes(target),
 );
 
-export function removeTaskIdFromParentSubTasks(state, targetId) {
-  const subTasksCompactor = (value, key) => {
-    const { subTasks } = value;
+export function removeTaskIdFromParentSubTasks(state, target) {
+  const { remainingTasks } = state;
 
-    if (subTasks.includes(targetId)) {
-      const parentId = parseInt(key, 10);
+  const parentId = find(
+    includesTarget(remainingTasks, target),
+    keys(remainingTasks),
+  );
 
-      const targetRemovedSubTasks = R.reject(R.equals(targetId), subTasks);
-      state.remainingTasks[parentId].subTasks = targetRemovedSubTasks;
-    }
-  };
+  const { subTasks } = state.remainingTasks[parentId];
 
-  R.forEachObjIndexed(subTasksCompactor, state.remainingTasks);
+  const targetRemovedSubTasks = reject(equals(target), subTasks);
+
+  state.remainingTasks[parentId].subTasks = targetRemovedSubTasks;
 }
 
-export function addRestoreData(state, targetId) {
-  const restoreDataCollector = (value, key) => {
-    const { subTasks } = value;
+export function addRestoreData(state, target) {
+  const { remainingTasks } = state;
 
-    if (subTasks.includes(targetId)) {
-      const parentId = parseInt(key, 10);
+  const parentId = find(
+    includesTarget(remainingTasks, target),
+    keys(remainingTasks),
+  );
 
-      const restoreData = {
-        task: state.remainingTasks[targetId],
-        selfId: targetId,
-        parentId,
-      };
-
-      state.completedTasks.push(restoreData);
-    }
+  const restoreData = {
+    task: remainingTasks[target],
+    selfId: target,
+    parentId: parseInt(parentId, 10),
   };
 
-  R.forEachObjIndexed(restoreDataCollector, state.remainingTasks);
+  state.completedTasks.push(restoreData);
 }
 
 export function removeTaskFromRemaingTasks(state, targetId) {
-  state.remainingTasks = R.omit(
-    R.toString(targetId),
-    state.remainingTasks,
+  const { remainingTasks } = state;
+
+  state.remainingTasks = omit(
+    toString(targetId),
+    remainingTasks,
   );
 }
