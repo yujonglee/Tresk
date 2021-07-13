@@ -1,5 +1,18 @@
 /* eslint-disable no-param-reassign */
 import * as R from 'ramda';
+import {
+  pipe, prop, includes, __,
+} from 'ramda';
+
+export const getSubTasksById = (array) => pipe(
+  prop(__, array),
+  prop('subTasks'),
+);
+
+export const includesTarget = (array, target) => pipe(
+  getSubTasksById(array),
+  includes(target),
+);
 
 export function removeTaskIdFromParentSubTasks(state, targetId) {
   const subTasksCompactor = (value, key) => {
