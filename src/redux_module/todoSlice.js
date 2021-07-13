@@ -1,7 +1,9 @@
 /* eslint-disable no-param-reassign */
 
 import { createSlice } from '@reduxjs/toolkit';
-import { isEmpty } from 'ramda';
+import {
+  isEmpty, findIndex, equals, head, last, find, includes, prop, __, keys, pipe,
+} from 'ramda';
 
 import {
   addRestoreData,
@@ -13,6 +15,7 @@ const initialState = {
   isLogBookOpen: false,
   completedTasks: [],
   selectedTaskId: 0,
+  parentId: 0,
   nextTaskId: 1,
   remainingTasks: {
     0: { title: 'root', subTasks: [], isOpen: true },
@@ -74,9 +77,22 @@ const { actions, reducer } = createSlice({
     },
 
     updateSelectedTaskId: (state, action) => {
-      const { payload: id } = action;
+      const { payload: target } = action;
 
-      state.selectedTaskId = id;
+      const getSubTasksWithId = pipe(
+        prop(__, state.remainingTasks),
+        prop('subTasks'),
+      );
+
+      const subTasksHasTarget = pipe(
+        getSubTasksWithId,
+        includes(target),
+      );
+
+      const parentId = find(subTasksHasTarget, keys(state.remainingTasks));
+      state.parentId = parseInt(parentId, 10);
+
+      state.selectedTaskId = target;
     },
 
     toggleSubTasksOpen: (state, action) => {
@@ -97,8 +113,33 @@ const { actions, reducer } = createSlice({
     emptyCompletedTasks: (state) => {
       state.completedTasks = [];
     },
-  },
 
+    selectNext: (state) => {
+      const { selectedTaskId, parentId } = state;
+      const { subTasks } = state.remainingTasks[parentId];
+
+      if ((selectedTaskId === 0) || (selectedTaskId === last(subTasks))) {
+        return;
+      }
+
+      const currentIndex = findIndex(equals(selectedTaskId), subTasks);
+
+      state.selectedTaskId = subTasks[currentIndex + 1];
+    },
+
+    selectPrevious: (state) => {
+      const { selectedTaskId, parentId } = state;
+      const { subTasks } = state.remainingTasks[parentId];
+
+      if ((selectedTaskId === 0) || (selectedTaskId === head(subTasks))) {
+        return;
+      }
+
+      const currentIndex = findIndex(equals(selectedTaskId), subTasks);
+
+      state.selectedTaskId = subTasks[currentIndex - 1];
+    },
+  },
 });
 
 export const {
@@ -109,6 +150,8 @@ export const {
   toggleSubTasksOpen,
   emptyCompletedTasks,
   toggleLogBookOpen,
+  selectNext,
+  selectPrevious,
 } = actions;
 
 export default reducer;
