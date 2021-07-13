@@ -7,6 +7,8 @@ import reducer,
   updateSelectedTaskId,
   emptyCompletedTasks,
   toggleLogBookOpen,
+  selectNext,
+  selectPrevious,
 } from './todoSlice';
 
 describe('todoSlice reducer', () => {
@@ -222,29 +224,33 @@ describe('todoSlice reducer', () => {
     });
 
     describe('updateSelectedTaskId', () => {
-      it('updates current task id', () => {
+      it('updates current task id and parent id', () => {
         const oldState = {
           completedTasks: [],
           selectedTaskId: 0,
-          nextTaskId: 2,
+          parentId: 0,
+          nextTaskId: 3,
           remainingTasks: {
             0: { title: 'root', subTasks: [1], isOpen: true },
-            1: { title: '첫번째 할일', subTasks: [], isOpen: true },
+            1: { title: 'task1', subTasks: [2], isOpen: true },
+            2: { title: 'task2', subTasks: [], isOpen: true },
           },
         };
         const newState = {
           completedTasks: [],
-          selectedTaskId: 1,
-          nextTaskId: 2,
+          selectedTaskId: 2,
+          parentId: 1,
+          nextTaskId: 3,
           remainingTasks: {
             0: { title: 'root', subTasks: [1], isOpen: true },
-            1: { title: '첫번째 할일', subTasks: [], isOpen: true },
+            1: { title: 'task1', subTasks: [2], isOpen: true },
+            2: { title: 'task2', subTasks: [], isOpen: true },
           },
         };
 
         expect(reducer(
           oldState,
-          updateSelectedTaskId(1),
+          updateSelectedTaskId(2),
         )).toEqual(newState);
       });
     });
@@ -320,6 +326,132 @@ describe('todoSlice reducer', () => {
             toggleLogBookOpen(false),
           )).toEqual(newState2);
         });
+      });
+    });
+  });
+
+  describe('selectNext', () => {
+    context('when selected task id is 0', () => {
+      it('does nothing', () => {
+        const oldState = {
+          selectedTaskId: 0,
+          parentId: 0,
+          remainingTasks: {
+            0: { title: 'root', subTasks: [], isOpen: true },
+          },
+        };
+
+        expect(reducer(
+          oldState,
+          selectNext(),
+        )).toEqual(oldState);
+      });
+    });
+
+    context('When boundaries are met', () => {
+      it('does nothing', () => {
+        const oldState = {
+          selectedTaskId: 1,
+          parentId: 0,
+          remainingTasks: {
+            0: { title: 'root', subTasks: [2, 1], isOpen: true },
+            1: { title: 'task1', subTasks: [], isOpen: true },
+            2: { title: 'task2', subTasks: [], isOpen: true },
+          },
+        };
+
+        expect(reducer(
+          oldState,
+          selectNext(),
+        )).toEqual(oldState);
+      });
+    });
+
+    context('When boundaries are not met', () => {
+      it('sets selectedTaskId to next id in subTasks', () => {
+        const oldState = {
+          selectedTaskId: 2,
+          parentId: 0,
+          remainingTasks: {
+            0: { title: 'root', subTasks: [2, 1], isOpen: true },
+          },
+        };
+
+        const newState = {
+          selectedTaskId: 1,
+          parentId: 0,
+          remainingTasks: {
+            0: { title: 'root', subTasks: [2, 1], isOpen: true },
+          },
+        };
+
+        expect(reducer(
+          oldState,
+          selectNext(),
+        )).toEqual(newState);
+      });
+    });
+  });
+
+  describe('selectPrevious', () => {
+    context('when selected task id is 0', () => {
+      it('does nothing', () => {
+        const oldState = {
+          selectedTaskId: 0,
+          parentId: 0,
+          remainingTasks: {
+            0: { title: 'root', subTasks: [], isOpen: true },
+          },
+        };
+
+        expect(reducer(
+          oldState,
+          selectNext(),
+        )).toEqual(oldState);
+      });
+    });
+
+    context('When boundaries are met', () => {
+      it('does nothing', () => {
+        const oldState = {
+          selectedTaskId: 2,
+          parentId: 0,
+          remainingTasks: {
+            0: { title: 'root', subTasks: [2, 1], isOpen: true },
+            1: { title: 'task1', subTasks: [], isOpen: true },
+            2: { title: 'task2', subTasks: [], isOpen: true },
+          },
+        };
+
+        expect(reducer(
+          oldState,
+          selectPrevious(),
+        )).toEqual(oldState);
+      });
+    });
+
+    context('When boundaries are not met', () => {
+      it('sets selectedTaskId to previous id in subTasks', () => {
+        const oldState = {
+          selectedTaskId: 1,
+          parentId: 0,
+          remainingTasks: {
+            0: { title: 'root', subTasks: [2, 1], isOpen: true },
+          },
+        };
+
+        const newState = {
+          selectedTaskId: 2,
+          parentId: 0,
+          remainingTasks: {
+            0: { title: 'root', subTasks: [2, 1], isOpen: true },
+          },
+        };
+
+        expect(reducer(
+          oldState,
+          selectPrevious(),
+        )).toEqual(newState);
       });
     });
   });
