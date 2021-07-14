@@ -51,6 +51,7 @@ const { actions, reducer } = createSlice({
       const { payload: targetId } = action;
 
       state.selectedTaskId = 0;
+      state.parentId = 0;
 
       addRestoreData(state, targetId);
 
