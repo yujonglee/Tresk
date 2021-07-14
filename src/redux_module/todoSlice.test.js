@@ -63,7 +63,7 @@ describe('todoSlice reducer', () => {
   });
 
   describe('deleteTask', () => {
-    it('deletes task, resets selectedTaskId, and sets restore data', () => {
+    it('deletes task, resets selectedTaskId and parentId, and sets restore data', () => {
       const restoreData1 = {
         task: { title: '첫번째 할일', subTasks: [], isOpen: true },
         selfId: 1,
@@ -78,18 +78,24 @@ describe('todoSlice reducer', () => {
 
       const oldState = {
         completedTasks: [restoreData1],
-        selectedTaskId: 2,
-        nextTaskId: 2,
+        selectedTaskId: 3,
+        parentId: 2,
+        nextTaskId: 4,
         remainingTasks: {
-          0: { title: 'root', subTasks: [2], isOpen: true },
+          0: { title: 'root', subTasks: [3, 2], isOpen: true },
           2: { title: '두번째 할일', subTasks: [], isOpen: true },
+          3: { title: '세번째 할일', subTasks: [], isOpen: true },
         },
       };
       const newState = {
         completedTasks: [restoreData1, restoreData2],
         selectedTaskId: 0,
-        nextTaskId: 2,
-        remainingTasks: { 0: { title: 'root', subTasks: [], isOpen: true } },
+        parentId: 0,
+        nextTaskId: 4,
+        remainingTasks: {
+          0: { title: 'root', subTasks: [3], isOpen: true },
+          3: { title: '세번째 할일', subTasks: [], isOpen: true },
+        },
       };
 
       expect(reducer(
