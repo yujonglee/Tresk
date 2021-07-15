@@ -348,7 +348,7 @@ describe('todoSlice reducer', () => {
       });
     });
 
-    context('When selected task is tail of subTasks', () => {
+    context('When next task is not exist', () => {
       given('selectedTaskId', () => 1);
 
       it('does nothing', () => {
@@ -358,7 +358,7 @@ describe('todoSlice reducer', () => {
       });
     });
 
-    context('When selected task is not tail of subTasks', () => {
+    context('When next task is exist', () => {
       given('selectedTaskId', () => 2);
 
       it('selects next id in subTasks', () => {
@@ -392,7 +392,7 @@ describe('todoSlice reducer', () => {
       });
     });
 
-    context('When selected task is head of subTasks', () => {
+    context('When previous task is not exist', () => {
       given('selectedTaskId', () => 2);
 
       it('does nothing', () => {
@@ -402,7 +402,7 @@ describe('todoSlice reducer', () => {
       });
     });
 
-    context('When selected task is not head of subTasks', () => {
+    context('When previous task is exist', () => {
       given('selectedTaskId', () => 1);
 
       it('selects previous id in subTasks', () => {
