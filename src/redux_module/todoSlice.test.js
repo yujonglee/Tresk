@@ -339,18 +339,18 @@ describe('todoSlice reducer', () => {
           selectedTaskId: 0,
           parentId: 0,
           remainingTasks: {
-            0: { title: 'root', subTasks: [], isOpen: true },
+            0: { title: 'root', subTasks: [1], isOpen: true },
+            1: { title: 'task1', subTasks: [], isOpen: true },
           },
         };
 
-        expect(reducer(
-          oldState,
-          selectNext(),
-        )).toEqual(oldState);
+        const newState = reducer(oldState, selectNext());
+
+        expect(newState).toEqual(oldState);
       });
     });
 
-    context('When boundaries are met', () => {
+    context('When selected task is tail of subTasks', () => {
       it('does nothing', () => {
         const oldState = {
           selectedTaskId: 1,
@@ -361,16 +361,14 @@ describe('todoSlice reducer', () => {
             2: { title: 'task2', subTasks: [], isOpen: true },
           },
         };
+        const newState = reducer(oldState, selectNext());
 
-        expect(reducer(
-          oldState,
-          selectNext(),
-        )).toEqual(oldState);
+        expect(newState).toEqual(oldState);
       });
     });
 
-    context('When boundaries are not met', () => {
-      it('sets selectedTaskId to next id in subTasks', () => {
+    context('When selected task is not tail of subTasks', () => {
+      it('selects next id in subTasks', () => {
         const oldState = {
           selectedTaskId: 2,
           parentId: 0,
@@ -379,18 +377,11 @@ describe('todoSlice reducer', () => {
           },
         };
 
-        const newState = {
-          selectedTaskId: 1,
-          parentId: 0,
-          remainingTasks: {
-            0: { title: 'root', subTasks: [2, 1], isOpen: true },
-          },
-        };
+        const newState = reducer(oldState, selectNext());
 
-        expect(reducer(
-          oldState,
-          selectNext(),
-        )).toEqual(newState);
+        const { selectedTaskId } = newState;
+
+        expect(selectedTaskId).toBe(1);
       });
     });
   });
@@ -402,18 +393,19 @@ describe('todoSlice reducer', () => {
           selectedTaskId: 0,
           parentId: 0,
           remainingTasks: {
-            0: { title: 'root', subTasks: [], isOpen: true },
+            0: { title: 'root', subTasks: [2, 1], isOpen: true },
+            1: { title: 'task1', subTasks: [], isOpen: true },
+            2: { title: 'task2', subTasks: [], isOpen: true },
           },
         };
 
-        expect(reducer(
-          oldState,
-          selectNext(),
-        )).toEqual(oldState);
+        const newState = reducer(oldState, selectPrevious());
+
+        expect(newState).toEqual(oldState);
       });
     });
 
-    context('When boundaries are met', () => {
+    context('When selected task is head of subTasks', () => {
       it('does nothing', () => {
         const oldState = {
           selectedTaskId: 2,
@@ -424,36 +416,29 @@ describe('todoSlice reducer', () => {
             2: { title: 'task2', subTasks: [], isOpen: true },
           },
         };
+        const newState = reducer(oldState, selectPrevious());
 
-        expect(reducer(
-          oldState,
-          selectPrevious(),
-        )).toEqual(oldState);
+        expect(newState).toEqual(oldState);
       });
     });
 
-    context('When boundaries are not met', () => {
-      it('sets selectedTaskId to previous id in subTasks', () => {
+    context('When selected task is not head of subTasks', () => {
+      it('selects previous id in subTasks', () => {
         const oldState = {
           selectedTaskId: 1,
           parentId: 0,
           remainingTasks: {
             0: { title: 'root', subTasks: [2, 1], isOpen: true },
+            1: { title: 'task1', subTasks: [], isOpen: true },
+            2: { title: 'task2', subTasks: [], isOpen: true },
           },
         };
 
-        const newState = {
-          selectedTaskId: 2,
-          parentId: 0,
-          remainingTasks: {
-            0: { title: 'root', subTasks: [2, 1], isOpen: true },
-          },
-        };
+        const newState = reducer(oldState, selectPrevious());
 
-        expect(reducer(
-          oldState,
-          selectPrevious(),
-        )).toEqual(newState);
+        const { selectedTaskId } = newState;
+
+        expect(selectedTaskId).toBe(2);
       });
     });
   });
