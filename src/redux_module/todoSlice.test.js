@@ -13,10 +13,9 @@ import reducer,
 
 describe('todoSlice reducer', () => {
   describe('addTask', () => {
-    context('when title is not empty string', () => {
+    context('when something is typed', () => {
       it('adds new task to todoList and updates nextTaskId', () => {
         const oldState = {
-          completedTasks: [],
           selectedTaskId: 0,
           nextTaskId: 2,
           remainingTasks: {
@@ -24,29 +23,27 @@ describe('todoSlice reducer', () => {
             1: { title: 'task1', subTasks: [], isOpen: true },
           },
         };
-        const newState = {
-          completedTasks: [],
-          selectedTaskId: 0,
-          nextTaskId: 3,
-          remainingTasks: {
-            0: { title: 'root', subTasks: [2, 1], isOpen: true },
-            1: { title: 'task1', subTasks: [], isOpen: true },
-            2: { title: 'task2', subTasks: [], isOpen: true },
-          },
-        };
 
-        expect(reducer(
-          oldState,
-          addTask('task2'),
-        )).toEqual(newState);
+        const newState = reducer(oldState, addTask('task2'));
+
+        const { nextTaskId, remainingTasks } = newState;
+
+        expect(remainingTasks['0'].subTasks).toEqual(
+          [2, 1],
+        );
+
+        expect(remainingTasks['2']).toEqual(
+          { title: 'task2', subTasks: [], isOpen: true },
+        );
+
+        expect(nextTaskId).toBe(2 + 1);
       });
     });
 
-    context('when title is empty string', () => {
+    context('when nothing is typed', () => {
       it('does nothing', () => {
         const oldState = {
-          completedTasks: [],
-          selectedTaskId: 1,
+          selectedTaskId: 0,
           nextTaskId: 2,
           remainingTasks: {
             0: { title: 'root', subTasks: [1], isOpen: true },
@@ -54,10 +51,9 @@ describe('todoSlice reducer', () => {
           },
         };
 
-        expect(reducer(
-          oldState,
-          addTask(''),
-        )).toEqual(oldState);
+        const newState = reducer(oldState, addTask(''));
+
+        expect(newState).toEqual(oldState);
       });
     });
   });
