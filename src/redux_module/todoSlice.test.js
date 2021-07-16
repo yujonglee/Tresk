@@ -54,45 +54,62 @@ describe('todoSlice reducer', () => {
   });
 
   describe('deleteTask', () => {
-    it('deletes task, resets selectedTaskId and parentId, and sets restore data', () => {
-      const restoreData1 = {
-        task: { title: '첫번째 할일', subTasks: [], isOpen: true },
-        selfId: 1,
-        parentId: 0,
-      };
+    const restoreDataOfTask4 = {
+      task: { title: 'task4', subTasks: [], isOpen: true },
+      selfId: 4,
+      parentId: 1,
+    };
 
-      const restoreData2 = {
-        task: { title: '두번째 할일', subTasks: [], isOpen: true },
-        selfId: 2,
-        parentId: 0,
-      };
+    const restoreDataOfTask2 = {
+      task: { title: 'task2', subTasks: [], isOpen: true },
+      selfId: 2,
+      parentId: 1,
+    };
 
-      const oldState = {
-        completedTasks: [restoreData1],
-        selectedTaskId: 3,
-        parentId: 2,
-        nextTaskId: 4,
-        remainingTasks: {
-          0: { title: 'root', subTasks: [3, 2], isOpen: true },
-          2: { title: '두번째 할일', subTasks: [], isOpen: true },
-          3: { title: '세번째 할일', subTasks: [], isOpen: true },
-        },
-      };
-      const newState = {
-        completedTasks: [restoreData1, restoreData2],
-        selectedTaskId: 0,
-        parentId: 0,
-        nextTaskId: 4,
-        remainingTasks: {
-          0: { title: 'root', subTasks: [3], isOpen: true },
-          3: { title: '세번째 할일', subTasks: [], isOpen: true },
-        },
-      };
+    const oldState = {
+      completedTasks: [restoreDataOfTask4],
+      selectedTaskId: 3,
+      parentId: 1,
+      remainingTasks: {
+        0: { title: 'root', subTasks: [1], isOpen: true },
+        1: { title: 'task1', subTasks: [2, 3], isOpen: true },
+        2: { title: 'task2', subTasks: [], isOpen: true },
+        3: { title: 'task3', subTasks: [], isOpen: true },
+      },
+    };
 
-      expect(reducer(
-        oldState,
-        deleteTask(2),
-      )).toEqual(newState);
+    it('deletes task with id', () => {
+      const newState = reducer(oldState, deleteTask(2));
+
+      const { remainingTasks } = newState;
+
+      expect(remainingTasks['2']).toBeUndefined();
+
+      expect(
+        remainingTasks['1'].subTasks.includes(2),
+      ).toBe(false);
+    });
+
+    it('resets selectedTaskId and parentId', () => {
+      const newState = reducer(oldState, deleteTask(2));
+
+      const { selectedTaskId, parentId } = newState;
+
+      expect(selectedTaskId).toBe(0);
+      expect(parentId).toBe(0);
+    });
+
+    it('adds restore data', () => {
+      const newState = reducer(oldState, deleteTask(2));
+
+      const { completedTasks } = newState;
+
+      expect(completedTasks).toEqual(
+        [restoreDataOfTask4, restoreDataOfTask2],
+      );
+      expect(completedTasks).not.toEqual(
+        [restoreDataOfTask2, restoreDataOfTask4],
+      );
     });
   });
 
