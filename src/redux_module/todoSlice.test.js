@@ -60,9 +60,9 @@ describe('todoSlice reducer', () => {
       parentId: 1,
     };
 
-    const restoreDataOfTask2 = {
-      task: { title: 'task2', subTasks: [], isOpen: true },
-      selfId: 2,
+    const restoreDataOfTask23 = {
+      task: { title: 'task23', subTasks: [], isOpen: true },
+      selfId: 23,
       parentId: 1,
     };
 
@@ -72,26 +72,29 @@ describe('todoSlice reducer', () => {
       parentId: 1,
       remainingTasks: {
         0: { title: 'root', subTasks: [1], isOpen: true },
-        1: { title: 'task1', subTasks: [2, 3], isOpen: true },
+        1: { title: 'task1', subTasks: [23, 3, 2], isOpen: true },
         2: { title: 'task2', subTasks: [], isOpen: true },
         3: { title: 'task3', subTasks: [], isOpen: true },
+        23: { title: 'task23', subTasks: [], isOpen: true },
       },
     };
 
     it('deletes task with id', () => {
-      const newState = reducer(oldState, deleteTask(2));
+      const newState = reducer(oldState, deleteTask(23));
 
       const { remainingTasks } = newState;
 
-      expect(remainingTasks['2']).toBeUndefined();
+      expect(remainingTasks['23']).toBeUndefined();
+      expect(remainingTasks['2']).not.toBeUndefined();
+      expect(remainingTasks['3']).not.toBeUndefined();
 
       expect(
-        remainingTasks['1'].subTasks.includes(2),
+        remainingTasks['1'].subTasks.includes(23),
       ).toBe(false);
     });
 
     it('resets selectedTaskId and parentId', () => {
-      const newState = reducer(oldState, deleteTask(2));
+      const newState = reducer(oldState, deleteTask(23));
 
       const { selectedTaskId, parentId } = newState;
 
@@ -100,15 +103,15 @@ describe('todoSlice reducer', () => {
     });
 
     it('adds restore data', () => {
-      const newState = reducer(oldState, deleteTask(2));
+      const newState = reducer(oldState, deleteTask(23));
 
       const { completedTasks } = newState;
 
       expect(completedTasks).toEqual(
-        [restoreDataOfTask4, restoreDataOfTask2],
+        [restoreDataOfTask4, restoreDataOfTask23],
       );
       expect(completedTasks).not.toEqual(
-        [restoreDataOfTask2, restoreDataOfTask4],
+        [restoreDataOfTask23, restoreDataOfTask4],
       );
     });
   });
