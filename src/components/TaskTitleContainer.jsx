@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateSelectedTaskId } from '../redux_module/todoSlice';
+import { selectNewTask } from '../redux_module/todoSlice';
 import TaskTitle from './TaskTitle';
 
 export default function TaskTitleContainer({ id }) {
@@ -11,7 +11,7 @@ export default function TaskTitleContainer({ id }) {
 
   const isSelected = (selectedTaskId === id);
 
-  const handleClickTitle = () => dispatch(updateSelectedTaskId(id));
+  const handleClickTitle = () => dispatch(selectNewTask(id));
 
   return (
     <TaskTitle
