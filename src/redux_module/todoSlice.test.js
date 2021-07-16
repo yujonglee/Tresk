@@ -3,7 +3,7 @@ import reducer,
   addTask,
   deleteTask,
   restoreTask,
-  updateSelectedTaskId,
+  selectNewTask,
   toggleSubTasksOpen,
   toggleLogBookOpen,
   emptyCompletedTasks,
@@ -199,35 +199,53 @@ describe('todoSlice reducer', () => {
     });
   });
 
-  describe('updateSelectedTaskId', () => {
-    it('updates current task id and parent id', () => {
-      const oldState = {
-        completedTasks: [],
-        selectedTaskId: 0,
-        parentId: 0,
-        nextTaskId: 3,
-        remainingTasks: {
-          0: { title: 'root', subTasks: [1], isOpen: true },
-          1: { title: 'task1', subTasks: [2], isOpen: true },
-          2: { title: 'task2', subTasks: [], isOpen: true },
-        },
-      };
-      const newState = {
-        completedTasks: [],
-        selectedTaskId: 2,
-        parentId: 1,
-        nextTaskId: 3,
-        remainingTasks: {
-          0: { title: 'root', subTasks: [1], isOpen: true },
-          1: { title: 'task1', subTasks: [2], isOpen: true },
-          2: { title: 'task2', subTasks: [], isOpen: true },
-        },
-      };
+  describe('selectNewTask', () => {
+    context('when new task id is not 0', () => {
+      const newTaskId = 2;
 
-      expect(reducer(
-        oldState,
-        updateSelectedTaskId(2),
-      )).toEqual(newState);
+      it('finds parent and updates parent id and current task id', () => {
+        const oldState = {
+          selectedTaskId: 0,
+          parentId: 0,
+          remainingTasks: {
+            0: { title: 'root', subTasks: [1], isOpen: true },
+            1: { title: 'task1', subTasks: [3, 2], isOpen: true },
+            2: { title: 'task2', subTasks: [], isOpen: true },
+            3: { title: 'task3', subTasks: [], isOpen: true },
+          },
+        };
+
+        const newState = reducer(oldState, selectNewTask(newTaskId));
+
+        const { parentId, selectedTaskId } = newState;
+
+        expect(selectedTaskId).toBe(2);
+        expect(parentId).toBe(1);
+      });
+    });
+
+    context('when new task id is 0', () => {
+      const newTaskId = 0;
+
+      it('sets current task id and parent id to 0', () => {
+        const oldState = {
+          selectedTaskId: 2,
+          parentId: 1,
+          remainingTasks: {
+            0: { title: 'root', subTasks: [1], isOpen: true },
+            1: { title: 'task1', subTasks: [3, 2], isOpen: true },
+            2: { title: 'task2', subTasks: [], isOpen: true },
+            3: { title: 'task3', subTasks: [], isOpen: true },
+          },
+        };
+
+        const newState = reducer(oldState, selectNewTask(newTaskId));
+
+        const { parentId, selectedTaskId } = newState;
+
+        expect(selectedTaskId).toBe(0);
+        expect(parentId).toBe(0);
+      });
     });
   });
 

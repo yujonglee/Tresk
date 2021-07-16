@@ -78,9 +78,17 @@ const { actions, reducer } = createSlice({
       state.remainingTasks[parentId].subTasks = [...subTasks, selfId].sort().reverse();
     },
 
-    updateSelectedTaskId: (state, action) => {
+    selectNewTask: (state, action) => {
       const { remainingTasks } = state;
       const { payload: target } = action;
+
+      if (target === 0) {
+        state.parentId = 0;
+
+        state.selectedTaskId = 0;
+
+        return;
+      }
 
       const parentId = find(
         includesTarget(remainingTasks, target),
@@ -141,7 +149,7 @@ export const {
   addTask,
   deleteTask,
   restoreTask,
-  updateSelectedTaskId,
+  selectNewTask,
   toggleSubTasksOpen,
   toggleLogBookOpen,
   emptyCompletedTasks,

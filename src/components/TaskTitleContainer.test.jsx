@@ -6,7 +6,7 @@ import { fireEvent, render } from '@testing-library/react';
 import { useDispatch, useSelector } from 'react-redux';
 import given from 'given2';
 
-import { updateSelectedTaskId } from '../redux_module/todoSlice';
+import { selectNewTask } from '../redux_module/todoSlice';
 import TaskTitleContainer from './TaskTitleContainer';
 
 describe('TaskTitleContainer', () => {
@@ -34,6 +34,6 @@ describe('TaskTitleContainer', () => {
 
     fireEvent.click(getByRole('button', { name: 'task1' }));
 
-    expect(dispatch).toBeCalledWith(updateSelectedTaskId(currentTaskId));
+    expect(dispatch).toBeCalledWith(selectNewTask(currentTaskId));
   });
 });
