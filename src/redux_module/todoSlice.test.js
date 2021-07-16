@@ -3,10 +3,10 @@ import reducer,
   addTask,
   deleteTask,
   restoreTask,
-  toggleSubTasksOpen,
   updateSelectedTaskId,
-  emptyCompletedTasks,
+  toggleSubTasksOpen,
   toggleLogBookOpen,
+  emptyCompletedTasks,
   selectNext,
   selectPrevious,
 } from './todoSlice';
@@ -113,24 +113,6 @@ describe('todoSlice reducer', () => {
     });
   });
 
-  describe('emptyCompletedTasks', () => {
-    it('removes all items from completedTasks', () => {
-      const restoreData = {
-        task: { title: '첫번째 할일', subTasks: [], isOpen: true },
-        selfId: 1,
-        parentId: 0,
-      };
-
-      const oldState = {
-        completedTasks: [restoreData],
-      };
-
-      const newState = reducer(oldState, emptyCompletedTasks());
-
-      expect(newState.completedTasks).toEqual([]);
-    });
-  });
-
   describe('restoreTask', () => {
     const restoreDataOfTask1 = {
       task: { title: 'task1', subTasks: [], isOpen: true },
@@ -169,7 +151,7 @@ describe('todoSlice reducer', () => {
         },
       };
 
-      it('retores deleted task with id', () => {
+      it('retores deleted task', () => {
         const newState = reducer(oldState, restoreTask());
 
         const { completedTasks, remainingTasks } = newState;
@@ -193,7 +175,7 @@ describe('todoSlice reducer', () => {
     });
 
     context('when there are more than one deleted task', () => {
-      it('retores deleted task with id', () => {
+      it('retores deleted task', () => {
         const oldState = {
           completedTasks: [restoreDataOfTask1, restoreDataOfTask3],
           remainingTasks: {
@@ -215,110 +197,128 @@ describe('todoSlice reducer', () => {
         expect(remainingTasks[parentId].subTasks).not.toEqual([2, 3]);
       });
     });
+  });
 
-    describe('updateSelectedTaskId', () => {
-      it('updates current task id and parent id', () => {
+  describe('updateSelectedTaskId', () => {
+    it('updates current task id and parent id', () => {
+      const oldState = {
+        completedTasks: [],
+        selectedTaskId: 0,
+        parentId: 0,
+        nextTaskId: 3,
+        remainingTasks: {
+          0: { title: 'root', subTasks: [1], isOpen: true },
+          1: { title: 'task1', subTasks: [2], isOpen: true },
+          2: { title: 'task2', subTasks: [], isOpen: true },
+        },
+      };
+      const newState = {
+        completedTasks: [],
+        selectedTaskId: 2,
+        parentId: 1,
+        nextTaskId: 3,
+        remainingTasks: {
+          0: { title: 'root', subTasks: [1], isOpen: true },
+          1: { title: 'task1', subTasks: [2], isOpen: true },
+          2: { title: 'task2', subTasks: [], isOpen: true },
+        },
+      };
+
+      expect(reducer(
+        oldState,
+        updateSelectedTaskId(2),
+      )).toEqual(newState);
+    });
+  });
+
+  describe('emptyCompletedTasks', () => {
+    it('removes all items from completedTasks', () => {
+      const restoreData = {
+        task: { title: '첫번째 할일', subTasks: [], isOpen: true },
+        selfId: 1,
+        parentId: 0,
+      };
+
+      const oldState = {
+        completedTasks: [restoreData],
+      };
+
+      const newState = reducer(oldState, emptyCompletedTasks());
+
+      expect(newState.completedTasks).toEqual([]);
+    });
+  });
+
+  describe('toggleSubTasksOpen', () => {
+    it('toggles isOpen with taskId', () => {
+      const oldState = {
+        completedTasks: [],
+        selectedTaskId: 0,
+        nextTaskId: 2,
+        remainingTasks: {
+          0: { title: 'root', subTasks: [1], isOpen: true },
+          1: { title: '첫번째 할일', subTasks: [], isOpen: true },
+        },
+      };
+
+      const newState = {
+        completedTasks: [],
+        selectedTaskId: 0,
+        nextTaskId: 2,
+        remainingTasks: {
+          0: { title: 'root', subTasks: [1], isOpen: true },
+          1: { title: '첫번째 할일', subTasks: [], isOpen: false },
+        },
+      };
+      expect(reducer(
+        oldState,
+        toggleSubTasksOpen(1),
+      )).toEqual(newState);
+    });
+  });
+
+  describe('toggleLogBookOpen', () => {
+    context('when 0 argument is given', () => {
+      it('toggles isLogBookOpen', () => {
         const oldState = {
-          completedTasks: [],
-          selectedTaskId: 0,
-          parentId: 0,
-          nextTaskId: 3,
-          remainingTasks: {
-            0: { title: 'root', subTasks: [1], isOpen: true },
-            1: { title: 'task1', subTasks: [2], isOpen: true },
-            2: { title: 'task2', subTasks: [], isOpen: true },
-          },
-        };
-        const newState = {
-          completedTasks: [],
-          selectedTaskId: 2,
-          parentId: 1,
-          nextTaskId: 3,
-          remainingTasks: {
-            0: { title: 'root', subTasks: [1], isOpen: true },
-            1: { title: 'task1', subTasks: [2], isOpen: true },
-            2: { title: 'task2', subTasks: [], isOpen: true },
-          },
+          isLogBookOpen: false,
         };
 
+        const newState = {
+          isLogBookOpen: true,
+        };
         expect(reducer(
           oldState,
-          updateSelectedTaskId(2),
+          toggleLogBookOpen(),
         )).toEqual(newState);
       });
     });
 
-    describe('toggleSubTasksOpen', () => {
-      it('toggles isOpen with taskId', () => {
-        const oldState = {
-          completedTasks: [],
-          selectedTaskId: 0,
-          nextTaskId: 2,
-          remainingTasks: {
-            0: { title: 'root', subTasks: [1], isOpen: true },
-            1: { title: '첫번째 할일', subTasks: [], isOpen: true },
-          },
+    context('when 1 argument is given', () => {
+      it('sets isLogBookOpen', () => {
+        const oldState1 = {
+          isLogBookOpen: true,
         };
 
-        const newState = {
-          completedTasks: [],
-          selectedTaskId: 0,
-          nextTaskId: 2,
-          remainingTasks: {
-            0: { title: 'root', subTasks: [1], isOpen: true },
-            1: { title: '첫번째 할일', subTasks: [], isOpen: false },
-          },
+        const newState1 = {
+          isLogBookOpen: true,
         };
         expect(reducer(
-          oldState,
-          toggleSubTasksOpen(1),
-        )).toEqual(newState);
-      });
-    });
+          oldState1,
+          toggleLogBookOpen(true),
+        )).toEqual(newState1);
 
-    describe('toggleLogBookOpen', () => {
-      context('when 0 argument is given', () => {
-        it('toggles isLogBookOpen', () => {
-          const oldState = {
-            isLogBookOpen: false,
-          };
+        const oldState2 = {
+          isLogBookOpen: false,
+        };
 
-          const newState = {
-            isLogBookOpen: true,
-          };
-          expect(reducer(
-            oldState,
-            toggleLogBookOpen(),
-          )).toEqual(newState);
-        });
-      });
-
-      context('when 1 argument is given', () => {
-        it('sets isLogBookOpen', () => {
-          const oldState1 = {
-            isLogBookOpen: true,
-          };
-
-          const newState1 = {
-            isLogBookOpen: true,
-          };
-          expect(reducer(
-            oldState1,
-            toggleLogBookOpen(true),
-          )).toEqual(newState1);
-
-          const oldState2 = {
-            isLogBookOpen: false,
-          };
-
-          const newState2 = {
-            isLogBookOpen: false,
-          };
-          expect(reducer(
-            oldState2,
-            toggleLogBookOpen(false),
-          )).toEqual(newState2);
-        });
+        const newState2 = {
+          isLogBookOpen: false,
+        };
+        expect(reducer(
+          oldState2,
+          toggleLogBookOpen(false),
+        )).toEqual(newState2);
       });
     });
   });
