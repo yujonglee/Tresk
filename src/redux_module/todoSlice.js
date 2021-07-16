@@ -143,8 +143,8 @@ export const {
   restoreTask,
   updateSelectedTaskId,
   toggleSubTasksOpen,
-  emptyCompletedTasks,
   toggleLogBookOpen,
+  emptyCompletedTasks,
   selectNext,
   selectPrevious,
 } = actions;
