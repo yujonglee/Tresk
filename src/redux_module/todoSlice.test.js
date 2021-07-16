@@ -97,24 +97,21 @@ describe('todoSlice reducer', () => {
   });
 
   describe('emptyCompletedTasks', () => {
-    const restoreData = {
-      task: { title: '첫번째 할일', subTasks: [], isOpen: true },
-      selfId: 1,
-      parentId: 0,
-    };
+    it('removes all items from completedTasks', () => {
+      const restoreData = {
+        task: { title: '첫번째 할일', subTasks: [], isOpen: true },
+        selfId: 1,
+        parentId: 0,
+      };
 
-    const oldState = {
-      completedTasks: [restoreData],
-    };
+      const oldState = {
+        completedTasks: [restoreData],
+      };
 
-    const newState = {
-      completedTasks: [],
-    };
+      const newState = reducer(oldState, emptyCompletedTasks());
 
-    expect(reducer(
-      oldState,
-      emptyCompletedTasks(),
-    )).toEqual(newState);
+      expect(newState.completedTasks).toEqual([]);
+    });
   });
 
   describe('restoreTask', () => {
