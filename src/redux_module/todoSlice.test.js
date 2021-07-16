@@ -118,105 +118,87 @@ describe('todoSlice reducer', () => {
   });
 
   describe('restoreTask', () => {
+    const restoreDataOfTask1 = {
+      task: { title: 'task1', subTasks: [], isOpen: true },
+      selfId: 1,
+      parentId: 0,
+    };
+
+    const restoreDataOfTask3 = {
+      task: { title: 'task3', subTasks: [], isOpen: true },
+      selfId: 3,
+      parentId: 0,
+    };
+
     context("when there aren't any deleted task", () => {
       it('does nothing', () => {
         const oldState = {
           completedTasks: [],
-          selectedTaskId: 0,
-          isLogBookOpen: true,
-          nextTaskId: 4,
-          tasks: {
-            0: { title: 'root', subTasks: [3], isOpen: true },
-            3: { title: '세번째 할일', subTasks: [], isOpen: true },
+          remainingTasks: {
+            0: { title: 'root', subTasks: [], isOpen: true },
           },
         };
 
-        expect(reducer(
-          oldState,
-          restoreTask(),
-        )).toEqual(oldState);
+        const newState = reducer(oldState, restoreTask());
+
+        expect(newState).toEqual(oldState);
       });
     });
 
     context('when there are only one deleted task', () => {
-      it('retores deleted task with id and closes logBook', () => {
-        const restoreData1 = {
-          task: { title: '첫번째 할일', subTasks: [], isOpen: true },
-          selfId: 1,
-          parentId: 0,
-        };
+      const oldState = {
+        completedTasks: [restoreDataOfTask1],
+        isLogBookOpen: true,
+        remainingTasks: {
+          0: { title: 'root', subTasks: [2], isOpen: true },
+          2: { title: 'task2', subTasks: [], isOpen: true },
+        },
+      };
 
-        const oldState = {
-          completedTasks: [restoreData1],
-          isLogBookOpen: true,
-          selectedTaskId: 0,
-          nextTaskId: 3,
-          remainingTasks: {
-            0: { title: 'root', subTasks: [2], isOpen: true },
-            2: { title: '두번째 할일', subTasks: [], isOpen: true },
-          },
-        };
+      it('retores deleted task with id', () => {
+        const newState = reducer(oldState, restoreTask());
 
-        const newState = {
-          completedTasks: [],
-          isLogBookOpen: false,
-          selectedTaskId: 0,
-          nextTaskId: 3,
-          remainingTasks: {
-            0: { title: 'root', subTasks: [2, 1], isOpen: true },
-            1: { title: '첫번째 할일', subTasks: [], isOpen: true },
-            2: { title: '두번째 할일', subTasks: [], isOpen: true },
-          },
-        };
+        const { completedTasks, remainingTasks } = newState;
+        const { selfId, parentId, task } = restoreDataOfTask1;
 
-        expect(reducer(
-          oldState,
-          restoreTask(),
-        )).toEqual(newState);
+        expect(completedTasks).toEqual([]);
+
+        expect(remainingTasks[selfId]).toEqual(task);
+
+        expect(remainingTasks[parentId].subTasks).toEqual([2, 1]);
+        expect(remainingTasks[parentId].subTasks).not.toEqual([1, 2]);
+      });
+
+      it('closes logBook', () => {
+        const newState = reducer(oldState, restoreTask());
+
+        const { isLogBookOpen } = newState;
+
+        expect(isLogBookOpen).toEqual(!true);
       });
     });
 
     context('when there are more than one deleted task', () => {
       it('retores deleted task with id', () => {
-        const restoreData1 = {
-          task: { title: '첫번째 할일', subTasks: [], isOpen: true },
-          selfId: 1,
-          parentId: 0,
-        };
-
-        const restoreData3 = {
-          task: { title: '세번째 할일', subTasks: [], isOpen: true },
-          selfId: 3,
-          parentId: 0,
-        };
-
         const oldState = {
-          completedTasks: [restoreData1, restoreData3],
-          isLogBookOpen: true,
-          selectedTaskId: 0,
-          nextTaskId: 4,
+          completedTasks: [restoreDataOfTask1, restoreDataOfTask3],
           remainingTasks: {
             0: { title: 'root', subTasks: [2], isOpen: true },
-            2: { title: '두번째 할일', subTasks: [], isOpen: true },
+            2: { title: 'task2', subTasks: [], isOpen: true },
           },
         };
 
-        const newState = {
-          completedTasks: [restoreData1],
-          isLogBookOpen: true,
-          selectedTaskId: 0,
-          nextTaskId: 4,
-          remainingTasks: {
-            0: { title: 'root', subTasks: [3, 2], isOpen: true },
-            2: { title: '두번째 할일', subTasks: [], isOpen: true },
-            3: { title: '세번째 할일', subTasks: [], isOpen: true },
-          },
-        };
+        const newState = reducer(oldState, restoreTask());
 
-        expect(reducer(
-          oldState,
-          restoreTask(),
-        )).toEqual(newState);
+        const { completedTasks, remainingTasks } = newState;
+        const { selfId, parentId, task } = restoreDataOfTask3;
+
+        expect(completedTasks).toEqual([restoreDataOfTask1]);
+
+        expect(remainingTasks[selfId]).toEqual(task);
+
+        expect(remainingTasks[parentId].subTasks).toEqual([3, 2]);
+        expect(remainingTasks[parentId].subTasks).not.toEqual([2, 3]);
       });
     });
 
