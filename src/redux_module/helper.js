@@ -49,7 +49,7 @@ export function removeTaskFromRemaingTasks(state, targetId) {
   const { remainingTasks } = state;
 
   state.remainingTasks = omit(
-    toString(targetId),
+    [toString(targetId)],
     remainingTasks,
   );
 }
