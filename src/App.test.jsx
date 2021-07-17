@@ -6,8 +6,10 @@ import { fireEvent, render } from '@testing-library/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
+import {
+  selectInside, selectNext, selectOutside, selectPrevious,
+} from './redux_module/todoSlice';
 import App from './App';
-import { selectNext, selectPrevious } from './redux_module/todoSlice';
 
 jest.mock('react-p5-wrapper');
 
@@ -50,5 +52,27 @@ describe('App', () => {
 
     fireEvent.keyDown(window, { key: 'ArrowDown', code: 'ArrowDown' });
     expect(dispatch).toBeCalledWith(selectNext());
+  });
+
+  it('listens to ArrowLeft keyDown events', () => {
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+    );
+
+    fireEvent.keyDown(window, { key: 'ArrowLeft', code: 'ArrowLeft' });
+    expect(dispatch).toBeCalledWith(selectOutside());
+  });
+
+  it('listens to ArrowRight keyDown events', () => {
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+    );
+
+    fireEvent.keyDown(window, { key: 'ArrowRight', code: 'ArrowRight' });
+    expect(dispatch).toBeCalledWith(selectInside());
   });
 });

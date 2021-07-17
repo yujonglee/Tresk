@@ -9,6 +9,8 @@ import reducer,
   emptyCompletedTasks,
   selectNext,
   selectPrevious,
+  selectInside,
+  selectOutside,
 } from './todoSlice';
 
 describe('todoSlice reducer', () => {
@@ -428,6 +430,82 @@ describe('todoSlice reducer', () => {
         const { selectedTaskId } = newState;
 
         expect(selectedTaskId).toBe(2);
+      });
+    });
+  });
+
+  describe('selectInside', () => {
+    given('oldState', () => ({
+      selectedTaskId: given.selectedTaskId,
+      remainingTasks: {
+        0: { title: 'root', subTasks: [1], isOpen: true },
+        1: { title: 'task1', subTasks: [3, 2], isOpen: true },
+        2: { title: 'task2', subTasks: [], isOpen: true },
+        3: { title: 'task3', subTasks: [], isOpen: true },
+      },
+    }));
+
+    context('when there are no subTasks of current selected task', () => {
+      given('selectedTaskId', () => 2);
+
+      it('does nothing', () => {
+        const newState = reducer(given.oldState, selectInside());
+
+        expect(newState).toEqual(given.oldState);
+      });
+    });
+
+    context('when subTasks of current selected task exist', () => {
+      given('selectedTaskId', () => 1);
+
+      it('selects new task from subTasks', () => {
+        const newState = reducer(given.oldState, selectInside());
+
+        const { selectedTaskId, parentId } = newState;
+
+        expect(selectedTaskId).toBe(3);
+        expect(selectedTaskId).not.toBe(2);
+
+        expect(parentId).toBe(1);
+      });
+    });
+  });
+
+  describe('selectOutside', () => {
+    given('oldState', () => ({
+      selectedTaskId: given.selectedTaskId,
+      parentId: given.parentId,
+      remainingTasks: {
+        0: { title: 'root', subTasks: [1], isOpen: true },
+        1: { title: 'task1', subTasks: [3, 2], isOpen: true },
+        2: { title: 'task2', subTasks: [], isOpen: true },
+        3: { title: 'task3', subTasks: [], isOpen: true },
+      },
+    }));
+
+    context('when current selected task is top level task', () => {
+      given('selectedTaskId', () => 0);
+      given('parentId', () => 0);
+
+      it('does nothing', () => {
+        const newState = reducer(given.oldState, selectOutside());
+
+        expect(newState).toEqual(given.oldState);
+      });
+    });
+
+    context('when current selected task has parent task', () => {
+      given('selectedTaskId', () => 2);
+      given('parentId', () => 1);
+
+      it('selects parent task', () => {
+        const newState = reducer(given.oldState, selectOutside());
+
+        const { selectedTaskId, parentId } = newState;
+
+        expect(selectedTaskId).toBe(1);
+
+        expect(parentId).toBe(0);
       });
     });
   });

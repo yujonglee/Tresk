@@ -10,6 +10,7 @@ import {
   addRestoreData,
   removeTaskIdFromParentSubTasks,
   removeTaskFromRemaingTasks,
+  findParentWithId,
 } from './helper';
 
 const initialState = {
@@ -142,6 +143,30 @@ const { actions, reducer } = createSlice({
 
       state.selectedTaskId = subTasks[currentIndex - 1];
     },
+
+    selectInside: (state) => {
+      const { selectedTaskId, remainingTasks } = state;
+
+      if (isEmpty(remainingTasks[selectedTaskId].subTasks)) {
+        return;
+      }
+
+      const { subTasks: [first] } = remainingTasks[selectedTaskId];
+
+      state.parentId = selectedTaskId;
+      state.selectedTaskId = first;
+    },
+
+    selectOutside: (state) => {
+      const { selectedTaskId, parentId, remainingTasks } = state;
+
+      if (selectedTaskId === 0) {
+        return;
+      }
+
+      state.selectedTaskId = parentId;
+      state.parentId = findParentWithId(remainingTasks, parentId);
+    },
   },
 });
 
@@ -155,6 +180,8 @@ export const {
   emptyCompletedTasks,
   selectNext,
   selectPrevious,
+  selectInside,
+  selectOutside,
 } = actions;
 
 export default reducer;

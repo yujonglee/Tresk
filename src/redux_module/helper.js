@@ -13,13 +13,19 @@ export const includesTarget = (array, target) => pipe(
   includes(target),
 );
 
+export const findParentWithId = (tasks, id) => {
+  const result = find(
+    includesTarget(tasks, id),
+    keys(tasks),
+  );
+
+  return parseInt(result, 10);
+};
+
 export function removeTaskIdFromParentSubTasks(state, target) {
   const { remainingTasks } = state;
 
-  const parentId = find(
-    includesTarget(remainingTasks, target),
-    keys(remainingTasks),
-  );
+  const parentId = findParentWithId(remainingTasks, target);
 
   const { subTasks } = state.remainingTasks[parentId];
 
@@ -31,10 +37,7 @@ export function removeTaskIdFromParentSubTasks(state, target) {
 export function addRestoreData(state, target) {
   const { remainingTasks } = state;
 
-  const parentId = find(
-    includesTarget(remainingTasks, target),
-    keys(remainingTasks),
-  );
+  const parentId = findParentWithId(remainingTasks, target);
 
   const restoreData = {
     task: remainingTasks[target],
