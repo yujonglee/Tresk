@@ -2,11 +2,10 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  isEmpty, findIndex, equals, head, last, find, keys,
+  isEmpty, findIndex, equals, head, last,
 } from 'ramda';
 
 import {
-  includesTarget,
   addRestoreData,
   removeTaskIdFromParentSubTasks,
   removeTaskFromRemaingTasks,
@@ -91,10 +90,7 @@ const { actions, reducer } = createSlice({
         return;
       }
 
-      const parentId = find(
-        includesTarget(remainingTasks, target),
-        keys(remainingTasks),
-      );
+      const parentId = findParentWithId(remainingTasks, target);
 
       state.parentId = parseInt(parentId, 10);
 
@@ -122,7 +118,9 @@ const { actions, reducer } = createSlice({
       const { selectedTaskId, parentId } = state;
       const { subTasks } = state.remainingTasks[parentId];
 
-      if ((selectedTaskId === 0) || (selectedTaskId === last(subTasks))) {
+      const isLast = [0, last(subTasks)].includes(selectedTaskId);
+
+      if (isLast) {
         return;
       }
 
@@ -135,7 +133,9 @@ const { actions, reducer } = createSlice({
       const { selectedTaskId, parentId } = state;
       const { subTasks } = state.remainingTasks[parentId];
 
-      if ((selectedTaskId === 0) || (selectedTaskId === head(subTasks))) {
+      const isFirst = [0, head(subTasks)].includes(selectedTaskId);
+
+      if (isFirst) {
         return;
       }
 
@@ -147,7 +147,9 @@ const { actions, reducer } = createSlice({
     selectInside: (state) => {
       const { selectedTaskId, remainingTasks } = state;
 
-      if (isEmpty(remainingTasks[selectedTaskId].subTasks)) {
+      const isInnerMost = isEmpty(remainingTasks[selectedTaskId].subTasks);
+
+      if (isInnerMost) {
         return;
       }
 
@@ -160,7 +162,9 @@ const { actions, reducer } = createSlice({
     selectOutside: (state) => {
       const { selectedTaskId, parentId, remainingTasks } = state;
 
-      if (selectedTaskId === 0) {
+      const isOuterMost = selectedTaskId === 0;
+
+      if (isOuterMost) {
         return;
       }
 
