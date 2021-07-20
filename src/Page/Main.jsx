@@ -7,6 +7,7 @@ import TitleFieldContainer from '../components/TitleFieldContainer';
 import RestoreTaskButton from '../components/RestoreTaskButton';
 import LogBookControlContainer from '../components/LogBookControlContainer';
 import Content from '../components/Content';
+import Manual from '../components/Manual';
 
 const useStyles = makeStyles({
   root: {
@@ -35,8 +36,11 @@ export default function Main() {
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <TitleFieldContainer />
+          </Grid>
+          <Grid item lg={12} md={12} sm={12} xs={12}>
             <RestoreTaskButton />
             <LogBookControlContainer />
+            <Manual />
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <Content />
