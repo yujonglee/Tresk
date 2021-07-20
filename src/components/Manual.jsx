@@ -31,6 +31,8 @@ export default function Manual() {
       <Dialog
         open={open}
         onClose={handleClick}
+        maxWidth="sm"
+        fullWidth
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -39,7 +41,7 @@ export default function Manual() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            각 버튼들이 무슨 일을 하는지 알아봐요.
+            어렵지 않아요. 금방 배울 거에요.
           </DialogContentText>
           <ManualContent />
         </DialogContent>

@@ -2,16 +2,23 @@
  * @jest-environment jsdom
  */
 
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import ManualContent from './ManualContent';
 
 describe('ManualContent', () => {
   it('renders instructions for buttons', () => {
-    const { getByRole } = render(<ManualContent />);
+    const { getByRole, getByText } = render(<ManualContent />);
 
-    ['Add', 'Restore', 'LogBook', 'Reset', 'Help'].forEach((name) => {
-      expect(getByRole('button', { name })).toBeInTheDocument();
+    [
+      ['Restore', '복구'],
+      ['LogBook', '완료한'],
+      ['Reset', '초기화'],
+      ['Help', '무한'],
+    ].forEach(([name, keyword]) => {
+      fireEvent.click(getByRole('button', { name }));
+
+      expect(getByText(keyword, { exact: false })).toBeInTheDocument();
     });
   });
 });
