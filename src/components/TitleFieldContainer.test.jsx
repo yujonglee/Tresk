@@ -16,16 +16,6 @@ describe('Input', () => {
     useDispatch.mockReturnValue(dispatch);
   });
 
-  it('adds task with button', () => {
-    const { getByRole } = render(<TitleFieldContainer initialTitle="task1" />);
-
-    fireEvent.click(getByRole('button', { name: 'add' }));
-
-    expect(dispatch).toBeCalledWith(
-      addTask('task1'),
-    );
-  });
-
   context('when Enter key is pressed', () => {
     it('adds task', () => {
       const { getByRole } = render(<TitleFieldContainer initialTitle="task1" />);

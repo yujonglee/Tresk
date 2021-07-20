@@ -17,17 +17,12 @@ export default function TitleFieldContainer({ initialTitle }) {
       setTaskTitle('');
     }
   };
-  const handleClick = () => {
-    dispatch(addTask(taskTitle));
-    setTaskTitle('');
-  };
 
   return (
     <TitleField
       value={taskTitle}
       fieldName="할 일"
       handleFocus={handleFocus}
-      handleClick={handleClick}
       handleChange={handleChange}
       handleKeyDown={handleKeyDown}
     />
