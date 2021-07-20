@@ -23,7 +23,7 @@ describe('Manual', () => {
       fireEvent.click(getByRole('button', { name: 'manualOpener' }));
 
       expect(getByText('처음 사용하시나요?')).toBeInTheDocument();
-      expect(getByText('각 버튼들이 무슨 일을 하는지 알아봐요.')).toBeInTheDocument();
+      expect(getByText('어렵지 않아요. 금방 배울 거에요.')).toBeInTheDocument();
     });
   });
 });
