@@ -36,8 +36,6 @@ export default function Main() {
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>
             <TitleFieldContainer />
-          </Grid>
-          <Grid item lg={12} md={12} sm={12} xs={12}>
             <RestoreTaskButton />
             <LogBookControlContainer />
             <Manual />
