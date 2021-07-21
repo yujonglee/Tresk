@@ -1,8 +1,9 @@
-import { TextField } from '@material-ui/core';
+import { IconButton, TextField } from '@material-ui/core';
+import { AddRounded } from '@material-ui/icons';
 
 export default function TitleField({
   value, fieldName,
-  handleFocus, handleChange, handleKeyDown,
+  handleFocus, handleChange, handleClick, handleKeyDown,
 }) {
   return (
     <>
@@ -23,6 +24,17 @@ export default function TitleField({
         fullWidth
         margin="normal"
       />
+
+      <IconButton
+        type="button"
+        variant="contained"
+        color="default"
+        size="small"
+        aria-label="add"
+        onClick={handleClick}
+      >
+        <AddRounded />
+      </IconButton>
     </>
   );
 }
