@@ -255,7 +255,7 @@ describe('todoSlice reducer', () => {
   });
 
   describe('emptyCompletedTasks', () => {
-    it('removes all items from completedTasks', () => {
+    it('removes all items from completed Tasks', () => {
       const restoreData = {
         task: { title: '첫번째 할일', subTasks: [], isOpen: true },
         selfId: 1,

@@ -8,9 +8,9 @@ export default function Header({ initialTaskId }) {
 
   const handleClick = () => dispatch(selectNewTask(0));
 
-  const selectedTaskId = (initialTaskId === undefined)
-    ? useSelector((state) => state.todo.selectedTaskId)
-    : initialTaskId;
+  const selectedTaskId = initialTaskId ?? useSelector(
+    (state) => state.todo.selectedTaskId,
+  );
 
   const isSelected = (selectedTaskId === 0);
 
