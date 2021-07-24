@@ -1,6 +1,7 @@
+import { useDispatch } from 'react-redux';
 import { IconButton } from '@material-ui/core';
 import { UnfoldLessRounded, UnfoldMoreRounded } from '@material-ui/icons';
-import { useDispatch } from 'react-redux';
+
 import { toggleSubTasksOpen } from '../redux_module/todoSlice';
 
 export default function SubTasksToggle({ id, isOpen }) {

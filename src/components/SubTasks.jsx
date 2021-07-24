@@ -4,7 +4,7 @@ import Task from './Task';
 
 export default function SubTasks({ isOpen, subTasks }) {
   if (!isOpen) {
-    return <></>;
+    return null;
   }
 
   return (

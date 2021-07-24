@@ -5,8 +5,8 @@
 import { render, fireEvent } from '@testing-library/react';
 import given from 'given2';
 import { useDispatch } from 'react-redux';
-import { toggleSubTasksOpen } from '../redux_module/todoSlice';
 
+import { toggleSubTasksOpen } from '../redux_module/todoSlice';
 import SubTasksToggle from './SubTasksToggle';
 
 describe('SubTasksToggle', () => {
