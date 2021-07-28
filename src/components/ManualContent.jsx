@@ -25,7 +25,7 @@ export default function ManualContent() {
         <br />
         입력한 할 일을 선택된 항목 아래로 추가해요.
         <br />
-        선택된 항목은 빨간색으로 표시돼고,
+        선택된 항목은 빨간색으로 표시되고,
         <br />
         클릭 또는 상하좌우 키로 변경할 수 있어요.
       </Typography>
