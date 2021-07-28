@@ -1,5 +1,3 @@
-# project-react-4-yujong-lee
-
 # Tresk
 
 Tree, Task, it's Tresk.
