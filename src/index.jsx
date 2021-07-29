@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { createTheme, ThemeProvider } from '@material-ui/core';
 
 import { BrowserRouter } from 'react-router-dom';
 
@@ -12,8 +12,13 @@ import App from './App';
 
 const persistor = persistStore(store);
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette,
+  typography: {
+    button: {
+      textTransform: 'none',
+    },
+  },
   // fontFamily: font,
 });
 
