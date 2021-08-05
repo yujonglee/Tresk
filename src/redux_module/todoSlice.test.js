@@ -43,7 +43,7 @@ describe('todoSlice reducer', () => {
         const { nextTaskId, remainingTasks } = newState;
 
         expect(remainingTasks['0'].subTasks).toEqual(
-          [2, 1],
+          [1, 2],
         );
 
         expect(remainingTasks['2']).toEqual(
@@ -166,8 +166,8 @@ describe('todoSlice reducer', () => {
 
         expect(remainingTasks[selfId]).toEqual(task);
 
-        expect(remainingTasks[parentId].subTasks).toEqual([2, 1]);
-        expect(remainingTasks[parentId].subTasks).not.toEqual([1, 2]);
+        expect(remainingTasks[parentId].subTasks).toEqual([1, 2]);
+        expect(remainingTasks[parentId].subTasks).not.toEqual([2, 1]);
       });
 
       it('closes logBook', () => {
@@ -198,8 +198,8 @@ describe('todoSlice reducer', () => {
 
         expect(remainingTasks[selfId]).toEqual(task);
 
-        expect(remainingTasks[parentId].subTasks).toEqual([3, 2]);
-        expect(remainingTasks[parentId].subTasks).not.toEqual([2, 3]);
+        expect(remainingTasks[parentId].subTasks).toEqual([2, 3]);
+        expect(remainingTasks[parentId].subTasks).not.toEqual([3, 2]);
       });
     });
   });
