@@ -8,7 +8,7 @@ export default function SubTasks({ isOpen, subTasks }) {
   }
 
   return (
-    <ul>
+    <ul style={{ listStyle: 'none' }}>
       {subTasks.map((taskId) => (
         <li key={taskId}>
           <Task id={taskId} />
