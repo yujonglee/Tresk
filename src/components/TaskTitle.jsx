@@ -1,15 +1,13 @@
-import { Button, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
-export default function TaskTitle({ title, isSelected, handleClick }) {
+export default function TaskTitle({ title, isSelected }) {
   return (
-    <Button
-      type="button"
+    <Typography
+      display="inline"
       color={isSelected ? 'primary' : 'secondary'}
-      onClick={handleClick}
+      variant="h6"
     >
-      <Typography variant="h6">
-        {title}
-      </Typography>
-    </Button>
+      {title}
+    </Typography>
   );
 }

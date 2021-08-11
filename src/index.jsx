@@ -2,25 +2,16 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
-import { createTheme, ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core';
 
 import { BrowserRouter } from 'react-router-dom';
 
 import store from './redux_module/store';
-import palette from './color';
+import theme from './theme';
+
 import App from './App';
 
 const persistor = persistStore(store);
-
-const theme = createTheme({
-  palette,
-  typography: {
-    button: {
-      textTransform: 'none',
-    },
-  },
-  // fontFamily: font,
-});
 
 ReactDOM.render(
   (

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import given from 'given2';
 
 import TaskTitle from './TaskTitle';
@@ -16,7 +16,6 @@ describe('TaskTitle', () => {
     <TaskTitle
       title={title}
       isSelected={given.isSelected}
-      handleClick={handleClick}
     />
   ));
 
@@ -24,17 +23,9 @@ describe('TaskTitle', () => {
     handleClick.mockClear();
   });
 
-  it('renders button with title', () => {
-    const { getByRole } = renderTaskTitle();
+  it('renders title', () => {
+    const { getByText } = renderTaskTitle();
 
-    expect(getByRole('button', { name: title })).toBeInTheDocument();
-  });
-
-  it('renders button listening click event', () => {
-    const { getByRole } = renderTaskTitle();
-
-    fireEvent.click(getByRole('button', { name: title }));
-
-    expect(handleClick).toBeCalled();
+    expect(getByText('taskTitle')).toBeInTheDocument();
   });
 });

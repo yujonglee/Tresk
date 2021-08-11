@@ -2,22 +2,16 @@
  * @jest-environment jsdom
  */
 
-import { fireEvent, render } from '@testing-library/react';
-import { useDispatch, useSelector } from 'react-redux';
+import { render } from '@testing-library/react';
+import { useSelector } from 'react-redux';
 import given from 'given2';
 
-import { selectNewTask } from '../redux_module/todoSlice';
+import palette from '../color';
+import provideThemeTo from '../provideThemeTo';
 import TaskTitleContainer from './TaskTitleContainer';
 
 describe('TaskTitleContainer', () => {
-  const currentTaskId = 1;
-
-  const dispatch = jest.fn();
-
   beforeEach(() => {
-    dispatch.mockClear();
-    useDispatch.mockReturnValue(dispatch);
-
     useSelector.mockImplementation((selector) => selector({
       todo: {
         selectedTaskId: given.selectedTaskId,
@@ -29,11 +23,29 @@ describe('TaskTitleContainer', () => {
     }));
   });
 
-  it('updates selected task id to current task id on click event', () => {
-    const { getByRole } = render(<TaskTitleContainer id={currentTaskId} />);
+  const currentTaskId = 1;
 
-    fireEvent.click(getByRole('button', { name: 'task1' }));
+  context('when task is selected', () => {
+    given('selectedTaskId', () => currentTaskId);
 
-    expect(dispatch).toBeCalledWith(selectNewTask(currentTaskId));
+    it('renders title with primary color', () => {
+      const { getByText } = render(
+        provideThemeTo(<TaskTitleContainer id={currentTaskId} />),
+      );
+
+      expect(getByText('task1')).toHaveStyle({ color: palette.primary.main });
+    });
+  });
+
+  context('when task is not selected', () => {
+    given('selectedTaskId', () => currentTaskId - 1);
+
+    it('renders title with primary color', () => {
+      const { getByText } = render(
+        provideThemeTo(<TaskTitleContainer id={currentTaskId} />),
+      );
+
+      expect(getByText('task1')).toHaveStyle({ color: palette.secondary.main });
+    });
   });
 });
