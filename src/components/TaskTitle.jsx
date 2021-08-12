@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { Typography, Link } from '@material-ui/core';
 
 import taskStringParser from '../taskStringParser';
@@ -19,6 +20,8 @@ export default function TaskTitle({ title, isSelected }) {
               variant="h6"
               color={color}
               style={{ fontWeight: 800 }}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               {name}
             </Link>
