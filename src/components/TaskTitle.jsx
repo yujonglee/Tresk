@@ -1,13 +1,42 @@
-import { Typography } from '@material-ui/core';
+import { Typography, Link } from '@material-ui/core';
+
+import taskStringParser from '../taskStringParser';
 
 export default function TaskTitle({ title, isSelected }) {
+  const result = taskStringParser(title);
+
+  const color = isSelected ? 'primary' : 'secondary';
+
   return (
-    <Typography
-      display="inline"
-      color={isSelected ? 'primary' : 'secondary'}
-      variant="h6"
-    >
-      {title}
-    </Typography>
+    <>
+      {result.map((data, i) => {
+        if (Array.isArray(data)) {
+          const [url, name] = data;
+          return (
+            <Link
+              key={i}
+              href={url}
+              variant="h6"
+              color={color}
+              style={{ fontWeight: 800 }}
+            >
+              {name}
+            </Link>
+
+          );
+        }
+
+        return (
+          <Typography
+            key={i}
+            display="inline"
+            variant="h6"
+            color={color}
+          >
+            {data}
+          </Typography>
+        );
+      })}
+    </>
   );
 }

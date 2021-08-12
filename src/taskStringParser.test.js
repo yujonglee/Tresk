@@ -1,6 +1,12 @@
 import taskStringParser from './taskStringParser';
 
 describe('taskStringParser', () => {
+  context("when there aren't any url", () => {
+    const result = taskStringParser('taskTitle');
+
+    expect(result).toEqual(['taskTitle']);
+  });
+
   context('when there are only one url', () => {
     const middle = ['ab 가나 [https://material-ui.com/](메테리얼)cd 다라',
       'ab 가나 ',
