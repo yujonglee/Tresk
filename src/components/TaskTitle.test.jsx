@@ -31,8 +31,8 @@ describe('TaskTitle', () => {
     });
   });
 
-  context('when title includes url', () => {
-    given('title', () => 'blog : [https://yujonglee.com](이유종)');
+  context('when title includes urls', () => {
+    given('title', () => 'blog : [https://yujonglee.com](이유종) google: [https://www.google.com](구글)');
 
     it('renders title with url link', () => {
       const { getByText, getByRole } = renderTaskTitle();
@@ -41,6 +41,11 @@ describe('TaskTitle', () => {
 
       expect(getByRole('link', { name: '이유종' }))
         .toHaveAttribute('href', 'https://yujonglee.com');
+
+      expect(getByText(/google/)).toBeInTheDocument();
+
+      expect(getByRole('link', { name: '구글' }))
+        .toHaveAttribute('href', 'https://www.google.com');
     });
   });
 });
