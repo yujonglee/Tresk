@@ -30,49 +30,35 @@ describe('App', () => {
         },
       },
     }));
-  });
 
-  it('listens to ArrowUp keyDown events', () => {
     render(
       <MemoryRouter>
         <App />
       </MemoryRouter>,
     );
+  });
 
+  it('listens to ArrowUp keyDown events', () => {
     fireEvent.keyDown(window, { key: 'ArrowUp', code: 'ArrowUp' });
+
     expect(dispatch).toBeCalledWith(selectPrevious());
   });
 
   it('listens to ArrowDown keyDown events', () => {
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>,
-    );
-
     fireEvent.keyDown(window, { key: 'ArrowDown', code: 'ArrowDown' });
+
     expect(dispatch).toBeCalledWith(selectNext());
   });
 
   it('listens to ArrowLeft keyDown events', () => {
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>,
-    );
-
     fireEvent.keyDown(window, { key: 'ArrowLeft', code: 'ArrowLeft' });
+
     expect(dispatch).toBeCalledWith(selectOutside());
   });
 
   it('listens to ArrowRight keyDown events', () => {
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>,
-    );
-
     fireEvent.keyDown(window, { key: 'ArrowRight', code: 'ArrowRight' });
+
     expect(dispatch).toBeCalledWith(selectInside());
   });
 });
